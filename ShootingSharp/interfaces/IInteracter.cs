@@ -11,8 +11,13 @@ namespace ShootingSharp.interfaces
     /// <summary>
     /// 円形あたり判定を持つオブジェクトを表す
     /// </summary>
-    public interface IInteract : IHasSSPosition
+    public interface IInteracter : IHasSSPosition
     {
+        /// <summary>
+        /// 衝突判定管理クラス
+        /// </summary>
+        IInteractManager InteractManager { get; set; }
+
         /// <summary>
         /// 円の半径を返す
         /// </summary>
@@ -24,7 +29,7 @@ namespace ShootingSharp.interfaces
         /// </summary>
         /// <param name="obj">相手</param>
         /// <returns></returns>
-        bool IsInteract(IInteract obj);
+        bool IsInteract(IInteracter obj);
 
         /// <summary>
         /// 当たったときの処理

@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace ShootingSharp.interfaces
 {
     /// <summary>
-    /// observerパターンの監視される側のインターフェース
+    /// 監視される側
     /// </summary>
-    public interface ISSSubject
+    public interface IUpdater
     {
         /// <summary>
-        /// Update時に呼び出される処理
+        /// アップデートイベントの発生
         /// </summary>
-        void OnUpdate();   
+        event Action Update;
+
     }
 }

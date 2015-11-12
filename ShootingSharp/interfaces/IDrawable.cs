@@ -11,7 +11,7 @@ namespace ShootingSharp.interfaces
     /// <summary>
     /// 描画可能なオブジェクト
     /// </summary>
-    public interface IViewable
+    public interface IDrawable
     {
         /// <summary>
         /// 画像の名前

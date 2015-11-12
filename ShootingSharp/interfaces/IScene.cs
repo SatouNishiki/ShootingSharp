@@ -9,12 +9,13 @@ namespace ShootingSharp.interfaces
     /// <summary>
     /// シーンを表すインターフェース
     /// </summary>
-    public interface IScene : ISSObserver
+    public interface IScene : IUpdater
     {
         /// <summary>
         /// フレーム毎の処理
         /// </summary>
-        void Run();
+        /// <returns>終了フラグ</returns>
+        bool Run();
 
         /// <summary>
         /// 次のシーンが存在するかどうか

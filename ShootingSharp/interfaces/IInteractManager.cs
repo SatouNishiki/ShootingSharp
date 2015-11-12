@@ -11,13 +11,14 @@ namespace ShootingSharp.interfaces
     /// </summary>
     public interface IInteractManager
     {
-        void AddInteractObject(IInteract interact);
+       void AddInteractObject(IInteracter interact);
 
         /// <summary>
         /// ぶつかってる対象を返す
         /// </summary>
         /// <param name="interact">あたり判定をする自身のインスタンス</param>
         /// <returns>ぶつかってる=ぶつかってる対象 ぶつかってない=null</returns>
-        IInteract GetInteractObject(IInteract interact);
+        IInteracter GetInteractObject(IInteracter interact);
+
     }
 }

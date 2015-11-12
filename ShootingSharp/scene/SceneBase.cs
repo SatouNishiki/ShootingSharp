@@ -12,14 +12,32 @@ namespace ShootingSharp.scene
         /// <summary>
         /// あたり判定を行うオブジェクトを全て格納するリスト
         /// </summary>
-        protected List<IInteract> interacters;
+        protected List<IInteracter> interacters;
 
-        public void Run()
+        /// <summary>
+        /// シーンに存在するオブジェクトをすべて格納するリスト
+        /// </summary>
+        protected List<IUpdateable> sceneObjects;
+
+        public SceneBase()
+        {
+            this.interacters = new List<IInteracter>();
+            this.sceneObjects = new List<IUpdateable>();
+        }
+
+        public bool Run()
         {
             if (this.Update != null)
             {
                 this.Update();
             }
+
+            if (this.ExistNextScene())
+            {
+                //TODO: 遷移処理
+            }
+
+            return !this.IsFinished();
         }
 
         public abstract bool ExistNextScene();
@@ -30,14 +48,26 @@ namespace ShootingSharp.scene
 
         public event Action Update;
 
-        public void AddInteractObject(IInteract interact)
+        /// <summary>
+        /// あたり判定を有するオブジェクトとして登録します
+        /// </summary>
+        /// <param name="interact"></param>
+        public void AddInteractObject(IInteracter interact)
         {
             this.interacters.Add(interact);
+            interact.InteractManager = this;
         }
 
-        public IInteract GetInteractObject(IInteract interact)
+        public void AddSceneObject(IUpdateable sceneObject)
         {
-            IInteract interactor = null;
+            this.sceneObjects.Add(sceneObject);
+            this.Update += sceneObject.OnUpdate;
+        }
+
+
+        public IInteracter GetInteractObject(IInteracter interact)
+        {
+            IInteracter interactor = null;
 
             //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
             foreach (var i in interacters)

@@ -11,6 +11,18 @@ namespace ShootingSharp.position
         private int posX;
         private int posY;
 
+        public SSPosition()
+        {
+            this.posX = 0;
+            this.posY = 0;
+        }
+
+        public SSPosition(int x, int y)
+        {
+            this.posX = x;
+            this.posY = y;
+        }
+
         /// <summary>
         /// 画面左上から数えたX座標
         /// </summary>
