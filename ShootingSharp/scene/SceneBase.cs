@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ShootingSharp.interfaces;
+using ShootingSharp.entity;
 
 namespace ShootingSharp.scene
 {
@@ -12,7 +13,7 @@ namespace ShootingSharp.scene
         /// <summary>
         /// あたり判定を行うオブジェクトを全て格納するリスト
         /// </summary>
-        protected List<IInteracter> interacters;
+        protected List<Entity> interacters;
 
         /// <summary>
         /// シーンに存在するオブジェクトをすべて格納するリスト
@@ -21,7 +22,7 @@ namespace ShootingSharp.scene
 
         public SceneBase()
         {
-            this.interacters = new List<IInteracter>();
+            this.interacters = new List<Entity>();
             this.sceneObjects = new List<IUpdateable>();
         }
 
@@ -52,7 +53,7 @@ namespace ShootingSharp.scene
         /// あたり判定を有するオブジェクトとして登録します
         /// </summary>
         /// <param name="interact"></param>
-        public void AddInteractObject(IInteracter interact)
+        public void AddInteractObject(Entity interact)
         {
             this.interacters.Add(interact);
             interact.InteractManager = this;
@@ -65,9 +66,9 @@ namespace ShootingSharp.scene
         }
 
 
-        public IInteracter GetInteractObject(IInteracter interact)
+        public Entity GetInteractObject(Entity interact)
         {
-            IInteracter interactor = null;
+            Entity interactor = null;
 
             //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
             foreach (var i in interacters)

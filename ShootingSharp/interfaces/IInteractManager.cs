@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShootingSharp.entity;
 
 namespace ShootingSharp.interfaces
 {
@@ -11,14 +12,14 @@ namespace ShootingSharp.interfaces
     /// </summary>
     public interface IInteractManager
     {
-       void AddInteractObject(IInteracter interact);
+        void AddInteractObject(Entity interact);
 
         /// <summary>
         /// ぶつかってる対象を返す
         /// </summary>
         /// <param name="interact">あたり判定をする自身のインスタンス</param>
         /// <returns>ぶつかってる=ぶつかってる対象 ぶつかってない=null</returns>
-        IInteracter GetInteractObject(IInteracter interact);
+        Entity GetInteractObject(Entity interact);
 
     }
 }
