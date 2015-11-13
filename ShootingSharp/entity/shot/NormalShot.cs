@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DxLibDLL;
+using System.Drawing;
 
 namespace ShootingSharp.entity.shot
 {
@@ -12,7 +13,12 @@ namespace ShootingSharp.entity.shot
         public NormalShot(interfaces.IHasSSPosition shooter)
             :base(shooter)
         {
-            this.deleteTime = 60;
+            this.deleteTime = this.GetDeleteTime();
+        }
+
+        private int GetDeleteTime()
+        {
+            return this.position.PosY / this.moveSpeed;
         }
 
         public override void DoAction()

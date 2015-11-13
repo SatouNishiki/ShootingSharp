@@ -103,49 +103,86 @@ namespace ShootingSharp.entity
 
         public override void Move()
         {
+
             if (this.MoveType == MoveTypeEnum.Right)
             {
-                this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanRightMove())
+                    this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.Left)
             {
-                this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanLeftMove())
+                    this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.Up)
             {
-                this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanUpMove())
+                    this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.Down)
             {
-                this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanDownMove())
+                    this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.RightUp)
             {
-                this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
-                this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanRightMove() && this.CanUpMove())
+                {
+                    this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                }
             }
 
             if (this.MoveType == MoveTypeEnum.RightDown)
             {
-                this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
-                this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanRightMove() && this.CanDownMove())
+                {
+                    this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                }
             }
 
             if (this.MoveType == MoveTypeEnum.LeftUp)
             {
-                this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
-                this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanLeftMove() && this.CanUpMove())
+                {
+                    this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                }
             }
 
             if (this.MoveType == MoveTypeEnum.LeftDown)
             {
-                this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
-                this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                if (this.CanLeftMove() && this.CanDownMove())
+                {
+                    this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                }
             }
+        }
+
+        private bool CanRightMove()
+        {
+            return this.position.PosX < SSGame.GetInstance().GetWindowSize().Width;
+        }
+
+        private bool CanLeftMove()
+        {
+            return this.position.PosX > 0;
+        }
+
+        private bool CanUpMove()
+        {
+            return this.position.PosY > 0;
+        }
+
+        private bool CanDownMove()
+        {
+            return this.position.PosY < SSGame.GetInstance().GetWindowSize().Height;
         }
 
         public override void DoAction()
@@ -161,11 +198,9 @@ namespace ShootingSharp.entity
                     SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
                     this.shotCount = 0;
                 }
-                else
-                {
-                    this.shotCount++;
-                }
             }
+            if (this.shotCount < this.shotInterval)
+                this.shotCount++;
         }
 
         public override int GetRadius()
