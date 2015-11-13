@@ -26,6 +26,7 @@ namespace ShootingSharp.entity
 
         protected Logger logger;
 
+
         /// <summary>
         /// 衝突判定管理クラス
         /// </summary>
@@ -63,7 +64,11 @@ namespace ShootingSharp.entity
         /// 位置
         /// </summary>
         /// <returns></returns>
-        public abstract SSPosition GetPosition();
+        public SSPosition GetPosition()
+        {
+            return this.position;
+        }
+
 
         /// <summary>
         /// 画像の名前
@@ -99,10 +104,6 @@ namespace ShootingSharp.entity
         /// </summary>
         public virtual void OnUpdate()
         {
-            this.Move();
-            this.DoAction();
-            this.Draw();
-
             //何かとぶつかってたら
             if (this.InteractManager.GetInteractObject(this) != null)
             {

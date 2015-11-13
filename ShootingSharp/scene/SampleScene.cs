@@ -12,7 +12,7 @@ namespace ShootingSharp.scene
         {
             entity.EntityPlayer p = new entity.EntityPlayer();
             this.AddInteractObject(p);
-            this.AddSceneObject(p);
+            this.AddPlayer(p);
         }
 
         public override bool ExistNextScene()

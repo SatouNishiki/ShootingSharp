@@ -21,7 +21,7 @@ namespace ShootingSharp.entity
         public EntityLiving()
             : base()
         {
-
+            this.Life = 1;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace ShootingSharp.entity
         /// <returns></returns>
         public bool IsLiving()
         {
-            return this.Life <= 0;
+            return this.Life > 0;
         }
 
         public abstract void OnDeath();

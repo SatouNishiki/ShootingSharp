@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DxLibDLL;
 using ShootingSharp.texture;
+using ShootingSharp.entity.shot;
+using ShootingSharp.task;
 
 namespace ShootingSharp.entity
 {
@@ -12,11 +14,18 @@ namespace ShootingSharp.entity
     {
         private TextureLoader textureLoader;
 
+        private int shotCount;
+
+        protected int shotInterval;
+
+        
+
         public EntityPlayer() : base()
         {
             this.moveSpeed = 6;
+            this.shotInterval = 5;
             this.textureLoader = TextureLoader.GetInstance();
-            this.logger.Debug("player create");
+            this.logger.Debug(this.GetType().ToString() + " is create");
         }
 
         /// <summary>
@@ -90,6 +99,7 @@ namespace ShootingSharp.entity
         {
         //    throw new NotImplementedException();
         }
+        
 
         public override void Move()
         {
@@ -140,7 +150,22 @@ namespace ShootingSharp.entity
 
         public override void DoAction()
         {
-            //TODO:
+            if (DX.CheckHitKey(DX.KEY_INPUT_RETURN) == 1)
+            {
+                if (shotCount >= this.shotInterval)
+                {
+                    Shot s = new NormalShot(this);
+                    s.InteractManager = this.InteractManager;
+                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
+                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
+                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.shotCount = 0;
+                }
+                else
+                {
+                    this.shotCount++;
+                }
+            }
         }
 
         public override int GetRadius()
@@ -159,10 +184,6 @@ namespace ShootingSharp.entity
             throw new NotImplementedException();
         }
 
-        public override position.SSPosition GetPosition()
-        {
-            return this.position;
-        }
 
         public override System.Drawing.Size GetTextureSize()
         {

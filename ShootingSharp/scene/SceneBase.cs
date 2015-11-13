@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ShootingSharp.interfaces;
 using ShootingSharp.entity;
+using ShootingSharp.task;
 
 namespace ShootingSharp.scene
 {
@@ -15,23 +16,22 @@ namespace ShootingSharp.scene
         /// </summary>
         protected List<Entity> interacters;
 
-        /// <summary>
-        /// シーンに存在するオブジェクトをすべて格納するリスト
-        /// </summary>
-        protected List<IUpdateable> sceneObjects;
+        protected UpdateTaskManager updateTask = SSTaskFactory.UpdateTask;
+        protected DrawTaskManager drawTask = SSTaskFactory.DrawTask;
+        protected MoveTaskManager moveTask = SSTaskFactory.MoveTask;
+        protected ActionTaskManager actionTask = SSTaskFactory.ActionTask;
 
         public SceneBase()
         {
             this.interacters = new List<Entity>();
-            this.sceneObjects = new List<IUpdateable>();
         }
 
         public bool Run()
         {
-            if (this.Update != null)
-            {
-                this.Update();
-            }
+            this.actionTask.Run();
+            this.updateTask.Run();
+            this.moveTask.Run();
+            this.drawTask.Run();
 
             if (this.ExistNextScene())
             {
@@ -47,7 +47,6 @@ namespace ShootingSharp.scene
 
         public abstract IScene GetNextScene();
 
-        public event Action Update;
 
         /// <summary>
         /// あたり判定を有するオブジェクトとして登録します
@@ -58,13 +57,6 @@ namespace ShootingSharp.scene
             this.interacters.Add(interact);
             interact.InteractManager = this;
         }
-
-        public void AddSceneObject(IUpdateable sceneObject)
-        {
-            this.sceneObjects.Add(sceneObject);
-            this.Update += sceneObject.OnUpdate;
-        }
-
 
         public Entity GetInteractObject(Entity interact)
         {
@@ -80,6 +72,16 @@ namespace ShootingSharp.scene
             }
 
             return interactor;
+        }
+
+        
+
+        public void AddPlayer(EntityPlayer player)
+        {
+            SSTaskFactory.PlayerUpdateTask.Player = player;
+            SSTaskFactory.PlayerDrawTask.Player = player;
+            SSTaskFactory.PlayerMoveTask.Player = player;
+            SSTaskFactory.PlayerActionTask.Player = player;
         }
     }
 }

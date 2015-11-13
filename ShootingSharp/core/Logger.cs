@@ -36,6 +36,22 @@ namespace ShootingSharp.core
             }
         }
 
+        public void Error(string log)
+        {
+            if (this.OnWriteLog != null)
+            {
+                this.OnWriteLog("[Error]" + this.GetHourHeader() + log);
+            }
+        }
+
+        public void Fatal(string log)
+        {
+            if (this.OnWriteLog != null)
+            {
+                this.OnWriteLog("[Fatal]" + this.GetHourHeader() + log);
+            }
+        }
+
         private string GetHourHeader()
         {
             return "[" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + " " + DateTime.Now.Hour + ":"

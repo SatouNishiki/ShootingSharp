@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 namespace ShootingSharp.interfaces
 {
     /// <summary>
-    /// 監視される側
+    /// タスクの基底クラス
     /// </summary>
-    public interface IUpdater
+    public interface ITask
     {
-        /// <summary>
-        /// アップデートイベントの発生
-        /// </summary>
-        event Action Update;
+        void Run();
 
     }
 }

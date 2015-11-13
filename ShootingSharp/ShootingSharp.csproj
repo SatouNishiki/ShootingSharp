@@ -51,6 +51,8 @@
     <Compile Include="entity\EntityLiving.cs" />
     <Compile Include="entity\EntityPlayer.cs" />
     <Compile Include="entity\LivingAnimationEntity.cs" />
+    <Compile Include="entity\shot\NormalShot.cs" />
+    <Compile Include="entity\shot\Shot.cs" />
     <Compile Include="interfaces\IAction.cs" />
     <Compile Include="interfaces\IHasBom.cs" />
     <Compile Include="interfaces\IHasHealth.cs" />
@@ -60,7 +62,7 @@
     <Compile Include="interfaces\ILogger.cs" />
     <Compile Include="interfaces\IMoveable.cs" />
     <Compile Include="interfaces\IScene.cs" />
-    <Compile Include="interfaces\IUpdater.cs" />
+    <Compile Include="interfaces\ITask.cs" />
     <Compile Include="interfaces\IUpdateable.cs" />
     <Compile Include="interfaces\IDrawable.cs" />
     <Compile Include="position\SSPosition.cs" />
@@ -68,6 +70,20 @@
     <Compile Include="scene\SampleScene.cs" />
     <Compile Include="scene\SceneBase.cs" />
     <Compile Include="SSGame.cs" />
+    <Compile Include="task\ActionTaskManager.cs" />
+    <Compile Include="task\DrawTaskManager.cs" />
+    <Compile Include="task\MoveTaskManager.cs" />
+    <Compile Include="task\PlayerActionTask.cs" />
+    <Compile Include="task\PlayerDrawTask.cs" />
+    <Compile Include="task\PlayerMoveTask.cs" />
+    <Compile Include="task\PlayerUpdateTask.cs" />
+    <Compile Include="task\ShotDrawTask.cs" />
+    <Compile Include="task\ShotMoveTask.cs" />
+    <Compile Include="task\ShotUpdateTask.cs" />
+    <Compile Include="task\TaskCreator.cs" />
+    <Compile Include="task\SSTaskFactory.cs" />
+    <Compile Include="task\TaskManager.cs" />
+    <Compile Include="task\UpdateTaskManager.cs" />
     <Compile Include="texture\TextureLoader.cs" />
   </ItemGroup>
   <ItemGroup />

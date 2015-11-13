@@ -9,7 +9,7 @@ namespace ShootingSharp.interfaces
     /// <summary>
     /// シーンを表すインターフェース
     /// </summary>
-    public interface IScene : IUpdater
+    public interface IScene 
     {
         /// <summary>
         /// フレーム毎の処理
@@ -35,5 +35,10 @@ namespace ShootingSharp.interfaces
         /// <returns></returns>
         IScene GetNextScene();
 
+        /// <summary>
+        /// プレイヤーの追加
+        /// </summary>
+        /// <param name="player"></param>
+        void AddPlayer(entity.EntityPlayer player);
     }
 }
