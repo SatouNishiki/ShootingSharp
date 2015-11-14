@@ -192,6 +192,8 @@ namespace ShootingSharp.entity
                 if (shotCount >= this.shotInterval)
                 {
                     Shot s = new NormalShot(this);
+                    //味方に設定
+                    s.SetFriendCode(this.friendCode);
                     this.InteractManager.AddInteractObject(s);
                     SSTaskFactory.ShotMoveTask.ShotList.Add(s);
                     SSTaskFactory.ShotDrawTask.ShotList.Add(s);
@@ -208,7 +210,7 @@ namespace ShootingSharp.entity
             return 10;
         }
 
-        public override void OnInteract()
+        public override void OnInteract(Entity entity)
         {
             //TODO:なにもしてない
         }
@@ -310,6 +312,11 @@ namespace ShootingSharp.entity
         public override interfaces.SharpType GetSharpType()
         {
             return interfaces.SharpType.Circle;
+        }
+
+        public override string GetFriendCode()
+        {
+            return "Player";
         }
     }
 }

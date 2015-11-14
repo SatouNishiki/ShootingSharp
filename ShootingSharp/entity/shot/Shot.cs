@@ -84,11 +84,11 @@ namespace ShootingSharp.entity.shot
         }
 
 
-        public override void OnInteract()
+        public override void OnInteract(Entity entity)
         {
             //ぶつかったら消える
-          //  this.Life = 0;
-            //TODO:なにもしてない
+            this.Life = 0;
+           
         }
 
         protected virtual void SetNextMove()

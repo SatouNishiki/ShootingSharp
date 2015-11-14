@@ -14,6 +14,10 @@ namespace ShootingSharp.entity
     /// </summary>
     public abstract class Entity : IAction, IInteracter, IMoveable, IUpdateable, IDrawable
     {
+        /// <summary>
+        /// フレンドコード
+        /// </summary>
+        protected string friendCode;
        
         /// <summary>
         /// 自分の位置
@@ -32,7 +36,8 @@ namespace ShootingSharp.entity
         /// 衝突判定管理クラス
         /// </summary>
         public IInteractManager InteractManager { get; set; }
-        
+
+
         /// <summary>
         /// 動く
         /// </summary>
@@ -68,6 +73,9 @@ namespace ShootingSharp.entity
         /// <returns></returns>
         public virtual bool IsInteract(IInteracter obj)
         {
+            //フレンドコードが同じなら味方であると判定してfalseを返す
+            if (this.GetFriendCode() == obj.GetFriendCode())
+                return false;
 
             if (this.GetSharpType() == SharpType.Circle)
             {
@@ -99,7 +107,7 @@ namespace ShootingSharp.entity
         /// <summary>
         /// 当たったとき
         /// </summary>
-        public abstract void OnInteract();
+        public abstract void OnInteract(Entity entity);
 
         /// <summary>
         /// 中心位置
@@ -140,6 +148,7 @@ namespace ShootingSharp.entity
         {
             this.position = new position.SSPosition();
             this.logger = Logger.GetInstance();
+            this.friendCode = this.GetType().ToString();
         }
 
         /// <summary>
@@ -147,12 +156,23 @@ namespace ShootingSharp.entity
         /// </summary>
         public virtual void OnUpdate()
         {
+            Entity entity = this.InteractManager.GetInteractObject(this);
             //何かとぶつかってたら
-            if (this.InteractManager.GetInteractObject(this) != null)
+            if (entity != null)
             {
-                this.OnInteract();
+                this.OnInteract(entity);
             }
         }
 
+        public virtual string GetFriendCode()
+        {
+            return this.friendCode;
+        }
+
+
+        public void SetFriendCode(string code)
+        {
+            this.friendCode = code;
+        }
     }
 }

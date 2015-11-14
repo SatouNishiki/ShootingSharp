@@ -11,6 +11,7 @@ namespace ShootingSharp.task
         public ActionTaskManager()
         {
             this.AddTask(SSTaskFactory.PlayerActionTask);
+            this.AddTask(SSTaskFactory.EnemyActionTask);
         }
     }
 }

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="core\Logger.cs" />
     <Compile Include="entity\enemy\Enemy.cs" />
+    <Compile Include="entity\enemy\SampleEnemy.cs" />
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\EntityLiving.cs" />
     <Compile Include="entity\EntityPlayer.cs" />
@@ -75,6 +76,10 @@
     <Compile Include="SSGame.cs" />
     <Compile Include="task\ActionTaskManager.cs" />
     <Compile Include="task\DrawTaskManager.cs" />
+    <Compile Include="task\EnemyActionTask.cs" />
+    <Compile Include="task\EnemyDrawTask.cs" />
+    <Compile Include="task\EnemyMoveTask.cs" />
+    <Compile Include="task\EnemyUpdateTask.cs" />
     <Compile Include="task\MoveTaskManager.cs" />
     <Compile Include="task\PlayerActionTask.cs" />
     <Compile Include="task\PlayerDrawTask.cs" />

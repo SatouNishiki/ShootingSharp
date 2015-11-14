@@ -14,35 +14,33 @@ namespace ShootingSharp.entity.enemy
         /// </summary>
         protected int popCount;
 
-
-        public override void OnInteract()
+        public Enemy() : base()
         {
-            throw new NotImplementedException();
+
         }
 
-        public override string GetTextureName()
+        public override void OnInteract(Entity entity)
         {
-            throw new NotImplementedException();
+            //プレイヤーだったら
+            if (entity is EntityPlayer)
+            {
+                //とりあえずこっちは何もしない(ボスが体当たりで死んだらアレなので)
+                return;
+            }
+
+            //ライフを1減らす
+            this.Life--;
         }
 
-        public override System.Drawing.Size GetTextureSize()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override position.SSPosition GetTexturePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Draw()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public void SetPopCount(int count)
         {
             this.popCount = count;
+        }
+
+        public int GetPopCount()
+        {
+            return this.popCount;
         }
     }
 }

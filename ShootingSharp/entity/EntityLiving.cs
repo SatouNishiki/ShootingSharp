@@ -18,8 +18,7 @@ namespace ShootingSharp.entity
         /// </summary>
         public int Life { get; set; }
 
-        public EntityLiving()
-            : base()
+        public EntityLiving() : base()
         {
             this.Life = 1;
         }
