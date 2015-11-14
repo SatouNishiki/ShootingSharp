@@ -208,12 +208,6 @@ namespace ShootingSharp.entity
             return 10;
         }
 
-        public override bool IsInteract(interfaces.IInteracter obj)
-        {
-        //    throw new NotImplementedException();
-            return false;
-        }
-
         public override void OnInteract()
         {
             throw new NotImplementedException();
@@ -306,6 +300,16 @@ namespace ShootingSharp.entity
                     }
                 }
             }
+        }
+
+        public override position.SquareSSPositon GetSquarePosition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override interfaces.SharpType GetSharpType()
+        {
+            return interfaces.SharpType.Circle;
         }
     }
 }

@@ -14,6 +14,8 @@ namespace ShootingSharp.entity
     /// </summary>
     public abstract class Entity : IAction, IInteracter, IMoveable, IUpdateable, IDrawable
     {
+       
+
         /// <summary>
         /// 自分の位置
         /// </summary>
@@ -49,19 +51,59 @@ namespace ShootingSharp.entity
         public abstract int GetRadius();
 
         /// <summary>
+        /// 長方形の四隅を返す
+        /// </summary>
+        /// <returns></returns>
+        public abstract SquareSSPositon GetSquarePosition();
+
+        /// <summary>
+        /// 形状タイプを返す
+        /// </summary>
+        /// <returns></returns>
+        public abstract SharpType GetSharpType();
+
+        /// <summary>
         /// 当たってる？
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public abstract bool IsInteract(IInteracter obj);
+        public virtual bool IsInteract(IInteracter obj)
+        {
 
+            if (this.GetSharpType() == SharpType.Circle)
+            {
+
+                if (obj.GetSharpType() == SharpType.Circle)
+                {
+                    return InteractCalculator.IsInteractCircleCircle(this, obj);
+                }
+                else
+                {
+                    return InteractCalculator.IsInteractCircleSquare(this, obj);
+                }
+            }
+            else
+            {
+                if (obj.GetSharpType() == SharpType.Circle)
+                {
+                    return InteractCalculator.IsInteractCircleSquare(obj, this);
+                }
+                else
+                {
+                    return InteractCalculator.IsInteractSquareSquare(this, obj);
+                }
+            }
+            
+        }
+
+        
         /// <summary>
         /// 当たったとき
         /// </summary>
         public abstract void OnInteract();
 
         /// <summary>
-        /// 位置
+        /// 中心位置
         /// </summary>
         /// <returns></returns>
         public SSPosition GetPosition()
@@ -92,6 +134,8 @@ namespace ShootingSharp.entity
         /// 表示するよ
         /// </summary>
         public abstract void Draw();
+
+        
 
         public Entity()
         {

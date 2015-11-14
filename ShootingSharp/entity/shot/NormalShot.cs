@@ -31,12 +31,6 @@ namespace ShootingSharp.entity.shot
             return 5;
         }
 
-        public override bool IsInteract(interfaces.IInteracter obj)
-        {
-            //throw new NotImplementedException();
-            return false;
-        }
-
         public override string GetTextureName()
         {
             throw new NotImplementedException();
@@ -55,6 +49,16 @@ namespace ShootingSharp.entity.shot
         public override void Draw()
         {
             DX.DrawCircle(this.position.PosX, this.position.PosY, this.GetRadius(), DX.GetColor(0, 255, 0));
+        }
+
+        public override position.SquareSSPositon GetSquarePosition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override interfaces.SharpType GetSharpType()
+        {
+            return interfaces.SharpType.Circle;
         }
     }
 }
