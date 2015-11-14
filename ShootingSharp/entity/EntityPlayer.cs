@@ -192,7 +192,7 @@ namespace ShootingSharp.entity
                 if (shotCount >= this.shotInterval)
                 {
                     Shot s = new NormalShot(this);
-                    s.InteractManager = this.InteractManager;
+                    this.InteractManager.AddInteractObject(s);
                     SSTaskFactory.ShotMoveTask.ShotList.Add(s);
                     SSTaskFactory.ShotDrawTask.ShotList.Add(s);
                     SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
@@ -210,7 +210,7 @@ namespace ShootingSharp.entity
 
         public override void OnInteract()
         {
-            throw new NotImplementedException();
+            //TODO:なにもしてない
         }
 
 

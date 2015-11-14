@@ -65,6 +65,10 @@ namespace ShootingSharp.scene
             //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
             foreach (var i in interacters)
             {
+                //自分自身だった場合は飛ばす
+                if (i == interact)
+                    continue;
+
                 if (interact.IsInteract(i))
                 {
                     interactor = i;

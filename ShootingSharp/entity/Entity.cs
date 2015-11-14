@@ -15,7 +15,6 @@ namespace ShootingSharp.entity
     public abstract class Entity : IAction, IInteracter, IMoveable, IUpdateable, IDrawable
     {
        
-
         /// <summary>
         /// 自分の位置
         /// </summary>
