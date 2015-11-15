@@ -20,7 +20,7 @@ namespace ShootingSharp.task
             this.taskList.Add(task);
         }
         
-        public void Run()
+        public virtual void Run()
         {
             foreach (var t in this.taskList)
             {

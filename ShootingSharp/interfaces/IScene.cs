@@ -37,16 +37,6 @@ namespace ShootingSharp.interfaces
         /// <returns></returns>
         IScene GetNextScene();
 
-        /// <summary>
-        /// プレイヤーの追加
-        /// </summary>
-        /// <param name="player"></param>
-        void AddPlayer(EntityPlayer player);
-
-        /// <summary>
-        /// 敵の追加
-        /// </summary>
-        /// <param name="enemy"></param>
-        void AddEnemy(Enemy enemy);
+        
     }
 }

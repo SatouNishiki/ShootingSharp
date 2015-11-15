@@ -22,6 +22,8 @@ namespace ShootingSharp.task
 
         public void Run()
         {
+            List<Enemy> temp = new List<Enemy>();
+
             foreach (var e in this.EnemyList)
             {
                 //出現フレーム数になったら
@@ -32,8 +34,12 @@ namespace ShootingSharp.task
                     SSTaskFactory.EnemyDrawTask.EnemyList.Add(e);
                     SSTaskFactory.EnemyMoveTask.EnemyList.Add(e);
                     SSTaskFactory.EnemyUpdateTask.EnemyList.Add(e);
+
+                    temp.Add(e);
                 }
             }
+
+            this.EnemyList.RemoveAll(e => temp.IndexOf(e) >= 0);
 
             this.count++;
         }

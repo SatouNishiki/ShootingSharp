@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="core\Logger.cs" />
     <Compile Include="entity\enemy\Enemy.cs" />
+    <Compile Include="entity\enemy\EnemyRedFairy.cs" />
     <Compile Include="entity\enemy\SampleEnemy.cs" />
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\EntityLiving.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="entity\LivingAnimationEntity.cs" />
     <Compile Include="entity\player\EntityReimu.cs" />
     <Compile Include="entity\shot\NormalShot.cs" />
+    <Compile Include="entity\shot\RedFairyShot.cs" />
     <Compile Include="entity\shot\ReimuNormalShot.cs" />
     <Compile Include="entity\shot\Shot.cs" />
     <Compile Include="interfaces\IAction.cs" />
@@ -67,14 +69,16 @@
     <Compile Include="interfaces\ILogger.cs" />
     <Compile Include="interfaces\IMoveable.cs" />
     <Compile Include="interfaces\IScene.cs" />
+    <Compile Include="interfaces\IShootingScene.cs" />
     <Compile Include="interfaces\ITask.cs" />
     <Compile Include="interfaces\IUpdateable.cs" />
     <Compile Include="interfaces\IDrawable.cs" />
     <Compile Include="position\SquareSSPositon.cs" />
     <Compile Include="position\SSPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="scene\ShootingSampleScene.cs" />
+    <Compile Include="scene\shootingScene\ShootingSampleScene.cs" />
     <Compile Include="scene\ShootingSceneBase.cs" />
+    <Compile Include="scene\TitleSceneBase.cs" />
     <Compile Include="sound\SoundLoader.cs" />
     <Compile Include="SSGame.cs" />
     <Compile Include="task\ActionTaskManager.cs" />

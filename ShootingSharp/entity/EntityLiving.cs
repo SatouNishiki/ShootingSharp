@@ -27,7 +27,7 @@ namespace ShootingSharp.entity
         /// 生きてる?
         /// </summary>
         /// <returns></returns>
-        public bool IsLiving()
+        public override bool IsLiving()
         {
             return this.Life > 0;
         }

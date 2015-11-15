@@ -4,19 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ShootingSharp.entity;
+using ShootingSharp.texture;
+using DxLibDLL;
 
 namespace ShootingSharp.entity.enemy
 {
-    public abstract class Enemy : EntityLiving
+    public abstract class Enemy : LivingAnimationEntity
     {
         /// <summary>
         /// このエネミーが出現するまでのフレーム数
         /// </summary>
         protected int popCount;
 
+        protected TextureLoader loader;
+
         public Enemy() : base()
         {
-
+            this.loader = TextureLoader.GetInstance();
         }
 
         public override void OnInteract(Entity entity)
@@ -45,13 +49,31 @@ namespace ShootingSharp.entity.enemy
 
         public override void OnUpdate()
         {
+            
             base.OnUpdate();
 
-            if(this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
-                || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height)
-            {
-                this.Life = 0;
-            }
+        }
+
+        public override position.SSPosition GetTexturePosition()
+        {
+            ShootingSharp.position.SSPosition pos = new position.SSPosition();
+
+            pos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
+            pos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
+
+            return pos;
+        }
+
+        public override void Draw()
+        {
+
+            DX.DrawExtendGraph(
+                this.GetTexturePosition().PosX,
+                this.GetTexturePosition().PosY,
+                this.GetTexturePosition().PosX + this.GetTextureSize().Width + 1,
+                this.GetTexturePosition().PosY + this.GetTextureSize().Height + 1,
+                this.loader.Textures[this.GetTextureName()],
+                DX.TRUE);
         }
     }
 }

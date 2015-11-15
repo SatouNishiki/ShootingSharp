@@ -22,6 +22,7 @@ namespace ShootingSharp.task
 
             foreach (var s in this.ShotList)
             {
+
                 s.OnUpdate();
 
                 if(!s.IsLiving())

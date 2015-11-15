@@ -10,8 +10,9 @@ using ShootingSharp.task;
 using ShootingSharp.texture;
 using DxLibDLL;
 using ShootingSharp.sound;
+using ShootingSharp.scene;
 
-namespace ShootingSharp.scene
+namespace ShootingSharp.scene.shootingScene
 {
     public class ShootingSampleScene : ShootingSceneBase
     {

@@ -41,7 +41,7 @@ namespace ShootingSharp.entity
         {
             this.position = new position.SSPosition();
             this.logger = Logger.GetInstance();
-            this.friendCode = this.GetType().ToString();
+            this.friendCode = this.GetType().FullName;
         }
 
        
@@ -55,7 +55,19 @@ namespace ShootingSharp.entity
             //フレンドコードが同じなら味方であると判定してfalseを返す
             if (this.GetFriendCode() == obj.GetFriendCode())
                 return false;
+            
+            if (this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
+                 || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+                 || this.position.PosX < 0
+                 || this.position.PosY < 0)
+                return false;
 
+            if (obj.GetPosition().PosX > SSGame.GetInstance().GetWindowSize().Width
+                || obj.GetPosition().PosY > SSGame.GetInstance().GetWindowSize().Height
+                || obj.GetPosition().PosX < 0
+                || obj.GetPosition().PosY < 0)
+                return false;
+            
             if (this.GetSharpType() == SharpType.Circle)
             {
 
@@ -131,11 +143,18 @@ namespace ShootingSharp.entity
         /// </summary>
         public virtual void OnUpdate()
         {
-            Entity entity = this.InteractManager.GetInteractObject(this);
-            //何かとぶつかってたら
-            if (entity != null)
+            if (!(this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
+                 || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+                 || this.position.PosX < 0
+                 || this.position.PosY < 0))
             {
-                this.OnInteract(entity);
+                Entity entity = this.InteractManager.GetInteractObject(this);
+                //何かとぶつかってたら
+                if (entity != null)
+                {
+                    this.OnInteract(entity);
+                    entity.OnInteract(this);
+                }
             }
         }
 
@@ -165,6 +184,8 @@ namespace ShootingSharp.entity
         /// </summary>
         /// <returns></returns>
         public abstract int GetRadius();
+
+        public abstract bool IsLiving();
 
         /// <summary>
         /// 長方形の四隅を返す

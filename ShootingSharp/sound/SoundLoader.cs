@@ -72,5 +72,10 @@ namespace ShootingSharp.sound
 
             return appPath + "\\" + name;
         }
+
+        public void PlayLoopSound(string name)
+        {
+            DX.PlaySoundMem(this.Sounds[name], DX.DX_PLAYTYPE_LOOP);
+        }
     }
 }

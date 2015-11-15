@@ -99,16 +99,16 @@ namespace ShootingSharp.entity.shot
         
         public override void OnUpdate()
         {
-
+            
             if (this.deleteTime <= this.updateCount)
             {
                 this.Life = 0;
                 this.updateCount = 0;
             }
 
-            this.updateCount++;
-
-
+            if (this.updateCount <= this.deleteTime)
+                this.updateCount++;
+     
             base.OnUpdate();
         }
 
@@ -120,7 +120,7 @@ namespace ShootingSharp.entity.shot
             this.position.PosY -= this.moveY;
         }
 
-        private void GetMove()
+        protected virtual void GetMove()
         {
             if (this.Type == ShotType.Normal)
             {
@@ -137,15 +137,27 @@ namespace ShootingSharp.entity.shot
 
         public override void OnInteract(Entity entity)
         {
+            if (entity is Shot)
+                return;
+
             //ぶつかったら消える
             this.Life = 0;
 
         }
 
-        //画面外に出たら消える
-        private int GetDeleteTime()
-        {
-            return this.position.PosY / this.moveSpeed;
+        //消えるまでの時間
+        protected virtual int GetDeleteTime()
+        {/*
+            int a = SSGame.GetInstance().GetWindowSize().Width / this.moveSpeed;
+            int b = SSGame.GetInstance().GetWindowSize().Height / this.moveSpeed;
+
+            if (a < b)
+                return a;
+            else
+                return b;
+           */
+
+            return SSGame.GetInstance().GetWindowSize().Height / this.moveSpeed;
         }
 
         public override position.SSPosition GetTexturePosition()
@@ -161,6 +173,14 @@ namespace ShootingSharp.entity.shot
 
         public override void Draw()
         {
+            if (this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
+                || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+                || this.position.PosX < 0
+                || this.position.PosY < 0)
+            {
+                return;
+            }
+
             DX.DrawExtendGraph(
                this.GetTexturePosition().PosX,
                this.GetTexturePosition().PosY,

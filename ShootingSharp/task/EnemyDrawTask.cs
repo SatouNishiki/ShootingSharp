@@ -29,7 +29,7 @@ namespace ShootingSharp.task
             }
 
             //死んでるやつを削除
-            this.EnemyList.RemoveAll(shot => list.IndexOf(shot) >= 0);
+            this.EnemyList.RemoveAll(e => list.IndexOf(e) >= 0);
         }
     }
 }

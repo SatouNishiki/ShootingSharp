@@ -66,5 +66,55 @@ namespace ShootingSharp.entity.enemy
         {
             DX.DrawCircle(this.position.PosX, this.position.PosY, this.GetRadius(), DX.GetColor(0, 255, 0));
         }
+
+        public override string GetUpTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetDownTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetLeftTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetCenterTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetRightTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetRightUpTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetRightDownTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetLeftUpTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetLeftDownTextureName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SetMoveType()
+        {
+            
+        }
     }
 }

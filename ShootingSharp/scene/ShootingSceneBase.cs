@@ -9,7 +9,7 @@ using ShootingSharp.task;
 
 namespace ShootingSharp.scene
 {
-    public abstract class ShootingSceneBase : IScene, IInteractManager
+    public abstract class ShootingSceneBase : IShootingScene, IInteractManager
     {
         /// <summary>
         /// あたり判定を行うオブジェクトを全て格納するリスト
@@ -23,9 +23,12 @@ namespace ShootingSharp.scene
         protected EnemyPopTask popTask = SSTaskFactory.EnemyPopTask;
         protected BackGroundImageTask backimageTask = SSTaskFactory.BackGroundImageTask;
 
+        private List<Entity> temp = new List<Entity>();
+
         public ShootingSceneBase()
         {
             this.interacters = new List<Entity>();
+
         }
 
         public bool Run()
@@ -36,6 +39,17 @@ namespace ShootingSharp.scene
             this.updateTask.Run();
             this.moveTask.Run();
             this.drawTask.Run();
+
+            foreach (var item in this.interacters)
+            {
+                if (!item.IsLiving())
+                {
+                    temp.Add(item);
+                }
+            }
+
+            interacters.RemoveAll(e => temp.IndexOf(e) >= 0);
+            temp.Clear();
 
             if (this.ExistNextScene())
             {
@@ -96,6 +110,12 @@ namespace ShootingSharp.scene
         public void AddEnemy(entity.enemy.Enemy enemy)
         {
             SSTaskFactory.EnemyPopTask.EnemyList.Add(enemy);
+        }
+
+
+        public string GetName()
+        {
+            return this.GetType().FullName;
         }
     }
 }
