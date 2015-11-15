@@ -37,35 +37,14 @@ namespace ShootingSharp.entity
         /// </summary>
         public IInteractManager InteractManager { get; set; }
 
+        public Entity()
+        {
+            this.position = new position.SSPosition();
+            this.logger = Logger.GetInstance();
+            this.friendCode = this.GetType().ToString();
+        }
 
-        /// <summary>
-        /// 動く
-        /// </summary>
-        public abstract void Move();
-
-        /// <summary>
-        /// ショットとか
-        /// </summary>
-        public abstract void DoAction();
-
-        /// <summary>
-        /// 半径返す
-        /// </summary>
-        /// <returns></returns>
-        public abstract int GetRadius();
-
-        /// <summary>
-        /// 長方形の四隅を返す
-        /// </summary>
-        /// <returns></returns>
-        public abstract SquareSSPositon GetSquarePosition();
-
-        /// <summary>
-        /// 形状タイプを返す
-        /// </summary>
-        /// <returns></returns>
-        public abstract SharpType GetSharpType();
-
+       
         /// <summary>
         /// 当たってる？
         /// </summary>
@@ -118,6 +97,10 @@ namespace ShootingSharp.entity
             return this.position;
         }
 
+        public void SetPosition(SSPosition pos)
+        {
+            this.position = pos;
+        }
 
         /// <summary>
         /// 画像の名前
@@ -142,14 +125,6 @@ namespace ShootingSharp.entity
         /// </summary>
         public abstract void Draw();
 
-        
-
-        public Entity()
-        {
-            this.position = new position.SSPosition();
-            this.logger = Logger.GetInstance();
-            this.friendCode = this.GetType().ToString();
-        }
 
         /// <summary>
         /// アップデートのとき
@@ -174,5 +149,34 @@ namespace ShootingSharp.entity
         {
             this.friendCode = code;
         }
+
+        /// <summary>
+        /// 動く
+        /// </summary>
+        public abstract void Move();
+
+        /// <summary>
+        /// ショットとか
+        /// </summary>
+        public abstract void DoAction();
+
+        /// <summary>
+        /// 半径返す
+        /// </summary>
+        /// <returns></returns>
+        public abstract int GetRadius();
+
+        /// <summary>
+        /// 長方形の四隅を返す
+        /// </summary>
+        /// <returns></returns>
+        public abstract SquareSSPositon GetSquarePosition();
+
+        /// <summary>
+        /// 形状タイプを返す
+        /// </summary>
+        /// <returns></returns>
+        public abstract SharpType GetSharpType();
+
     }
 }

@@ -7,12 +7,13 @@ using DxLibDLL;
 using ShootingSharp.texture;
 using ShootingSharp.entity.shot;
 using ShootingSharp.task;
+using ShootingSharp.sound;
 
 namespace ShootingSharp.entity
 {
-    public class EntityPlayer : LivingAnimationEntity
+    public abstract class EntityPlayer : LivingAnimationEntity
     {
-        private TextureLoader textureLoader;
+        protected TextureLoader textureLoader;
 
         private int shotCount;
 
@@ -22,8 +23,7 @@ namespace ShootingSharp.entity
 
         public EntityPlayer() : base()
         {
-            this.moveSpeed = 6;
-            this.shotInterval = 5;
+            
             this.textureLoader = TextureLoader.GetInstance();
             this.logger.Debug(this.GetType().ToString() + " is create");
         }
@@ -50,56 +50,6 @@ namespace ShootingSharp.entity
             return moveCoefficient;
         }
 
-        public override string GetUpTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetDownTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetLeftTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetCenterTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetRightTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetRightUpTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetRightDownTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetLeftUpTextureName()
-        {
-            return "player.png";
-        }
-
-        public override string GetLeftDownTextureName()
-        {
-            return "player.png";
-        }
-
-        public override void OnDeath()
-        {
-        //    throw new NotImplementedException();
-        }
-        
 
         public override void Move()
         {
@@ -191,7 +141,7 @@ namespace ShootingSharp.entity
             {
                 if (shotCount >= this.shotInterval)
                 {
-                    Shot s = new NormalShot(this);
+                    Shot s = this.GetShot();
                     //味方に設定
                     s.SetFriendCode(this.friendCode);
                     this.InteractManager.AddInteractObject(s);
@@ -199,37 +149,36 @@ namespace ShootingSharp.entity
                     SSTaskFactory.ShotDrawTask.ShotList.Add(s);
                     SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
                     this.shotCount = 0;
+                    this.PlayShotSound();
                 }
             }
             if (this.shotCount < this.shotInterval)
                 this.shotCount++;
         }
 
-        public override int GetRadius()
-        {
-            return 10;
-        }
-
+        protected abstract Shot GetShot();
+        
         public override void OnInteract(Entity entity)
         {
             //TODO:なにもしてない
         }
 
 
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(50, 50);
-        }
-
+        /// <summary>
+        /// テクスチャ左上座標
+        /// </summary>
+        /// <returns></returns>
         public override position.SSPosition GetTexturePosition()
         {
-            return this.position;
+            ShootingSharp.position.SSPosition pos = new position.SSPosition();
+
+            pos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
+            pos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
+
+            return pos;
         }
          
-        public override void Draw()
-        {
-            DX.DrawCircle(this.position.PosX, this.position.PosY,this.GetRadius() , DX.GetColor(255, 00, 0));
-        }
+        
 
         /// <summary>
         /// 移動タイプ決めるよ
@@ -314,9 +263,20 @@ namespace ShootingSharp.entity
             return interfaces.SharpType.Circle;
         }
 
-        public override string GetFriendCode()
+        public override void Draw()
         {
-            return "Player";
+            DX.DrawExtendGraph(
+                this.GetTexturePosition().PosX,
+                this.GetTexturePosition().PosY,
+                this.GetTexturePosition().PosX + this.GetTextureSize().Width + 1,
+                this.GetTexturePosition().PosY + this.GetTextureSize().Height + 1,
+                this.textureLoader.Textures[this.GetTextureName()],
+                DX.TRUE);
+        }
+
+        protected virtual void PlayShotSound()
+        {
+            DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["default_shot.mp3"], DX.DX_PLAYTYPE_BACK);
         }
     }
 }

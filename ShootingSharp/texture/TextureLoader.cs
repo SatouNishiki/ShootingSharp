@@ -22,11 +22,15 @@ namespace ShootingSharp.texture
         /// </summary>
         public Dictionary<string, int> Textures { get; set; }
 
+        private core.Logger logger = core.Logger.GetInstance();
+
+       
         private TextureLoader()
         {
             this.Textures = new Dictionary<string, int>();
-
-            this.GetAllTextures();
+       
+            this.LoadAllTexture();
+            
         }
 
         public static TextureLoader GetInstance()
@@ -37,16 +41,61 @@ namespace ShootingSharp.texture
             return instance;
         }
 
-        /// <summary>
-        /// 全てのテクスチャを取得します
-        /// </summary>
-        public void GetAllTextures()
-        {
-            Dictionary<string, Bitmap> dic = this.ReadAllTextureForBitmap();
 
-            foreach (var s in dic.Keys)
+        /// <summary>
+        /// 現在のテクスチャ保存データをすべて消去し、新しく全ての画像ファイルを読み込みます
+        /// </summary>
+        private void LoadAllTexture()
+        {
+            this.Textures.Clear();
+
+            string path = this.FindTextureDirectory(DefaultTextureDirectoryName);
+
+            //全部のファイルのフルパスが格納されている
+            string[] files = Directory.GetFiles(path, "*", System.IO.SearchOption.AllDirectories);
+
+
+            foreach (var s in files)
             {
-                this.Textures.Add(s, this.GetGraphicsHandle(dic[s]));
+                string name = s.Substring(path.Length + 1, s.Length - path.Length - 1);
+                //keyはファイルのフルパスからディレクトリ名と\\を除いたもの(=ファイル名のみ)にする
+                this.Textures.Add(name, DX.LoadGraph(s));
+
+                logger.Debug(name + " is load");
+            }
+
+        }
+
+        /// <summary>
+        ///  スプライトを読み込みます
+        /// </summary>
+        /// <param name="fileName">ファイル名</param>
+        /// <param name="xNum">xの分割数</param>
+        /// <param name="yNum">yの分割数</param>
+        /// <param name="allNum">分割総数</param>
+        /// <param name="xSize">分割後のxのサイズ</param>
+        /// <param name="ySize">分割後のyのサイズ</param>
+        public void LoadSprite(string fileName, int xNum, int yNum, int allNum, int xSize, int ySize)
+        {
+            //同じファイルがロード済みなら
+            if (this.Textures.ContainsKey(fileName + "0"))
+            {
+                return;
+            }
+
+            string path = this.FindTextureDirectory(DefaultTextureDirectoryName);
+            
+            int[] buf = new int[allNum];
+
+            DX.LoadDivGraph(path + "\\" + fileName, allNum, xNum, yNum, xSize, ySize, out buf[0]);
+
+            int count = 0;
+
+            foreach (var s in buf)
+            {
+                this.Textures.Add(fileName + count.ToString(), buf[count]);
+                count++;
+
             }
         }
 
@@ -68,59 +117,6 @@ namespace ShootingSharp.texture
 
             return appPath + "\\" + name;
         }
-
-        /// <summary>
-        /// 全ての画像ファイルをBitmap形式で読み込みます
-        /// </summary>
-        /// <returns></returns>
-        private Dictionary<string, Bitmap> ReadAllTextureForBitmap()
-        {
-            string path = this.FindTextureDirectory(DefaultTextureDirectoryName);
-
-            //全部のファイルのフルパスが格納されている
-            string[] files = Directory.GetFiles(path, "*", System.IO.SearchOption.AllDirectories);
-
-            Dictionary<string, Bitmap> dic = new Dictionary<string, Bitmap>();
-
-            foreach (var s in files)
-            {
-                //keyはファイルのフルパスからディレクトリ名と\\を除いたもの(=ファイル名のみ)にする
-                dic.Add(s.Substring(0, path.Length + 2), new Bitmap(s));
-            }
-
-            return dic;
-        }
-
-        /// <summary>
-        /// Bitmapからグラフィックハンドルを取得します
-        /// </summary>
-        /// <param name="bmp"></param>
-        /// <returns></returns>
-        private int GetGraphicsHandle(Bitmap bmp)
-        {
-            int handle = -1;
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                bmp.Save(ms, ImageFormat.Bmp);
-                byte[] buff = ms.ToArray();
-
-                unsafe
-                {
-                    fixed (byte* p = buff)
-                    {
-                        DX.SetDrawValidGraphCreateFlag(DX.TRUE);
-                        DX.SetDrawValidAlphaChannelGraphCreateFlag(DX.TRUE);
-
-                        handle = DX.CreateGraphFromMem(p, buff.Length);
-
-                        DX.SetDrawValidGraphCreateFlag(DX.FALSE);
-                        DX.SetDrawValidAlphaChannelGraphCreateFlag(DX.FALSE);
-                    }
-                }
-            }
-
-            return handle;
-        }
+      
     }
 }

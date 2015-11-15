@@ -9,6 +9,8 @@ namespace ShootingSharp.task
 {
     public class SSTaskFactory
     {
+        public static BackGroundImageTask BackGroundImageTask = TaskCreator<BackGroundImageTask>.Create();
+
         public static PlayerUpdateTask PlayerUpdateTask = TaskCreator<PlayerUpdateTask>.Create();
 
         public static PlayerDrawTask PlayerDrawTask = TaskCreator<PlayerDrawTask>.Create();
@@ -31,6 +33,8 @@ namespace ShootingSharp.task
 
         public static EnemyUpdateTask EnemyUpdateTask = TaskCreator<EnemyUpdateTask>.Create();
 
+        public static EnemyPopTask EnemyPopTask = TaskCreator<EnemyPopTask>.Create();
+
         public static MoveTaskManager MoveTask = TaskCreator<MoveTaskManager>.Create();
 
         public static DrawTaskManager DrawTask = TaskCreator<DrawTaskManager>.Create();
@@ -45,6 +49,8 @@ namespace ShootingSharp.task
         /// </summary>
         public static void Init()
         {
+            BackGroundImageTask = TaskCreator<BackGroundImageTask>.Create();
+
             PlayerUpdateTask = TaskCreator<PlayerUpdateTask>.Create();
 
             PlayerDrawTask = TaskCreator<PlayerDrawTask>.Create();
@@ -66,6 +72,8 @@ namespace ShootingSharp.task
             EnemyMoveTask = TaskCreator<EnemyMoveTask>.Create();
 
             EnemyUpdateTask = TaskCreator<EnemyUpdateTask>.Create();
+
+            EnemyPopTask = TaskCreator<EnemyPopTask>.Create();
 
             MoveTask = TaskCreator<MoveTaskManager>.Create();
 

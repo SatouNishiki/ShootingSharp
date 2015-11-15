@@ -6,164 +6,97 @@ using System.Threading.Tasks;
 using ShootingSharp.position;
 using ShootingSharp.interfaces;
 using ShootingSharp.entity;
+using ShootingSharp.texture;
+using DxLibDLL;
 
 namespace ShootingSharp.entity.shot
 {
     public abstract class Shot : EntityLiving
     {
         /// <summary>
-        /// 移動方向タイプ
+        /// ショットのタイプ
+        /// Nomal = まっすぐ進むだけ
+        /// Direction = 角度を指定してその方向に進む弾
+        /// Aim = Targetを指定してその位置に向かう弾
+        /// Homing = 慣性の大きさ(ホーミングの強力さ)を指定して敵をある程度追尾する弾
         /// </summary>
-        public enum MoveDirection
+        public enum ShotType
         {
-            Up, Right
+            Normal, Direction, Aim, Homing
         }
 
         /// <summary>
-        /// 追尾弾レベルの上限
+        /// シューターとy座標をどれだけずらしてショットするか
         /// </summary>
-        protected const int homingMaxLevel = 10;
+        public int MarginToShooter { get; set; }
 
-        protected int moveX;
-        protected int moveY;
+        /// <summary>
+        /// ショットのタイプ
+        /// </summary>
+        public ShotType Type { get; set; }
 
-        protected bool homingEnabled;
-        protected bool tryToMoveEnabled;
-
-        protected int homingLevel;
+        /// <summary>
+        /// 弾が消えるまでの時間
+        /// </summary>
         protected int deleteTime;
+
+        /// <summary>
+        /// アップデートのたびに呼ばれるカウンタ
+        /// </summary>
         protected int updateCount;
 
-        /// <summary>
-        /// 何もしなかった場合に動く方向
-        /// </summary>
-        protected MoveDirection baseMoveDirection;
+        protected TextureLoader textureLoader = TextureLoader.GetInstance();
 
         /// <summary>
-        /// 追尾弾の対象
+        /// xの移動量
         /// </summary>
-        protected IHasSSPosition homingTarget;
+        protected int moveX;
 
         /// <summary>
-        /// 位置指定弾の対象
+        /// yの移動量
         /// </summary>
-        protected SSPosition tryToMovePoint;
+        protected int moveY;
 
         /// <summary>
-        /// 追尾弾のインターバルを計算するカウンタ
+        /// 弾の角度
         /// </summary>
-        private int homingCount;
+        protected double theta;
 
-        public Shot(IHasSSPosition shooter) : base()
+        /// <summary>
+        /// 通常弾を生成
+        /// </summary>
+        /// <param name="shooter">射手</param>
+        public Shot(IHasSSPosition shooter)
+            : base()
         {
-            this.baseMoveDirection = MoveDirection.Up;
+            this.Type = ShotType.Normal;
             this.moveSpeed = 5;
             this.position.PosX = shooter.GetPosition().PosX;
-            this.position.PosY = shooter.GetPosition().PosY;
-        }
+            this.position.PosY = shooter.GetPosition().PosY + this.MarginToShooter;
 
-        public void SetHomingLevel(int level, IHasSSPosition target)
-        {
-            this.homingLevel = homingMaxLevel - level;
-            this.homingEnabled = true;
-            this.homingTarget = target;
-        }
-
-        public void SetTryToMove(SSPosition target)
-        {
-            this.tryToMovePoint = target;
-            this.tryToMoveEnabled = true;
-        }
-
-        public override void Move()
-        {
-            this.SetNextMove();
-
-            this.position.PosX += moveX;
-            this.position.PosY -= moveY;
-        }
-
-
-        public override void OnInteract(Entity entity)
-        {
-            //ぶつかったら消える
-            this.Life = 0;
-           
-        }
-
-        protected virtual void SetNextMove()
-        {
-            this.moveX = 0;
-            this.moveY = 0;
-
-            if(this.baseMoveDirection == MoveDirection.Up)
-            {
-                this.moveY = this.moveSpeed;
-            }
-            else
-            {
-                this.moveX = this.moveSpeed;
-            }
-
-            if (this.homingEnabled)
-            {
-                if (this.homingLevel <= this.homingCount)
-                {
-                    this.TryToMove(this.homingTarget.GetPosition());
-                    homingCount = 0;
-                }
-                else
-                {
-                    homingCount++;
-                }
-
-                return;
-            }
-
-            if (tryToMoveEnabled)
-            {
-                TryToMove(this.tryToMovePoint);
-                this.tryToMoveEnabled = false;
-            }
+            this.deleteTime = this.GetDeleteTime();
         }
 
         /// <summary>
-        /// 目的地に移動しようとしてみるs
+        /// 方向弾を生成
         /// </summary>
-        /// <param name="position"></param>
-        private void TryToMove(SSPosition position)
+        /// <param name="shooter">射手</param>
+        /// <param name="theta">角度</param>
+        public Shot(IHasSSPosition shooter, double theta)
+            : base()
         {
-            if (this.baseMoveDirection == MoveDirection.Up)
-            {
-                if (this.position.PosX != position.PosX)
-                {
-                    if (this.position.PosX > position.PosX)
-                    {
-                        this.moveX--;
-                    }
-                    else
-                    {
-                        this.moveX++;
-                    }
-                }
-            }
+            this.Type = ShotType.Direction;
 
-            if (this.baseMoveDirection == MoveDirection.Right)
-            {
-                if (this.position.PosY != position.PosY)
-                {
-                    if (this.position.PosY > position.PosY)
-                    {
-                        this.moveY--;
-                    }
-                    else
-                    {
-                        this.moveY++;
-                    }
-                }
-            }
+            this.theta = theta;
+            this.moveSpeed = 5;
+            this.position.PosX = shooter.GetPosition().PosX;
+            this.position.PosY = shooter.GetPosition().PosY + this.MarginToShooter;
+
+            this.deleteTime = this.GetDeleteTime();
         }
 
+
+        
         public override void OnUpdate()
         {
 
@@ -179,10 +112,62 @@ namespace ShootingSharp.entity.shot
             base.OnUpdate();
         }
 
-
-        public override void OnDeath()
+        public override void Move()
         {
-            this.logger.Debug(this.GetType() + " is deleted");
+            this.GetMove();
+
+            this.position.PosX += this.moveX;
+            this.position.PosY -= this.moveY;
+        }
+
+        private void GetMove()
+        {
+            if (this.Type == ShotType.Normal)
+            {
+                this.moveX = 0;
+                this.moveY = this.moveSpeed;
+            }
+
+            if (this.Type == ShotType.Direction)
+            {
+                this.moveX = this.moveSpeed * (int)Math.Cos(theta);
+                this.moveY = this.moveSpeed * (int)Math.Sin(theta);
+            }
+        }
+
+        public override void OnInteract(Entity entity)
+        {
+            //ぶつかったら消える
+            this.Life = 0;
+
+        }
+
+        //画面外に出たら消える
+        private int GetDeleteTime()
+        {
+            return this.position.PosY / this.moveSpeed;
+        }
+
+        public override position.SSPosition GetTexturePosition()
+        {
+
+            ShootingSharp.position.SSPosition pos = new position.SSPosition();
+
+            pos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
+            pos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
+
+            return pos;
+        }
+
+        public override void Draw()
+        {
+            DX.DrawExtendGraph(
+               this.GetTexturePosition().PosX,
+               this.GetTexturePosition().PosY,
+               this.GetTexturePosition().PosX + this.GetTextureSize().Width + 1,
+               this.GetTexturePosition().PosY + this.GetTextureSize().Height + 1,
+               this.textureLoader.Textures[this.GetTextureName()],
+               DX.TRUE);
         }
     }
 }

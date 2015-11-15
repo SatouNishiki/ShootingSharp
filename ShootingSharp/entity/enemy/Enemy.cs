@@ -42,5 +42,16 @@ namespace ShootingSharp.entity.enemy
         {
             return this.popCount;
         }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            if(this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
+                || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height)
+            {
+                this.Life = 0;
+            }
+        }
     }
 }

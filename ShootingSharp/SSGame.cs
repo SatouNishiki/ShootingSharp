@@ -66,6 +66,11 @@ namespace ShootingSharp
                 //以下DxLibの初期化処理
 
                 DX.ChangeWindowMode(DX.TRUE);
+
+                DX.SetGraphMode(800, 600, 32);
+
+                DX.SetAlwaysRunFlag(DX.TRUE);
+
                 if (DX.DxLib_Init() == -1)
                 {
                     return null;
@@ -81,7 +86,11 @@ namespace ShootingSharp
         /// <returns></returns>
         public Size GetWindowSize()
         {
-            return new Size(DX.DEFAULT_SCREEN_SIZE_X, DX.DEFAULT_SCREEN_SIZE_Y);
+            int x = 0;
+            int y = 0;
+            DX.GetWindowSize(out x, out y);
+
+            return new Size(x, y);
         }
     }
 }

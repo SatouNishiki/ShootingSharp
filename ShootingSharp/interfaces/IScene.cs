@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShootingSharp.entity;
+using ShootingSharp.entity.enemy;
 
 namespace ShootingSharp.interfaces
 {
@@ -39,6 +41,12 @@ namespace ShootingSharp.interfaces
         /// プレイヤーの追加
         /// </summary>
         /// <param name="player"></param>
-        void AddPlayer(entity.EntityPlayer player);
+        void AddPlayer(EntityPlayer player);
+
+        /// <summary>
+        /// 敵の追加
+        /// </summary>
+        /// <param name="enemy"></param>
+        void AddEnemy(Enemy enemy);
     }
 }

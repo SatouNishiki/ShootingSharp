@@ -18,10 +18,18 @@ namespace ShootingSharp.task
 
         public void Run()
         {
-            foreach (var e in this.EnemyList)
+            List<Enemy> list = new List<Enemy>();
+
+            foreach (var s in this.EnemyList)
             {
-                e.DoAction();
+                s.DoAction();
+
+                if (!s.IsLiving())
+                    list.Add(s);
             }
+
+            //死んでるやつを削除
+            this.EnemyList.RemoveAll(shot => list.IndexOf(shot) >= 0);
         }
     }
 }

@@ -54,7 +54,9 @@
     <Compile Include="entity\EntityPlayer.cs" />
     <Compile Include="entity\InteractCalculator.cs" />
     <Compile Include="entity\LivingAnimationEntity.cs" />
+    <Compile Include="entity\player\EntityReimu.cs" />
     <Compile Include="entity\shot\NormalShot.cs" />
+    <Compile Include="entity\shot\ReimuNormalShot.cs" />
     <Compile Include="entity\shot\Shot.cs" />
     <Compile Include="interfaces\IAction.cs" />
     <Compile Include="interfaces\IHasBom.cs" />
@@ -71,14 +73,17 @@
     <Compile Include="position\SquareSSPositon.cs" />
     <Compile Include="position\SSPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="scene\SampleScene.cs" />
-    <Compile Include="scene\SceneBase.cs" />
+    <Compile Include="scene\ShootingSampleScene.cs" />
+    <Compile Include="scene\ShootingSceneBase.cs" />
+    <Compile Include="sound\SoundLoader.cs" />
     <Compile Include="SSGame.cs" />
     <Compile Include="task\ActionTaskManager.cs" />
+    <Compile Include="task\BackGroundImageTask.cs" />
     <Compile Include="task\DrawTaskManager.cs" />
     <Compile Include="task\EnemyActionTask.cs" />
     <Compile Include="task\EnemyDrawTask.cs" />
     <Compile Include="task\EnemyMoveTask.cs" />
+    <Compile Include="task\EnemyPopTask.cs" />
     <Compile Include="task\EnemyUpdateTask.cs" />
     <Compile Include="task\MoveTaskManager.cs" />
     <Compile Include="task\PlayerActionTask.cs" />
@@ -88,6 +93,7 @@
     <Compile Include="task\ShotDrawTask.cs" />
     <Compile Include="task\ShotMoveTask.cs" />
     <Compile Include="task\ShotUpdateTask.cs" />
+    <Compile Include="task\SoundTask.cs" />
     <Compile Include="task\TaskCreator.cs" />
     <Compile Include="task\SSTaskFactory.cs" />
     <Compile Include="task\TaskManager.cs" />

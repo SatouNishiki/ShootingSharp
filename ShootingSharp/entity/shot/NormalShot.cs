@@ -5,21 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using DxLibDLL;
 using System.Drawing;
+using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
     public class NormalShot : Shot
     {
-        public NormalShot(interfaces.IHasSSPosition shooter)
-            :base(shooter)
-        {
-            this.deleteTime = this.GetDeleteTime();
-        }
 
-        private int GetDeleteTime()
-        {
-            return this.position.PosY / this.moveSpeed;
-        }
+        public NormalShot(IHasSSPosition shooter) : base(shooter) { }
+
+        public NormalShot(IHasSSPosition shooter, double theta) : base(shooter, theta) { }
+
 
         public override void DoAction()
         {
@@ -59,6 +55,11 @@ namespace ShootingSharp.entity.shot
         public override interfaces.SharpType GetSharpType()
         {
             return interfaces.SharpType.Circle;
+        }
+
+        public override void OnDeath()
+        {
+            //なにもしない
         }
     }
 }
