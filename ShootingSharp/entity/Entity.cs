@@ -37,6 +37,7 @@ namespace ShootingSharp.entity
         /// </summary>
         public IInteractManager InteractManager { get; set; }
 
+
         public Entity()
         {
             this.position = new position.SSPosition();
@@ -56,14 +57,14 @@ namespace ShootingSharp.entity
             if (this.GetFriendCode() == obj.GetFriendCode())
                 return false;
             
-            if (this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
-                 || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+            if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
+                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                  || this.position.PosX < 0
                  || this.position.PosY < 0)
                 return false;
 
-            if (obj.GetPosition().PosX > SSGame.GetInstance().GetWindowSize().Width
-                || obj.GetPosition().PosY > SSGame.GetInstance().GetWindowSize().Height
+            if (obj.GetPosition().PosX > SSGame.GetInstance().GetBattleWindowSize().Width
+                || obj.GetPosition().PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                 || obj.GetPosition().PosX < 0
                 || obj.GetPosition().PosY < 0)
                 return false;
@@ -143,8 +144,8 @@ namespace ShootingSharp.entity
         /// </summary>
         public virtual void OnUpdate()
         {
-            if (!(this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
-                 || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+            if (!(this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
+                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                  || this.position.PosX < 0
                  || this.position.PosY < 0))
             {

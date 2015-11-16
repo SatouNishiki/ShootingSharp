@@ -7,6 +7,9 @@ using ShootingSharp.interfaces;
 using System.Reflection;
 using DxLibDLL;
 using System.IO;
+using ShootingSharp.task;
+using ShootingSharp.sound;
+using ShootingSharp.texture;
 
 namespace ShootingSharp.scene
 {
@@ -35,46 +38,90 @@ namespace ShootingSharp.scene
         /// <summary>
         /// 表示名,型名
         /// </summary>
-        protected Dictionary<string, Type> SceneList { get; set; }
+        protected static Dictionary<string, Type> SceneList = new Dictionary<string, Type>();
 
+        private SoundLoader sloader;
+
+        private bool flag = true;
+
+        private TextureLoader tLoader;
+
+        private bool flag2 = false;
+        
         public TitleSceneBase()
         {
-          //  this.ShootingSceneList = new List<Type>();
-            this.SceneList = new Dictionary<string, Type>();
+          
             this.interval = 5;
-       //     this.LoadAllScene();
+            sloader = SoundLoader.GetInstance();
+            tLoader = TextureLoader.GetInstance();
+           
         }
 
         public virtual bool Run()
         {
+            if (flag)
+            {
+                sloader.PlayLoopSound("title.mp3");
+            }
+
+            if (DX.CheckHitKeyAll() == 0)
+                flag2 = true;
+
+            DX.SetDrawBlendMode(DX.DX_BLENDMODE_ALPHA, 128);
+            DX.DrawExtendGraph(0, 0, SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height, tLoader.Textures["title.jpg"], DX.TRUE);
+            DX.SetDrawBlendMode(DX.DX_BLENDMODE_NOBLEND, 0);
 
             this.DrawTitle();
 
-            if (this.runCount >= this.interval)
+            if (flag)
+            {
+                DX.WaitTimer(200);
+                flag = false;
+            }
+
+            if ((DX.CheckHitKey(DX.KEY_INPUT_RETURN) == 1 && DX.CheckHitKey(DX.KEY_INPUT_S) == 0 && DX.CheckHitKey(DX.KEY_INPUT_W) == 0) || this.runCount >= this.interval)
             {
 
                 if (DX.CheckHitKey(DX.KEY_INPUT_S) == 1)
                 {
-                    if (this.selectedIndex < this.SceneList.Count - 1)
+
+                    if (this.selectedIndex < SceneList.Count - 1)
+                    {
                         this.selectedIndex++;
+                        DX.PlaySoundMem(sloader.Sounds["select.mp3"], DX.DX_PLAYTYPE_BACK);
+                    }
+                   
                 }
 
                 if (DX.CheckHitKey(DX.KEY_INPUT_W) == 1)
                 {
+
                     if (this.selectedIndex > 0)
                     {
                         this.selectedIndex--;
+                        DX.PlaySoundMem(sloader.Sounds["select.mp3"], DX.DX_PLAYTYPE_BACK);
                     }
+
+
                 }
 
                 if (DX.CheckHitKey(DX.KEY_INPUT_RETURN) == 1)
                 {
-                    Type[] ts = new Type[this.SceneList.Values.Count];
-                    this.SceneList.Values.CopyTo(ts, 0);
+                    if (flag2)
+                    {
+                        DX.PlaySoundMem(sloader.Sounds["enter.mp3"], DX.DX_PLAYTYPE_BACK);
 
-                    this.nextScene = (IShootingScene)Activator.CreateInstance(ts[this.selectedIndex]);
+                        Type[] ts = new Type[SceneList.Values.Count];
+                        SceneList.Values.CopyTo(ts, 0);
 
-                    this.finishFlag = true;
+                        SSTaskFactory.Init();
+
+                        this.nextScene = (IShootingScene)Activator.CreateInstance(ts[this.selectedIndex]);
+
+                        this.finishFlag = true;
+
+                        sloader.StopSount("title.mp3");
+                    }
                 }
 
                 this.runCount = 0;
@@ -88,25 +135,12 @@ namespace ShootingSharp.scene
 
         protected virtual void DrawTitle()
         {
-            if (this.selectedIndex >= this.SceneList.Count)
+            if (this.selectedIndex >= SceneList.Count)
                 return;
-
-            /*
-            for (int i = 0; i < SceneList.Count; i++)
-            {
-                if (i >= SceneItemsCount)
-                    break;
-
-                if (i != selectedIndex)
-                    DX.DrawString(10, i * 10 + 10, this.SceneList[i].ToString(), DX.GetColor(100, 0, 0));
-                else
-                    DX.DrawString(10, i * 10 + 10, this.ShootingSceneList[i].ToString(), DX.GetColor(255, 0, 0));
-
-            }*/
 
             int i = 0;
 
-            foreach (var item in this.SceneList)
+            foreach (var item in SceneList)
             {
                 if (i >= SceneItemsCount)
                     break;
@@ -143,9 +177,9 @@ namespace ShootingSharp.scene
         {
             if ((typeof(IShootingScene)).IsAssignableFrom(type))
             {
-                if (!this.SceneList.ContainsKey(name))
+                if (!SceneList.ContainsKey(name))
                 {
-                    this.SceneList.Add(name, type);
+                    SceneList.Add(name, type);
                 }
             }
         }

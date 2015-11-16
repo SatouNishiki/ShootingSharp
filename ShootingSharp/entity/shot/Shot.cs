@@ -157,7 +157,7 @@ namespace ShootingSharp.entity.shot
                 return b;
            */
 
-            return SSGame.GetInstance().GetWindowSize().Height / this.moveSpeed;
+            return SSGame.GetInstance().GetBattleWindowSize().Height / this.moveSpeed;
         }
 
         public override position.SSPosition GetTexturePosition()
@@ -173,8 +173,8 @@ namespace ShootingSharp.entity.shot
 
         public override void Draw()
         {
-            if (this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
-                || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+            if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
+                || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                 || this.position.PosX < 0
                 || this.position.PosY < 0)
             {

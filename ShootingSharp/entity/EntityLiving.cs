@@ -18,9 +18,12 @@ namespace ShootingSharp.entity
         /// </summary>
         public int Life { get; set; }
 
+        public int MaxLife { get; set; }
+
         public EntityLiving() : base()
         {
             this.Life = 1;
+            this.MaxLife = this.Life;
         }
 
         /// <summary>

@@ -37,6 +37,5 @@ namespace ShootingSharp.interfaces
         /// <returns></returns>
         IScene GetNextScene();
 
-        
     }
 }

@@ -71,11 +71,7 @@ namespace ShootingSharp.entity.enemy
             
         }
 
-        public override void OnDeath()
-        {
-            
-        }
-
+        
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(50, 50);
@@ -173,8 +169,8 @@ namespace ShootingSharp.entity.enemy
 
         public override void OnUpdate()
         {
-            if (this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
-                 || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+            if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
+                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                  || this.position.PosX < 0
                  || this.position.PosY < 0)
             {

@@ -17,11 +17,6 @@ namespace ShootingSharp.entity.enemy
             this.position.PosY = 0;
         }
 
-        public override void OnDeath()
-        {
-            //なにもしない
-        }
-
         public override void Move()
         {
             this.position.PosY += 2;

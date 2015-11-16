@@ -18,9 +18,17 @@ namespace ShootingSharp.entity.enemy
 
         protected TextureLoader loader;
 
+        /// <summary>
+        /// こいつが倒された時のスコア
+        /// </summary>
+        protected int score;
+
+        public Action<int> KilledByPlayer;
+
         public Enemy() : base()
         {
             this.loader = TextureLoader.GetInstance();
+            this.score = 10;
         }
 
         public override void OnInteract(Entity entity)
@@ -34,6 +42,16 @@ namespace ShootingSharp.entity.enemy
 
             //ライフを1減らす
             this.Life--;
+
+            if (!this.IsLiving())
+            {
+                if (this.KilledByPlayer != null)
+                {
+                    this.KilledByPlayer(this.score);
+                }
+
+                
+            }
         }
 
         
@@ -74,6 +92,10 @@ namespace ShootingSharp.entity.enemy
                 this.GetTexturePosition().PosY + this.GetTextureSize().Height + 1,
                 this.loader.Textures[this.GetTextureName()],
                 DX.TRUE);
+        }
+
+        public override void OnDeath()
+        {
         }
     }
 }

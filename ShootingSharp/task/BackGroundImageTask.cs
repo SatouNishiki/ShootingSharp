@@ -46,11 +46,11 @@ namespace ShootingSharp.task
                 }
             }
 
-            if (this.ImageY < SSGame.GetInstance().GetWindowSize().Height)
+            if (this.ImageY < SSGame.GetInstance().GetBattleWindowSize().Height)
             {
-                DX.DrawExtendGraph(0, posY, SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height, this.ImageHandle, DX.TRUE);
+                DX.DrawExtendGraph(0, posY, SSGame.GetInstance().GetBattleWindowSize().Width, SSGame.GetInstance().GetBattleWindowSize().Height, this.ImageHandle, DX.TRUE);
 
-                DX.DrawExtendGraph(0, this.posY - this.ImageY, SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height, this.ImageHandle, DX.TRUE);
+                DX.DrawExtendGraph(0, this.posY - this.ImageY, SSGame.GetInstance().GetBattleWindowSize().Width, SSGame.GetInstance().GetBattleWindowSize().Height, this.ImageHandle, DX.TRUE);
             }
             else
             {
@@ -58,6 +58,7 @@ namespace ShootingSharp.task
 
                 DX.DrawGraph(0, this.posY - this.ImageY, this.ImageHandle, DX.TRUE);
             }
+
             this.posY += this.ScrollSpeed;
 
             if (this.posY == this.ImageY)

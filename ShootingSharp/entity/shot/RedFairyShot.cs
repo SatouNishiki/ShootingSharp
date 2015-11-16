@@ -9,6 +9,7 @@ namespace ShootingSharp.entity.shot
 {
     public class RedFairyShot : Shot
     {
+
         public RedFairyShot(IHasSSPosition shooter) : base(shooter) 
         {
             this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
@@ -34,7 +35,7 @@ namespace ShootingSharp.entity.shot
 
         public override System.Drawing.Size GetTextureSize()
         {
-            return new System.Drawing.Size(10, 10);
+            return new System.Drawing.Size(20, 20);
         }
 
         public override void DoAction()
@@ -59,8 +60,8 @@ namespace ShootingSharp.entity.shot
 
         public override void OnUpdate()
         {
-            if (this.position.PosX > SSGame.GetInstance().GetWindowSize().Width
-                || this.position.PosY > SSGame.GetInstance().GetWindowSize().Height
+            if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
+                || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                 || this.position.PosX < 0
                 || this.position.PosY < 0)
             {

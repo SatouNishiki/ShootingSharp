@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using DxLibDLL;
+using ShootingSharp.core;
 
 namespace ShootingSharp.sound
 {
@@ -40,7 +41,7 @@ namespace ShootingSharp.sound
         public void LoadAllSounds()
         {
             this.Sounds.Clear();
-            string path = this.FindTextureDirectory(DefaultSoundDirectoryName);
+            string path = FileUtility.FindTextureDirectory(DefaultSoundDirectoryName);
 
             //全部のファイルのフルパスが格納されている
             string[] files = Directory.GetFiles(path, "*", System.IO.SearchOption.AllDirectories);
@@ -55,27 +56,15 @@ namespace ShootingSharp.sound
             }
         }
 
-        /// <summary>
-        /// 指定の名前のディレクトリを実行フォルダ以下から探して絶対パスを返します
-        /// なければ作成して絶対パスを返します
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private string FindTextureDirectory(string name)
-        {
-            string appPath = Application.StartupPath;
-
-            if (!Directory.Exists(appPath + "\\" + name))
-            {
-                Directory.CreateDirectory(appPath + "\\" + name);
-            }
-
-            return appPath + "\\" + name;
-        }
 
         public void PlayLoopSound(string name)
         {
             DX.PlaySoundMem(this.Sounds[name], DX.DX_PLAYTYPE_LOOP);
+        }
+
+        public void StopSount(string name)
+        {
+            DX.StopSoundMem(this.Sounds[name]);
         }
     }
 }

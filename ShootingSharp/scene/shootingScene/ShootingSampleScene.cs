@@ -19,7 +19,7 @@ namespace ShootingSharp.scene.shootingScene
         public ShootingSampleScene() : base()
         {
             EntityReimu p = new EntityReimu();
-            p.SetPosition(new SSPosition(SSGame.GetInstance().GetWindowSize().Width / 2, SSGame.GetInstance().GetWindowSize().Height - 10));
+            p.SetPosition(new SSPosition(SSGame.GetInstance().GetBattleWindowSize().Width / 2, SSGame.GetInstance().GetBattleWindowSize().Height - 10));
             this.AddInteractObject(p);
             this.AddPlayer(p);
 
@@ -33,23 +33,12 @@ namespace ShootingSharp.scene.shootingScene
             SSTaskFactory.BackGroundImageTask.ImageY = 898;
 
 
-            DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["ginen.mp3"], DX.DX_PLAYTYPE_LOOP);
+        
+            this.soundName = "ginen.mp3";
             
         }
 
-        public override bool ExistNextScene()
-        {
-            return false;
-        }
 
-        public override bool IsFinished()
-        {
-            return false;
-        }
 
-        public override interfaces.IScene GetNextScene()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

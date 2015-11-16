@@ -25,7 +25,9 @@ namespace ShootingSharp.task
                 s.OnUpdate();
 
                 if (!s.IsLiving())
+                {
                     list.Add(s);
+                }
             }
 
             //死んでるやつを削除

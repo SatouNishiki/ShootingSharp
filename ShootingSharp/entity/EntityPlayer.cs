@@ -26,6 +26,9 @@ namespace ShootingSharp.entity
             
             this.textureLoader = TextureLoader.GetInstance();
             this.logger.Debug(this.GetType().ToString() + " is create");
+
+            this.Life = 3;
+            this.MaxLife = 3;
         }
 
         /// <summary>
@@ -117,7 +120,7 @@ namespace ShootingSharp.entity
 
         private bool CanRightMove()
         {
-            return this.position.PosX < SSGame.GetInstance().GetWindowSize().Width;
+            return this.position.PosX < SSGame.GetInstance().GetBattleWindowSize().Width;
         }
 
         private bool CanLeftMove()
@@ -132,7 +135,7 @@ namespace ShootingSharp.entity
 
         private bool CanDownMove()
         {
-            return this.position.PosY < SSGame.GetInstance().GetWindowSize().Height;
+            return this.position.PosY < SSGame.GetInstance().GetBattleWindowSize().Height;
         }
 
         public override void DoAction()
@@ -160,7 +163,7 @@ namespace ShootingSharp.entity
         
         public override void OnInteract(Entity entity)
         {
-            //TODO:なにもしてない
+            this.Life --;
         }
 
 

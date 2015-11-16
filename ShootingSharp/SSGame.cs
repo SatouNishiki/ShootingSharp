@@ -22,41 +22,17 @@ namespace ShootingSharp
         /// シーンが格納されたネームスペースを設定
         /// </summary>
         public List<string> SceneNameSpace { get; set; }
-/*
-        /// <summary>
-        /// プレイヤーが格納されたネームスペースを設定
-        /// </summary>
-        public List<string> PlayerNameSpace { get; set; }
 
-        /// <summary>
-        /// エネミーが格納されたネームスペースを設定
-        /// </summary>
-        public List<string> EnemyNameSpace { get; set; }
-
-
-        /// <summary>
-        /// 弾が格納されたネームスペースを設定
-        /// </summary>
-        public List<string> ShotNameSpace { get; set; }
-        */
         private IScene nowScene;
 
         private SSGame()
         {
             this.SceneNameSpace = new List<string>();
-       /*     this.PlayerNameSpace = new List<string>();
-            this.EnemyNameSpace = new List<string>();
-            this.ShotNameSpace = new List<string>();
-      */  }
+        }
 
         public void Run()
         {
-          /*  if (this.SceneNameSpace.Count == 0 || this.ShotNameSpace.Count == 0 || this.EnemyNameSpace.Count == 0 || this.PlayerNameSpace.Count == 0)
-            {
-                core.Logger.GetInstance().Fatal("on " + this.GetType().ToString() + " 's DefaultNameSpace is not input!!");
-                return;
-            }
-            */
+          
             nowScene = StartScene;
 
             //プロセスループ
@@ -111,7 +87,20 @@ namespace ShootingSharp
         }
 
         /// <summary>
-        /// ウィンドウサイズを取得
+        /// バトルのときのプレイヤー移動可能ウィンドウサイズを取得
+        /// </summary>
+        /// <returns></returns>
+        public Size GetBattleWindowSize()
+        {
+            int x = 0;
+            int y = 0;
+            DX.GetWindowSize(out x, out y);
+
+            return new Size(x - 100, y);
+        }
+
+        /// <summary>
+        /// 標準ウインドウサイズを取得
         /// </summary>
         /// <returns></returns>
         public Size GetWindowSize()

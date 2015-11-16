@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="core\FileUtility.cs" />
+    <Compile Include="core\FontProvider.cs" />
     <Compile Include="core\Logger.cs" />
     <Compile Include="entity\enemy\Enemy.cs" />
     <Compile Include="entity\enemy\EnemyRedFairy.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="position\SquareSSPositon.cs" />
     <Compile Include="position\SSPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scene\ResultSceneBase.cs" />
     <Compile Include="scene\shootingScene\ShootingSampleScene.cs" />
     <Compile Include="scene\ShootingSceneBase.cs" />
     <Compile Include="scene\TitleSceneBase.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="task\EnemyMoveTask.cs" />
     <Compile Include="task\EnemyPopTask.cs" />
     <Compile Include="task\EnemyUpdateTask.cs" />
+    <Compile Include="task\InfoDrawTask.cs" />
     <Compile Include="task\MoveTaskManager.cs" />
     <Compile Include="task\PlayerActionTask.cs" />
     <Compile Include="task\PlayerDrawTask.cs" />

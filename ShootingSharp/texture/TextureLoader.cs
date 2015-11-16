@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using DxLibDLL;
+using ShootingSharp.core;
 
 namespace ShootingSharp.texture
 {
@@ -49,7 +50,7 @@ namespace ShootingSharp.texture
         {
             this.Textures.Clear();
 
-            string path = this.FindTextureDirectory(DefaultTextureDirectoryName);
+            string path = FileUtility.FindTextureDirectory(DefaultTextureDirectoryName);
 
             //全部のファイルのフルパスが格納されている
             string[] files = Directory.GetFiles(path, "*", System.IO.SearchOption.AllDirectories);
@@ -83,7 +84,7 @@ namespace ShootingSharp.texture
                 return;
             }
 
-            string path = this.FindTextureDirectory(DefaultTextureDirectoryName);
+            string path = FileUtility.FindTextureDirectory(DefaultTextureDirectoryName);
             
             int[] buf = new int[allNum];
 
@@ -100,23 +101,7 @@ namespace ShootingSharp.texture
         }
 
 
-        /// <summary>
-        /// 指定の名前のディレクトリを実行フォルダ以下から探して絶対パスを返します
-        /// なければ作成して絶対パスを返します
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private string FindTextureDirectory(string name)
-        {
-            string appPath = Application.StartupPath;
-
-            if (!Directory.Exists(appPath + "\\" + name))
-            {
-                Directory.CreateDirectory(appPath + "\\" + name);
-            }
-
-            return appPath + "\\" + name;
-        }
+       
       
     }
 }

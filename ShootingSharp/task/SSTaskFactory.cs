@@ -43,6 +43,7 @@ namespace ShootingSharp.task
 
         public static ActionTaskManager ActionTask = TaskCreator<ActionTaskManager>.Create();
 
+        public static InfoDrawTask InfoDrawTask = TaskCreator<InfoDrawTask>.Create();
 
         /// <summary>
         /// 全てのタスクを初期化します
@@ -82,6 +83,8 @@ namespace ShootingSharp.task
             UpdateTask = TaskCreator<UpdateTaskManager>.Create();
 
             ActionTask = TaskCreator<ActionTaskManager>.Create();
+
+            InfoDrawTask = TaskCreator<InfoDrawTask>.Create();
         }
 
     }

@@ -17,6 +17,7 @@ namespace DebugProject
 {
     public class FairyDance : ShootingSceneBase
     {
+
         public FairyDance()
             : base()
         {
@@ -54,28 +55,17 @@ namespace DebugProject
                 enemy.InteractManager = this;
                 enemy.SetPopCount(i * 20 + 20);
                 this.AddEnemy(enemy);
+
             }
 
             SSTaskFactory.BackGroundImageTask.ImageHandle = TextureLoader.GetInstance().Textures["back_2.jpg"];
             SSTaskFactory.BackGroundImageTask.ScrollSpeed = 2;
             SSTaskFactory.BackGroundImageTask.ImageY = 800;
 
-            SoundLoader.GetInstance().PlayLoopSound("ready.mp3");
+         //   SoundLoader.GetInstance().PlayLoopSound("ready.mp3");
+            this.soundName = "ready.mp3";
         }
 
-        public override bool ExistNextScene()
-        {
-            return false;
-        }
 
-        public override ShootingSharp.interfaces.IScene GetNextScene()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool IsFinished()
-        {
-            return false;
-        }
     }
 }

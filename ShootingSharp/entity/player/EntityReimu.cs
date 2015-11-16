@@ -79,7 +79,8 @@ namespace ShootingSharp.entity.player
 
         public override int GetRadius()
         {
-            return this.GetTextureSize().Height / 2;
+           //return this.GetTextureSize().Height > this.GetTextureSize().Width ? this.GetTextureSize().Width / 4 : this.GetTextureSize().Height / 4;
+            return 1;
         }
 
         protected override shot.Shot GetShot()
