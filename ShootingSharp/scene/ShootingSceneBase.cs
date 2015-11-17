@@ -28,6 +28,7 @@ namespace ShootingSharp.scene
         protected EnemyPopTask popTask = SSTaskFactory.EnemyPopTask;
         protected BackGroundImageTask backimageTask = SSTaskFactory.BackGroundImageTask;
         protected InfoDrawTask infoDrawTask = SSTaskFactory.InfoDrawTask;
+        protected BossPopTask bossPopTask = SSTaskFactory.BossPopTask;
 
         private List<Entity> temp = new List<Entity>();
 
@@ -58,11 +59,13 @@ namespace ShootingSharp.scene
 
             this.backimageTask.Run();
             this.popTask.Run();
+            this.bossPopTask.Run();
             this.actionTask.Run();
             this.updateTask.Run();
             this.moveTask.Run();
             this.drawTask.Run();
             this.infoDrawTask.Run();
+
 
             foreach (var item in this.interacters)
             {
@@ -90,7 +93,7 @@ namespace ShootingSharp.scene
 
         public virtual bool IsFinished()
         {
-            if (SSTaskFactory.EnemyUpdateTask.EnemyList.Count == 0 && SSTaskFactory.EnemyPopTask.EnemyList.Count == 0)
+            if (SSTaskFactory.EnemyUpdateTask.EnemyList.Count == 0 && SSTaskFactory.EnemyPopTask.EnemyList.Count == 0 && SSTaskFactory.BossPopTask.BossList.Count == 0)
             {
                 this.Type = ResultSceneBase.ResultType.Clear;
                 return true;
@@ -268,6 +271,19 @@ namespace ShootingSharp.scene
         public string GetName()
         {
             return this.GetType().FullName;
+        }
+
+
+        public void AddBoss(entity.boss.Boss boss)
+        {/*
+            boss.InteractManager = this;
+            SSTaskFactory.BossActionTask.BossList.Add(boss);
+            SSTaskFactory.BossDrawTask.BossList.Add(boss);
+            SSTaskFactory.BossMoveTask.BossList.Add(boss);
+            SSTaskFactory.BossUpdateTask.BossList.Add(boss);*/
+
+            boss.InteractManager = this;
+            SSTaskFactory.BossPopTask.BossList.Add(boss);
         }
     }
 }

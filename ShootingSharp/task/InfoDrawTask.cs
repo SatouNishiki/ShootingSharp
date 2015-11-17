@@ -23,6 +23,10 @@ namespace ShootingSharp.task
 
         public int TimeScore { get; set; }
 
+        public int BossHPPercent { get; set; }
+
+        public string BossName { get; set; }
+
         private Size windowSize;
 
         string scoreStr = "Score";
@@ -30,6 +34,7 @@ namespace ShootingSharp.task
 
         public InfoDrawTask()
         {
+            this.BossName = string.Empty;
             this.windowSize = new Size(SSGame.GetInstance().GetBattleWindowSize().Width + 100, SSGame.GetInstance().GetBattleWindowSize().Height);
             TextureLoader.GetInstance().LoadSprite("player_helth.png", 4, 4, 4, 512 / 4, 512 / 4);
         }
@@ -40,6 +45,14 @@ namespace ShootingSharp.task
             this.TimeScore++;
          
             DX.DrawGraph(this.windowSize.Width - 100, 0, TextureLoader.GetInstance().Textures["score.jpg"], DX.TRUE);
+
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 500, this.BossName, (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(15, 12));
+
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 450, "ボスHP", (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
+
+            DX.DrawBox(this.windowSize.Width - 95, this.windowSize.Height - 404, this.windowSize.Width - 5, this.windowSize.Height - 385, DX.GetColor(255, 255, 255), DX.FALSE);
+            DX.DrawBox(this.windowSize.Width - 90, this.windowSize.Height - 402, this.windowSize.Width - 90 + this.BossHPPercent / 10 * 8, this.windowSize.Height - 387, DX.GetColor(0, 225, 0), DX.TRUE);
+        
 
             DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 200, this.scoreStr, (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
             DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 170, (this.KillScore + this.TimeScore).ToString(), (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));

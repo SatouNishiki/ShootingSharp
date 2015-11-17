@@ -100,6 +100,19 @@ namespace ShootingSharp.texture
             }
         }
 
+        /// <summary>
+        /// 画像を指定の場所から指定の大きさだけ切り取って別の画像としてハンドルを取得、格納します
+        /// </summary>
+        /// <param name="posX"></param>
+        /// <param name="posY"></param>
+        /// <param name="sizeX"></param>
+        /// <param name="sizeY"></param>
+        /// <param name="name"></param>
+        public void LoadDerivationGraph(int posX, int posY, int sizeX, int sizeY, string name)
+        {
+            if (!this.Textures.ContainsKey(name + posX.ToString() + "+" + posY.ToString()))
+                this.Textures.Add(name + posX.ToString() + "+" + posY.ToString(), DX.DerivationGraph(167, 62, 30, 30, Textures[name]));
+        }
 
        
       

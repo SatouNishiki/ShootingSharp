@@ -66,5 +66,10 @@ namespace ShootingSharp.sound
         {
             DX.StopSoundMem(this.Sounds[name]);
         }
+
+        public void PlayEffect(string name)
+        {
+            DX.PlaySoundMem(this.Sounds[name], DX.DX_PLAYTYPE_BACK);
+        }
     }
 }

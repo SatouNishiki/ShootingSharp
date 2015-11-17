@@ -71,6 +71,8 @@ namespace ShootingSharp
 
                 //以下DxLibの初期化処理
 
+                DX.SetWindowText("ShootingSharp");
+
                 DX.ChangeWindowMode(DX.TRUE);
 
                 DX.SetGraphMode(800, 600, 32);

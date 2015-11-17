@@ -49,6 +49,8 @@
     <Compile Include="core\FileUtility.cs" />
     <Compile Include="core\FontProvider.cs" />
     <Compile Include="core\Logger.cs" />
+    <Compile Include="entity\boss\Boss.cs" />
+    <Compile Include="entity\boss\BossRumia.cs" />
     <Compile Include="entity\enemy\Enemy.cs" />
     <Compile Include="entity\enemy\EnemyRedFairy.cs" />
     <Compile Include="entity\enemy\SampleEnemy.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="entity\InteractCalculator.cs" />
     <Compile Include="entity\LivingAnimationEntity.cs" />
     <Compile Include="entity\player\EntityReimu.cs" />
+    <Compile Include="entity\shot\BlackCircleShot.cs" />
     <Compile Include="entity\shot\NormalShot.cs" />
     <Compile Include="entity\shot\RedFairyShot.cs" />
     <Compile Include="entity\shot\ReimuNormalShot.cs" />
@@ -86,6 +89,11 @@
     <Compile Include="SSGame.cs" />
     <Compile Include="task\ActionTaskManager.cs" />
     <Compile Include="task\BackGroundImageTask.cs" />
+    <Compile Include="task\BossActionTask.cs" />
+    <Compile Include="task\BossDrawTask.cs" />
+    <Compile Include="task\BossMoveTask.cs" />
+    <Compile Include="task\BossPopTask.cs" />
+    <Compile Include="task\BossUpdateTask.cs" />
     <Compile Include="task\DrawTaskManager.cs" />
     <Compile Include="task\EnemyActionTask.cs" />
     <Compile Include="task\EnemyDrawTask.cs" />
@@ -108,9 +116,7 @@
     <Compile Include="task\UpdateTaskManager.cs" />
     <Compile Include="texture\TextureLoader.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="entity\boss\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="lib\DxLibDotNet.dll" />
   </ItemGroup>

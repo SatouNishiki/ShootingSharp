@@ -12,6 +12,7 @@ using ShootingSharp;
 using ShootingSharp.texture;
 using ShootingSharp.sound;
 using System.Drawing;
+using ShootingSharp.entity.boss;
 
 namespace DebugProject
 {
@@ -28,7 +29,7 @@ namespace DebugProject
             this.AddInteractObject(p);
             this.AddPlayer(p);
 
-
+/*
             for (int i = 0; i < 80; i++)
             {
                 EnemyRedFairy enemy = new EnemyRedFairy();
@@ -40,7 +41,7 @@ namespace DebugProject
                 this.AddEnemy(enemy);
             }
            
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 50; i++)
             {
                 EnemyRedFairy enemy = new EnemyRedFairy();
                 enemy.SetPosition(new SSPosition(rnd.Next(this.windowSize.Width), 1));
@@ -51,6 +52,9 @@ namespace DebugProject
                 enemy.SetPopCount(i * 30 + 20 + 20 * 50);
                 this.AddEnemy(enemy);
             }
+            */
+
+            this.AddBoss(new BossRumia());
 
             SSTaskFactory.BackGroundImageTask.ImageHandle = TextureLoader.GetInstance().Textures["back_2.jpg"];
             SSTaskFactory.BackGroundImageTask.ScrollSpeed = 2;
