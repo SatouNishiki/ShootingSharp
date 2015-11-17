@@ -53,11 +53,13 @@ namespace ShootingSharp.scene
 
                 DX.DrawStringFToHandle(10, 10, "Result", DX.GetColor(0, 0, 255), FontProvider.GetSisterFontHandle(50, 13));
 
-                DX.DrawStringFToHandle(10, 100, "Score", DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(30, 9));
 
-                DX.DrawStringFToHandle(10, 140, SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 8));
+                DX.DrawStringFToHandle(10, 50,  "    Kill Score   " + SSTaskFactory.InfoDrawTask.KillScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(10, 8));
 
-               // DX.DrawStringFToHandle(10, 200, "CLEAR!!", DX.GetColor(0, 0, 255), FontProvider.GetSisterFontHandle(150, 30));
+                DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(10, 8));
+
+                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + (SSTaskFactory.InfoDrawTask.TimeScore + SSTaskFactory.InfoDrawTask.KillScore).ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+
 
                 if (flag)
                 {
@@ -170,13 +172,15 @@ namespace ShootingSharp.scene
                 DX.SetDrawBlendMode(DX.DX_BLENDMODE_NOBLEND, 0);
 
 
+
                 DX.DrawStringFToHandle(10, 10, "Result", DX.GetColor(0, 0, 255), FontProvider.GetSisterFontHandle(50, 13));
 
-                DX.DrawStringFToHandle(10, 100, "Score", DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(30, 9));
 
-                DX.DrawStringFToHandle(10, 140, SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 8));
+                DX.DrawStringFToHandle(10, 50, "    Kill Score   " + SSTaskFactory.InfoDrawTask.KillScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(10, 8));
 
-            //    DX.DrawStringFToHandle(10, 200, "LOSE...", DX.GetColor(0, 0, 255), FontProvider.GetSisterFontHandle(150, 30));
+                DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(10, 8));
+
+                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + (SSTaskFactory.InfoDrawTask.TimeScore + SSTaskFactory.InfoDrawTask.KillScore).ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
 
                 if (flag)
                 {

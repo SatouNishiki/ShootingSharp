@@ -13,14 +13,21 @@ namespace ShootingSharp.entity.shot
         public RedFairyShot(IHasSSPosition shooter) : base(shooter) 
         {
             this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
-            this.moveSpeed = -10;
+            this.moveSpeed = 4;
         }
 
         public RedFairyShot(IHasSSPosition shooter, double theta)
             : base(shooter, theta)
         {
             this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
-            this.moveSpeed = -10;
+            this.moveSpeed = 4;
+        }
+
+        public RedFairyShot(IHasSSPosition shooter, position.SSPosition target)
+            : base(shooter, target)
+        {
+            this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
+            this.moveSpeed = 4;
         }
 
         public override void OnDeath()
@@ -45,7 +52,7 @@ namespace ShootingSharp.entity.shot
 
         public override int GetRadius()
         {
-            return 10;
+            return 5;
         }
 
         public override position.SquareSSPositon GetSquarePosition()
@@ -58,19 +65,7 @@ namespace ShootingSharp.entity.shot
             return SharpType.Circle;
         }
 
-        public override void OnUpdate()
-        {
-            if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
-                || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
-                || this.position.PosX < 0
-                || this.position.PosY < 0)
-            {
-                this.Life = 0;
-            }
-
-
-            base.OnUpdate();
-        }
+     
         
     }
 }

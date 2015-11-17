@@ -26,7 +26,6 @@ namespace DebugProject
             SSGame game = SSGame.GetInstance();
             
 
-           // game.StartScene = new ShootingSharp.scene.shootingScene.ShootingSampleScene();
 
             TitleSceneBase titleScene = new TitleSceneBase();
 

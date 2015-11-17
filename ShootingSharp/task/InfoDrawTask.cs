@@ -19,7 +19,9 @@ namespace ShootingSharp.task
     {
         public EntityPlayer Player { get; set; }
 
-        public int Score { get; set; }
+        public int KillScore { get; set; }
+
+        public int TimeScore { get; set; }
 
         private Size windowSize;
 
@@ -35,12 +37,12 @@ namespace ShootingSharp.task
 
         public void Run()
         {
-
+            this.TimeScore++;
          
             DX.DrawGraph(this.windowSize.Width - 100, 0, TextureLoader.GetInstance().Textures["score.jpg"], DX.TRUE);
 
             DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 200, this.scoreStr, (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
-            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 170, this.Score.ToString(), (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 170, (this.KillScore + this.TimeScore).ToString(), (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
 
             DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 100, this.playerStr, (uint)DX.GetColor(255, 5, 5), FontProvider.GetSisterFontHandle(25, 9));
         
@@ -59,7 +61,7 @@ namespace ShootingSharp.task
 
         public void OnEnemyKilled(int score)
         {
-            this.Score += score;
+            this.KillScore += score;
         }
     }
 }

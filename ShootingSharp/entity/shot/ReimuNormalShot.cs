@@ -12,13 +12,13 @@ namespace ShootingSharp.entity.shot
         public ReimuNormalShot(IHasSSPosition shooter) : base(shooter) 
         {
             this.textureLoader.LoadSprite("reimu_shot.png", 4, 4, 9, 130, 130);
-            this.moveSpeed = 10;
+            this.moveSpeed = -10;
         }
 
         public ReimuNormalShot(IHasSSPosition shooter, double theta) : base(shooter, theta)
         {
             this.textureLoader.LoadSprite("reimu_shot.png", 4, 4, 9, 130, 130);
-            this.moveSpeed = 10;
+            this.moveSpeed = -10;
         }
 
         public override void OnDeath()

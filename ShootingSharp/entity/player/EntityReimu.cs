@@ -67,10 +67,6 @@ namespace ShootingSharp.entity.player
             return "reimu.png7";
         }
 
-        public override void OnDeath()
-        {
-            //なにもしない
-        }
 
         public override System.Drawing.Size GetTextureSize()
         {

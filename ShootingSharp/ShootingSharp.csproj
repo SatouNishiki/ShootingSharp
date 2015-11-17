@@ -108,7 +108,9 @@
     <Compile Include="task\UpdateTaskManager.cs" />
     <Compile Include="texture\TextureLoader.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="entity\boss\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="lib\DxLibDotNet.dll" />
   </ItemGroup>

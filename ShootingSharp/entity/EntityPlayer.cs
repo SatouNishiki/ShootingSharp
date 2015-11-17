@@ -19,7 +19,13 @@ namespace ShootingSharp.entity
 
         protected int shotInterval;
 
-        
+        private bool isDeathTime;
+
+        private int deathCount;
+
+        private int noInteractTime;
+
+        private int tempSpeed;
 
         public EntityPlayer() : base()
         {
@@ -29,6 +35,11 @@ namespace ShootingSharp.entity
 
             this.Life = 3;
             this.MaxLife = 3;
+
+            this.position.PosX = SSGame.GetInstance().GetBattleWindowSize().Width / 2;
+            this.position.PosY = SSGame.GetInstance().GetBattleWindowSize().Height - 100;
+
+            this.textureLoader.LoadSprite("ora.png", 512 / 20, 256 / 20, 1, 20, 20);
         }
 
         /// <summary>
@@ -56,6 +67,36 @@ namespace ShootingSharp.entity
 
         public override void Move()
         {
+            if (this.isDeathTime)
+            {
+                this.position.PosY --;
+
+                this.deathCount++;
+
+
+                if (this.deathCount > 96)
+                {
+                    foreach (var item in SSTaskFactory.ShotUpdateTask.ShotList)
+                    {
+                        item.Life = 0;
+                    }
+                }
+
+                if (this.deathCount > 100)
+                {
+                    this.isDeathTime = false;
+                    this.deathCount = 0;
+                    this.noInteractTime = 40;
+                }
+
+                return;
+            }
+
+            if (DX.CheckHitKey(DX.KEY_INPUT_LSHIFT) == 1 || DX.CheckHitKey(DX.KEY_INPUT_RSHIFT) == 1)
+            {
+                this.tempSpeed = this.moveSpeed;
+                this.moveSpeed /= 2;
+            }
 
             if (this.MoveType == MoveTypeEnum.Right)
             {
@@ -116,30 +157,39 @@ namespace ShootingSharp.entity
                     this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
                 }
             }
+
+            if(this.tempSpeed != 0)
+            {
+                this.moveSpeed = tempSpeed;
+            }
+
+            tempSpeed = 0;
         }
 
         private bool CanRightMove()
         {
-            return this.position.PosX < SSGame.GetInstance().GetBattleWindowSize().Width;
+            return this.position.PosX < SSGame.GetInstance().GetBattleWindowSize().Width - 10;
         }
 
         private bool CanLeftMove()
         {
-            return this.position.PosX > 0;
+            return this.position.PosX > 10;
         }
 
         private bool CanUpMove()
         {
-            return this.position.PosY > 0;
+            return this.position.PosY > 10;
         }
 
         private bool CanDownMove()
         {
-            return this.position.PosY < SSGame.GetInstance().GetBattleWindowSize().Height;
+            return this.position.PosY < SSGame.GetInstance().GetBattleWindowSize().Height - 10;
         }
 
         public override void DoAction()
         {
+            if (this.isDeathTime) return;
+
             if (DX.CheckHitKey(DX.KEY_INPUT_RETURN) == 1)
             {
                 if (shotCount >= this.shotInterval)
@@ -163,7 +213,19 @@ namespace ShootingSharp.entity
         
         public override void OnInteract(Entity entity)
         {
-            this.Life --;
+
+
+            if (!this.isDeathTime)
+            {
+                this.Life--;
+
+                this.isDeathTime = true;
+
+                DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["death.mp3"], DX.DX_PLAYTYPE_BACK);
+
+                this.position.PosX = SSGame.GetInstance().GetBattleWindowSize().Width / 2;
+                this.position.PosY = SSGame.GetInstance().GetBattleWindowSize().Height;
+            }
         }
 
 
@@ -268,6 +330,18 @@ namespace ShootingSharp.entity
 
         public override void Draw()
         {
+            if (this.isDeathTime || this.noInteractTime > 0)
+            {
+
+                DX.DrawExtendGraph(
+                    this.GetTexturePosition().PosX - 45,
+                    this.GetTexturePosition().PosY - 45,
+                    this.GetTexturePosition().PosX + this.GetTextureSize().Width + 51,
+                    this.GetTexturePosition().PosY + this.GetTextureSize().Height + 51,
+                    this.textureLoader.Textures["ora.png0"],
+                    DX.TRUE);
+            }
+
             DX.DrawExtendGraph(
                 this.GetTexturePosition().PosX,
                 this.GetTexturePosition().PosY,
@@ -281,5 +355,26 @@ namespace ShootingSharp.entity
         {
             DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["default_shot.mp3"], DX.DX_PLAYTYPE_BACK);
         }
+
+        public override void OnDeath()
+        {
+            
+
+           
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+
+            if (this.noInteractTime > 0)
+            {
+                this.noInteractTime--;
+                return;
+            }
+        }
+
+        
     }
 }

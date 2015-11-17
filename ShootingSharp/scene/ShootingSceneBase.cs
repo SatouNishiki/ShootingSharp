@@ -254,11 +254,13 @@ namespace ShootingSharp.scene
             SSTaskFactory.PlayerMoveTask.Player = player;
             SSTaskFactory.PlayerActionTask.Player = player;
             SSTaskFactory.InfoDrawTask.Player = player;
+            player.InteractManager = this;
         }
 
 
         public void AddEnemy(entity.enemy.Enemy enemy)
         {
+            enemy.InteractManager = this;
             SSTaskFactory.EnemyPopTask.EnemyList.Add(enemy);
         }
 
