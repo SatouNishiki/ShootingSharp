@@ -40,11 +40,12 @@ namespace ShootingSharp.entity
         public override void OnUpdate()
         {
             base.OnUpdate();
-
             if (!this.IsLiving())
             {
                 this.OnDeath();
             }
+            
         }
+
     }
 }

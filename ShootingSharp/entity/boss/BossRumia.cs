@@ -135,5 +135,6 @@ namespace ShootingSharp.entity.boss
         {
             return "ルーミア";
         }
+
     }
 }

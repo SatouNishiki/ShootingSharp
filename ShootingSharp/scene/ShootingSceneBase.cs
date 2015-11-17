@@ -10,6 +10,8 @@ using ShootingSharp.sound;
 using DxLibDLL;
 using ShootingSharp.core;
 using ShootingSharp.texture;
+using ShootingSharp.entity.shot;
+using ShootingSharp.entity.player;
 
 namespace ShootingSharp.scene
 {
@@ -19,7 +21,9 @@ namespace ShootingSharp.scene
         /// <summary>
         /// あたり判定を行うオブジェクトを全て格納するリスト
         /// </summary>
-        protected List<Entity> interacters;
+        protected List<Entity> ohtherInteracters;
+
+        protected List<Shot> shotInteractors;
 
         protected UpdateTaskManager updateTask = SSTaskFactory.UpdateTask;
         protected DrawTaskManager drawTask = SSTaskFactory.DrawTask;
@@ -42,7 +46,8 @@ namespace ShootingSharp.scene
 
         public ShootingSceneBase()
         {
-            this.interacters = new List<Entity>();
+            this.ohtherInteracters = new List<Entity>();
+            this.shotInteractors = new List<Shot>();
             this.Type = ResultSceneBase.ResultType.Clear;
 
         }
@@ -67,7 +72,7 @@ namespace ShootingSharp.scene
             this.infoDrawTask.Run();
 
 
-            foreach (var item in this.interacters)
+            foreach (var item in this.ohtherInteracters)
             {
                 if (!item.IsLiving())
                 {
@@ -75,7 +80,7 @@ namespace ShootingSharp.scene
                 }
             }
 
-            interacters.RemoveAll(e => temp.IndexOf(e) >= 0);
+            ohtherInteracters.RemoveAll(e => temp.IndexOf(e) >= 0);
             temp.Clear();
 
             if (this.IsFinished())
@@ -224,24 +229,46 @@ namespace ShootingSharp.scene
         /// <param name="interact"></param>
         public void AddInteractObject(Entity interact)
         {
-            this.interacters.Add(interact);
+            if (interact is Shot)
+            {
+                this.shotInteractors.Add((Shot)interact);
+            }
+            else
+            {
+                this.ohtherInteracters.Add(interact);
+            }
             interact.InteractManager = this;
         }
 
+
         public Entity GetInteractObject(Entity interact)
         {
+            if (!interact.IsLiving())
+                return null;
+
             Entity interactor = null;
 
-            //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
-            foreach (var i in interacters)
+            if (interact is Shot)
             {
-                //自分自身だった場合は飛ばす
-                if (i == interact)
-                    continue;
-
-                if (interact.IsInteract(i))
+                
+                //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
+                foreach (var i in ohtherInteracters)
                 {
-                    interactor = i;
+                    if (i.IsLiving() && interact.IsInteract(i))
+                    {
+                        interactor = i;
+                    }
+                }
+            }
+            else
+            {
+                //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
+                foreach (var i in shotInteractors)
+                {
+                    if (i.IsLiving() && interact.IsInteract(i))
+                    {
+                        interactor = i;
+                    }
                 }
             }
 
@@ -275,12 +302,7 @@ namespace ShootingSharp.scene
 
 
         public void AddBoss(entity.boss.Boss boss)
-        {/*
-            boss.InteractManager = this;
-            SSTaskFactory.BossActionTask.BossList.Add(boss);
-            SSTaskFactory.BossDrawTask.BossList.Add(boss);
-            SSTaskFactory.BossMoveTask.BossList.Add(boss);
-            SSTaskFactory.BossUpdateTask.BossList.Add(boss);*/
+        {
 
             boss.InteractManager = this;
             SSTaskFactory.BossPopTask.BossList.Add(boss);

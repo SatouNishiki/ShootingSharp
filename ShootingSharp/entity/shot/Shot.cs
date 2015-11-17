@@ -120,6 +120,8 @@ namespace ShootingSharp.entity.shot
         
         public override void OnUpdate()
         {
+            base.OnUpdate();
+
             if (this.outOfWindowDeleteEnable)
             {
                 if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
@@ -140,7 +142,6 @@ namespace ShootingSharp.entity.shot
             if (this.updateCount <= this.deleteTime)
                 this.updateCount++;
      
-            base.OnUpdate();
         }
 
         public override void Move()

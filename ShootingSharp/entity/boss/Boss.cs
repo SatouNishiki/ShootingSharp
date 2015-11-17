@@ -19,6 +19,12 @@ namespace ShootingSharp.entity.boss
             this.position.PosY = 100;
         }
 
+        public void OnPop()
+        {
+            this.InteractManager.AddInteractObject(this);
+        }
+
+
         public override void OnInteract(Entity entity)
         {
             if (entity is EntityPlayer)

@@ -31,6 +31,11 @@ namespace ShootingSharp.entity.enemy
             this.score = 10;
         }
 
+        public void OnPop()
+        {
+            this.InteractManager.AddInteractObject(this);
+        }
+
         public override void OnInteract(Entity entity)
         {
             //プレイヤーだったら
@@ -65,12 +70,6 @@ namespace ShootingSharp.entity.enemy
             return this.popCount;
         }
 
-        public override void OnUpdate()
-        {
-            
-            base.OnUpdate();
-
-        }
 
         public override position.SSPosition GetTexturePosition()
         {

@@ -139,6 +139,7 @@ namespace ShootingSharp.task
                         SSTaskFactory.BossMoveTask.BossList.Add(item);
                         SSTaskFactory.BossUpdateTask.BossList.Add(item);
                         SSTaskFactory.InfoDrawTask.BossName += item.GetName();
+                        item.OnPop();
                     }
 
                     this.bossPoped = false;

@@ -35,6 +35,7 @@ namespace ShootingSharp.task
                     SSTaskFactory.EnemyMoveTask.EnemyList.Add(e);
                     SSTaskFactory.EnemyUpdateTask.EnemyList.Add(e);
                     e.KilledByPlayer += SSTaskFactory.InfoDrawTask.OnEnemyKilled;
+                    e.OnPop();
                     temp.Add(e);
                 }
             }
