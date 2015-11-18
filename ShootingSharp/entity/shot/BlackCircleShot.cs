@@ -36,7 +36,7 @@ namespace ShootingSharp.entity.shot
 
         public override System.Drawing.Size GetTextureSize()
         {
-            return new System.Drawing.Size(16, 16);
+            return new System.Drawing.Size(12, 12);
         }
 
         public override void DoAction()
@@ -46,7 +46,7 @@ namespace ShootingSharp.entity.shot
 
         public override int GetRadius()
         {
-            return 8;
+            return 1;
         }
 
         public override position.SquareSSPositon GetSquarePosition()

@@ -10,7 +10,7 @@ namespace ShootingSharp.entity.player
 {
     public class EntityReimu : EntityPlayer
     {
-        private const int textureSize = 50;
+        private const int textureSize = 35;
 
         public EntityReimu()
             : base()

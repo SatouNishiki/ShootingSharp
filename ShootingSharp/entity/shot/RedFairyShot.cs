@@ -47,12 +47,11 @@ namespace ShootingSharp.entity.shot
 
         public override void DoAction()
         {
-          //  throw new NotImplementedException();
         }
 
         public override int GetRadius()
         {
-            return 5;
+            return 3;
         }
 
         public override position.SquareSSPositon GetSquarePosition()

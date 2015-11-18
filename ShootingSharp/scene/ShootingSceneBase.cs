@@ -122,91 +122,14 @@ namespace ShootingSharp.scene
             if (this.Type == ResultSceneBase.ResultType.Clear)
             {
                 DX.WaitTimer(200);
-                string outStr = "CLEAR!!";
 
-                for (int i = 0; i < outStr.Length; i++)
-                {
-                    DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["click.mp3"], DX.DX_PLAYTYPE_BACK);
-
-                    switch (i)
-                    {
-                        case (0):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["C.png"], DX.TRUE);
-                            break;
-
-                        case (1):
-                            DX.DrawGraph(100 + i * 90, 100, loader.Textures["L.png"], DX.TRUE);
-                            break;
-
-                        case (2):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["E.png"], DX.TRUE);
-                            break;
-
-                        case (3):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["A.png"], DX.TRUE);
-                            break;
-
-                        case (4):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["R.png"], DX.TRUE);
-                            break;
-
-                        case (5):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["!.png"], DX.TRUE);
-                            break;
-
-                        case (6):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["!.png"], DX.TRUE);
-                            break;
-                    }
-
-                    DX.ScreenFlip();
-                    DX.WaitTimer(150);
-                }
-
+                Effecter.TypeWrite(100, 100, 80, "C.png", "L.png", "E.png", "A.png", "R.png", "!.png", "!.png");
             }
             else
             {
                 DX.WaitTimer(200);
-                string outStr = "LOSE...";
 
-                for (int i = 0; i < outStr.Length; i++)
-                {
-                    DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["click.mp3"], DX.DX_PLAYTYPE_BACK);
-
-                    switch (i)
-                    {
-                        case (0):
-                            DX.DrawGraph(100 + i * 90, 100, loader.Textures["L.png"], DX.TRUE);
-                            break;
-
-                        case (1):
-                            DX.DrawGraph(100 + i * 90, 100, loader.Textures["O.png"], DX.TRUE);
-                            break;
-
-                        case (2):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["S.png"], DX.TRUE);
-                            break;
-
-                        case (3):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["E.png"], DX.TRUE);
-                            break;
-
-                        case (4):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["dot.png"], DX.TRUE);
-                            break;
-
-                        case (5):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["dot.png"], DX.TRUE);
-                            break;
-
-                        case (6):
-                            DX.DrawGraph(100 + i * 80, 100, loader.Textures["dot.png"], DX.TRUE);
-                            break;
-                    }
-
-                    DX.ScreenFlip();
-                    DX.WaitTimer(150);
-                }
+                Effecter.TypeWrite(100, 100, 80, "L.png", "O.png", "S.png", "E.png", "dot.png", "dot.png", "dot.png");
             }
             DX.DrawStringFToHandle(200, 300, "なにかキーを押してください", DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 13));
             DX.ScreenFlip();

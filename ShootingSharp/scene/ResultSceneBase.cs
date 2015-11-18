@@ -63,85 +63,11 @@ namespace ShootingSharp.scene
 
                 if (flag)
                 {
-
-                    for (int i = 0; i < 7; i++)
-                    {
-                        DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["click.mp3"], DX.DX_PLAYTYPE_BACK);
-
-                        switch (i)
-                        {
-                            case (0):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["C.png"], DX.TRUE);
-                                break;
-
-                            case (1):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["L.png"], DX.TRUE);
-                                break;
-
-                            case (2):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["E.png"], DX.TRUE);
-                                break;
-
-                            case (3):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["A.png"], DX.TRUE);
-                                break;
-
-                            case (4):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["R.png"], DX.TRUE);
-                                break;
-
-                            case (5):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["!.png"], DX.TRUE);
-                                break;
-
-                            case (6):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["!.png"], DX.TRUE);
-                                break;
-                        }
-
-                        DX.ScreenFlip();
-                        DX.WaitTimer(150);
-                    }
-
-
+                    Effecter.TypeWrite(100, 200, 80, "C.png", "L.png", "E.png", "A.png", "R.png", "!.png", "!.png");
                 }
                 else
                 {
-                    for (int i = 0; i < 7; i++)
-                    {
-                        switch (i)
-                        {
-                            case (0):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["C.png"], DX.TRUE);
-                                break;
-
-                            case (1):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["L.png"], DX.TRUE);
-                                break;
-
-                            case (2):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["E.png"], DX.TRUE);
-                                break;
-
-                            case (3):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["A.png"], DX.TRUE);
-                                break;
-
-                            case (4):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["R.png"], DX.TRUE);
-                                break;
-
-                            case (5):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["!.png"], DX.TRUE);
-                                break;
-
-                            case (6):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["!.png"], DX.TRUE);
-                                break;
-                        }
-
-                    }
-
+                    Effecter.DrawContinuityGraph(10, 200, 80, "C.png", "L.png", "E.png", "A.png", "R.png", "!.png", "!.png");
                 }
 
 
@@ -184,81 +110,11 @@ namespace ShootingSharp.scene
 
                 if (flag)
                 {
-
-                    for (int i = 0; i < 7; i++)
-                    {
-                        DX.PlaySoundMem(SoundLoader.GetInstance().Sounds["click.mp3"], DX.DX_PLAYTYPE_BACK);
-
-                        switch (i)
-                        {
-                            case (0):
-                                DX.DrawGraph(10 + i * 90, 200, loader.Textures["L.png"], DX.TRUE);
-                                break;
-
-                            case (1):
-                                DX.DrawGraph(10 + i * 90, 200, loader.Textures["O.png"], DX.TRUE);
-                                break;
-
-                            case (2):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["S.png"], DX.TRUE);
-                                break;
-
-                            case (3):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["E.png"], DX.TRUE);
-                                break;
-
-                            case (4):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["dot.png"], DX.TRUE);
-                                break;
-
-                            case (5):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["dot.png"], DX.TRUE);
-                                break;
-
-                            case (6):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["dot.png"], DX.TRUE);
-                                break;
-                        }
-
-                        DX.ScreenFlip();
-                        DX.WaitTimer(150);
-                    }
+                    Effecter.TypeWrite(100, 200, 80, "L.png", "O.png", "S.png", "E.png", "dot.png", "dot.png", "dot.png");
                 }
                 else
                 {
-                    for (int i = 0; i < 7; i++)
-                    {
-                        switch (i)
-                        {
-                            case (0):
-                                DX.DrawGraph(10 + i * 90, 200, loader.Textures["L.png"], DX.TRUE);
-                                break;
-
-                            case (1):
-                                DX.DrawGraph(10 + i * 90, 200, loader.Textures["O.png"], DX.TRUE);
-                                break;
-
-                            case (2):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["S.png"], DX.TRUE);
-                                break;
-
-                            case (3):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["E.png"], DX.TRUE);
-                                break;
-
-                            case (4):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["dot.png"], DX.TRUE);
-                                break;
-
-                            case (5):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["dot.png"], DX.TRUE);
-                                break;
-
-                            case (6):
-                                DX.DrawGraph(10 + i * 80, 200, loader.Textures["dot.png"], DX.TRUE);
-                                break;
-                        }
-                    }
+                    Effecter.DrawContinuityGraph(100, 200, 80, "L.png", "O.png", "S.png", "E.png", "dot.png", "dot.png", "dot.png");
                 }
                     
                 

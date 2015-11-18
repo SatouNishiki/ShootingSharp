@@ -40,93 +40,18 @@ namespace ShootingSharp.task
                 {
 
                     runCount = 0;
-                   
-                    SoundLoader.GetInstance().PlayEffect("alert.mp3");
 
-                    // フェードイン処理
-                    for (int i = 0; i < 255; i += 5)
-                    {
-                        // 描画輝度をセット
-                        DX.SetDrawBright(i, i, i);
+                    Effecter.DrawFlashingGraph(
+                        100,
+                        100,
+                        SSGame.GetInstance().GetBattleWindowSize().Width,
+                        SSGame.GetInstance().GetBattleWindowSize().Height,
+                        "encount_boss.png",
+                        "alert.mp3",
+                        2,
+                        5);
 
-                        // グラフィックを描画
-                        DX.DrawExtendGraph(
-                            100,
-                            100,
-                            SSGame.GetInstance().GetBattleWindowSize().Width,
-                            SSGame.GetInstance().GetBattleWindowSize().Height,
-                            TextureLoader.GetInstance().Textures["encount_boss.png"],
-                            DX.TRUE);
-                        
-                        DX.ScreenFlip();
-                    }
-
-                    // フェードアウト処理
-                    for (int i = 0; i < 255; i += 5)
-                    {
-                        // 描画輝度をセット
-                        DX.SetDrawBright(255 - i, 255 - i, 255 - i);
-		
-                        // グラフィックを描画
-                        DX.DrawExtendGraph(
-                            100,
-                            100,
-                            SSGame.GetInstance().GetBattleWindowSize().Width,
-                            SSGame.GetInstance().GetBattleWindowSize().Height,
-                            TextureLoader.GetInstance().Textures["encount_boss.png"],
-                            DX.TRUE);
-
-                        DX.ScreenFlip();
-                    }
-
-                    SoundLoader.GetInstance().PlayEffect("alert.mp3");
-
-                    // フェードイン処理
-                    for (int i = 0; i < 255; i += 5)
-                    {
-                        // 描画輝度をセット
-                        DX.SetDrawBright(i, i, i);
-
-                        // グラフィックを描画
-                        DX.DrawExtendGraph(
-                            100,
-                            100,
-                            SSGame.GetInstance().GetBattleWindowSize().Width,
-                            SSGame.GetInstance().GetBattleWindowSize().Height,
-                            TextureLoader.GetInstance().Textures["encount_boss.png"],
-                            DX.TRUE);
-
-                        DX.ScreenFlip();
-                    }
-
-                    // フェードアウト処理
-                    for (int i = 0; i < 255; i += 5)
-                    {
-                        // 描画輝度をセット
-                        DX.SetDrawBright(255 - i, 255 - i, 255 - i);
-
-                        // グラフィックを描画
-                        DX.DrawExtendGraph(
-                            100,
-                            100,
-                            SSGame.GetInstance().GetBattleWindowSize().Width,
-                            SSGame.GetInstance().GetBattleWindowSize().Height,
-                            TextureLoader.GetInstance().Textures["encount_boss.png"],
-                            DX.TRUE);
-
-                        DX.ScreenFlip();
-                    }
-
-                    DX.SetDrawBright(255, 255, 255);
-
-                    DX.DrawExtendGraph(
-                        0,
-                        0,
-                        SSGame.GetInstance().GetWindowSize().Width,
-                        SSGame.GetInstance().GetWindowSize().Height,
-                        TextureLoader.GetInstance().Textures[BossList[0].GetCutinTextureName()],
-                        DX.TRUE
-                        );
+                    Effecter.CutIn(BossList[0].GetCutinTextureName(), 0, 0, SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height);
 
                     DX.ScreenFlip();
 

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="core\Effecter.cs" />
     <Compile Include="core\FileUtility.cs" />
     <Compile Include="core\FontProvider.cs" />
     <Compile Include="core\Logger.cs" />
@@ -61,9 +62,11 @@
     <Compile Include="entity\LivingAnimationEntity.cs" />
     <Compile Include="entity\player\EntityReimu.cs" />
     <Compile Include="entity\shot\BlackCircleShot.cs" />
+    <Compile Include="entity\shot\BlackLongShot.cs" />
     <Compile Include="entity\shot\NormalShot.cs" />
     <Compile Include="entity\shot\RedFairyShot.cs" />
     <Compile Include="entity\shot\ReimuNormalShot.cs" />
+    <Compile Include="entity\shot\RGBStoneShot.cs" />
     <Compile Include="entity\shot\Shot.cs" />
     <Compile Include="interfaces\IAction.cs" />
     <Compile Include="interfaces\IHasBom.cs" />

@@ -70,6 +70,22 @@ namespace ShootingSharp.entity.shot
         /// <summary>
         /// 通常弾を生成
         /// </summary>
+        /// <param name="position">発射位置</param>
+        public Shot(SSPosition position)
+            : base()
+        {
+            this.outOfWindowDeleteEnable = true;
+            this.Type = ShotType.Normal;
+            this.moveSpeed = 5;
+            this.position.PosX = position.PosX;
+            this.position.PosY = position.PosY;
+
+            this.deleteTime = this.GetDeleteTime();
+        }
+
+        /// <summary>
+        /// 通常弾を生成
+        /// </summary>
         /// <param name="shooter">射手</param>
         public Shot(IHasSSPosition shooter)
             : base()
@@ -93,7 +109,7 @@ namespace ShootingSharp.entity.shot
         {
             this.Type = ShotType.Direction;
 
-            this.theta = theta;
+            this.theta = theta * Math.PI / 180.0D;
             this.moveSpeed = 5;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
@@ -132,16 +148,18 @@ namespace ShootingSharp.entity.shot
                     this.Life = 0;
                 }
             }
-            
-            if (this.deleteTime <= this.updateCount)
-            {
-                this.Life = 0;
-                this.updateCount = 0;
-            }
 
-            if (this.updateCount <= this.deleteTime)
-                this.updateCount++;
-     
+            if (this.deleteTime != -1)
+            {
+                if (this.deleteTime <= this.updateCount)
+                {
+                    this.Life = 0;
+                    this.updateCount = 0;
+                }
+
+                if (this.updateCount <= this.deleteTime)
+                    this.updateCount++;
+            }
         }
 
         public override void Move()
@@ -196,8 +214,7 @@ namespace ShootingSharp.entity.shot
         //消えるまでの時間
         protected virtual int GetDeleteTime()
         {
-            //デフォの消失時間を適当に設定
-            return SSGame.GetInstance().GetBattleWindowSize().Height * 2 / this.moveSpeed;
+            return -1;
         }
 
         public override position.SSPosition GetTexturePosition()

@@ -11,7 +11,7 @@ namespace ShootingSharp.core
     {
         private static System.Drawing.Text.PrivateFontCollection fontCollection = new System.Drawing.Text.PrivateFontCollection();
 
-        private static Dictionary<int, int> dic = new Dictionary<int, int>();
+        private static Dictionary<string, int> dic = new Dictionary<string, int>();
 
         /// <summary>
         /// 妹フォントを取得します
@@ -21,15 +21,15 @@ namespace ShootingSharp.core
         /// <returns></returns>
         public static int GetSisterFontHandle(int size, int thick)
         {
-            if (!dic.ContainsKey(size))
+            if (!dic.ContainsKey(size.ToString() + "," + thick.ToString()))
             {
                 string path = FileUtility.FindTextureDirectory("font");
 
                 fontCollection.AddFontFile(path + "\\" + "SistersFS.ttf");
 
-                dic.Add(size, DX.CreateFontToHandle("妹フォント標準", size, thick, DX.DX_FONTTYPE_NORMAL));
+                dic.Add(size.ToString() + "," + thick.ToString(), DX.CreateFontToHandle("妹フォント標準", size, thick, DX.DX_FONTTYPE_NORMAL));
             }
-            return dic[size];
+            return dic[size.ToString() + "," + thick.ToString()];
         }
 
     }
