@@ -10,6 +10,7 @@ using ShootingSharp.task;
 using ShootingSharp.sound;
 using ShootingSharp.interfaces;
 using ShootingSharp.entity.bom;
+using ShootingSharp.core;
 
 namespace ShootingSharp.entity
 {
@@ -47,7 +48,9 @@ namespace ShootingSharp.entity
         protected MainShotType mainShotType;
         protected SubShotType subShotType;
 
-        private int bommerCount;
+        private int fiveShotCount;
+
+       
         private int bomCount;
 
         public EntityPlayer()
@@ -60,7 +63,7 @@ namespace ShootingSharp.entity
             this.Life = 3;
             this.MaxLife = 3;
 
-            this.bomCount = 3;
+            this.bomCount = 1;
 
             this.position.PosX = SSGame.GetInstance().GetBattleWindowSize().Width / 2;
             this.position.PosY = SSGame.GetInstance().GetBattleWindowSize().Height - 100;
@@ -69,6 +72,8 @@ namespace ShootingSharp.entity
 
             this.mainShotType = MainShotType.Normal;
             this.subShotType = SubShotType.None;
+
+            this.friendCode = "player";
         }
 
         /// <summary>
@@ -254,21 +259,26 @@ namespace ShootingSharp.entity
 
                     if (this.mainShotType == MainShotType.Five)
                     {
-                        Shot s4 = this.GetFiveShot(110.0D);
-                        //味方に設定
-                        s4.SetFriendCode(this.friendCode);
-                        this.InteractManager.AddInteractObject(s4);
-                        SSTaskFactory.ShotMoveTask.ShotList.Add(s4);
-                        SSTaskFactory.ShotDrawTask.ShotList.Add(s4);
-                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s4);
+                        if (this.fiveShotCount % 2 == 0)
+                        {
+                            Shot s4 = this.GetFiveShot(110.0D);
+                            //味方に設定
+                            s4.SetFriendCode(this.friendCode);
+                            this.InteractManager.AddInteractObject(s4);
+                            SSTaskFactory.ShotMoveTask.ShotList.Add(s4);
+                            SSTaskFactory.ShotDrawTask.ShotList.Add(s4);
+                            SSTaskFactory.ShotUpdateTask.ShotList.Add(s4);
 
-                        Shot s5 = this.GetFiveShot(70.0D);
-                        //味方に設定
-                        s5.SetFriendCode(this.friendCode);
-                        this.InteractManager.AddInteractObject(s5);
-                        SSTaskFactory.ShotMoveTask.ShotList.Add(s5);
-                        SSTaskFactory.ShotDrawTask.ShotList.Add(s5);
-                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s5);
+                            Shot s5 = this.GetFiveShot(70.0D);
+                            //味方に設定
+                            s5.SetFriendCode(this.friendCode);
+                            this.InteractManager.AddInteractObject(s5);
+                            SSTaskFactory.ShotMoveTask.ShotList.Add(s5);
+                            SSTaskFactory.ShotDrawTask.ShotList.Add(s5);
+                            SSTaskFactory.ShotUpdateTask.ShotList.Add(s5);
+                        }
+
+                        this.fiveShotCount++;
                     }
                     /*
                     if (this.subShotType == SubShotType.Side)
@@ -295,6 +305,12 @@ namespace ShootingSharp.entity
             }
             if (this.shotCount < this.shotInterval)
                 this.shotCount++;
+
+            if (DX.CheckHitKey(DX.KEY_INPUT_L) == 1)
+            {
+                if (this.bomCount > 0)
+                    this.Bom();
+            }
         }
 
         protected abstract Shot GetShot();
@@ -329,6 +345,7 @@ namespace ShootingSharp.entity
                 this.mainShotType = MainShotType.Normal;
                 this.subShotType = SubShotType.None;
                 this.power = 0;
+                this.bomCount = 1;
 
                 this.isDeathTime = true;
 
@@ -534,18 +551,26 @@ namespace ShootingSharp.entity
         }
 
         public void Bom()
-        {/*
-            Shot s = this.GetShot();
-            //味方に設定
+        {
+            Bom s = this.GetBom();
+            s.SetPosition(new position.SSPosition(this.position.PosX, this.position.PosY));
             s.SetFriendCode(this.friendCode);
             this.InteractManager.AddInteractObject(s);
-            SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-            SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-            SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
-            this.shotCount = 0;
-          */
+            SSTaskFactory.BomUpdateTask.BomList.Add(s);
+            SSTaskFactory.BomDrawTask.BomList.Add(s);
+
+            this.bomCount--;
+
+            Effecter.CutIn(this.GetCutInTextureName(), 0, 0, SSGame.GetInstance().GetWindowSize().Height, SSGame.GetInstance().GetWindowSize().Height, 1000);
         }
 
         protected abstract Bom GetBom();
+
+        public int GetBomCount()
+        {
+            return this.bomCount;
+        }
+
+        public abstract string GetCutInTextureName();
     }
 }

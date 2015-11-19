@@ -20,7 +20,7 @@ namespace ShootingSharp.entity.boss
         public BossRumia() : base()
         {
             this.windowSize = SSGame.GetInstance().GetBattleWindowSize();
-            this.Life = 100;
+            this.Life = 1000;
             this.MaxLife = Life;
             this.canMove = true;
         }
@@ -209,5 +209,10 @@ namespace ShootingSharp.entity.boss
             return "ルーミア";
         }
 
+
+        public override string GetMusicName()
+        {
+            return "boss1.mp3";
+        }
     }
 }

@@ -17,6 +17,10 @@ namespace ShootingSharp.task
 
         public static ItemUpdateTask ItemUpdateTask = TaskCreator<ItemUpdateTask>.Create();
 
+        public static BomDrawTask BomDrawTask = TaskCreator<BomDrawTask>.Create();
+
+        public static BomUpdateTask BomUpdateTask = TaskCreator<BomUpdateTask>.Create();
+
         public static BossActionTask BossActionTask = TaskCreator<BossActionTask>.Create();
 
         public static BossDrawTask BossDrawTask = TaskCreator<BossDrawTask>.Create();
@@ -73,6 +77,10 @@ namespace ShootingSharp.task
             ItemMoveTask = TaskCreator<ItemMoveTask>.Create();
 
             ItemUpdateTask = TaskCreator<ItemUpdateTask>.Create();
+
+            BomDrawTask = TaskCreator<BomDrawTask>.Create();
+
+            BomUpdateTask = TaskCreator<BomUpdateTask>.Create();
 
             BossActionTask = TaskCreator<BossActionTask>.Create();
 

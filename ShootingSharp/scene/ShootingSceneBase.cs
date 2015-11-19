@@ -48,6 +48,8 @@ namespace ShootingSharp.scene
 
         protected ResultSceneBase.ResultType Type;
 
+        private Entity interactor = null;
+
         public ShootingSceneBase()
         {
             this.playerInteracters = new List<Entity>();
@@ -120,8 +122,7 @@ namespace ShootingSharp.scene
 
         protected virtual void OnFinished()
         {
-            if (soundName != string.Empty)
-                SoundLoader.GetInstance().StopSount(soundName);
+            SoundLoader.GetInstance().StopAllSound();
 
             if (this.Type == ResultSceneBase.ResultType.Clear)
             {
@@ -164,6 +165,10 @@ namespace ShootingSharp.scene
             {
                 this.notPlayerInteractors.Add(interact);
             }
+            else if (interact is entity.bom.Bom)
+            {
+                this.notPlayerInteractors.Add(interact);
+            }
             else
             {
                 this.playerInteracters.Add(interact);
@@ -177,9 +182,9 @@ namespace ShootingSharp.scene
             if (!interact.IsLiving())
                 return null;
 
-            Entity interactor = null;
+            interactor = null;
 
-            if (interact is Shot)
+          /*  if (interact is Shot)
             {
                 
                 //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
@@ -190,9 +195,9 @@ namespace ShootingSharp.scene
                         interactor = i;
                     }
                 }
-            }
-            else
-            {
+            }*/
+           // else
+         //   {
                 //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
                 foreach (var i in notPlayerInteractors)
                 {
@@ -201,7 +206,7 @@ namespace ShootingSharp.scene
                         interactor = i;
                     }
                 }
-            }
+          //  }
 
             return interactor;
         }

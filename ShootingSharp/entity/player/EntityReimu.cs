@@ -99,5 +99,15 @@ namespace ShootingSharp.entity.player
           //  return new ReimuNormalShot(new position.SSPosition(), theta);
             throw new NotImplementedException();
         }
+
+        protected override bom.Bom GetBom()
+        {
+            return new entity.bom.ReimuBom();
+        }
+
+        public override string GetCutInTextureName()
+        {
+            return "cutin_reimu.png";
+        }
     }
 }

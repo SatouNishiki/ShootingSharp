@@ -22,8 +22,6 @@ namespace ShootingSharp.task
 
         public void Run()
         {
-            List<Enemy> temp = new List<Enemy>();
-
             foreach (var e in this.EnemyList)
             {
                 //出現フレーム数になったら
@@ -36,11 +34,10 @@ namespace ShootingSharp.task
                     SSTaskFactory.EnemyUpdateTask.EnemyList.Add(e);
                     e.KilledByPlayer += SSTaskFactory.InfoDrawTask.OnEnemyKilled;
                     e.OnPop();
-                    temp.Add(e);
                 }
             }
 
-            this.EnemyList.RemoveAll(e => temp.IndexOf(e) >= 0);
+            this.EnemyList.RemoveAll(enemy => !enemy.IsLiving());
 
             this.count++;
         }

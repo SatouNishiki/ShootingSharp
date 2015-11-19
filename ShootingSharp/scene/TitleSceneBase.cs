@@ -122,7 +122,7 @@ namespace ShootingSharp.scene
 
                         this.finishFlag = true;
 
-                        sloader.StopSount("title.mp3");
+                        sloader.StopSound("title.mp3");
                     }
                 }
 

@@ -12,16 +12,18 @@ namespace ShootingSharp.core
     public static class Effecter
     {
         private static TextureLoader loader = TextureLoader.GetInstance();
+        private static SoundLoader sLoader = SoundLoader.GetInstance();
 
-        /// <summary>
+       /// <summary>
         /// 指定名の画像をつかって左上(x1, y1)から右下(x2+1, y2+1)にかけてカットイン描画します
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        public static void CutIn(string name, int x1, int y1, int x2, int y2)
+       /// </summary>
+       /// <param name="name"></param>
+       /// <param name="x1"></param>
+       /// <param name="y1"></param>
+       /// <param name="x2"></param>
+       /// <param name="y2"></param>
+       /// <param name="wait"></param>
+        public static void CutIn(string name, int x1, int y1, int x2, int y2, int wait)
         {
             DX.DrawExtendGraph(
                         x1,
@@ -31,6 +33,12 @@ namespace ShootingSharp.core
                         TextureLoader.GetInstance().Textures[name],
                         DX.TRUE
                         );
+
+            DX.ScreenFlip();
+
+            sLoader.PlayEffect("cutin.mp3");
+
+            DX.WaitTimer(wait);
         }
 
         /// <summary>

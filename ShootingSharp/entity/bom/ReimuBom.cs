@@ -10,7 +10,7 @@ namespace ShootingSharp.entity.bom
     {
         public override string GetTextureName()
         {
-            return "reimu_bom.png";
+            return "reimu_bom2.png";
         }
 
         public override System.Drawing.Size GetTextureSize()

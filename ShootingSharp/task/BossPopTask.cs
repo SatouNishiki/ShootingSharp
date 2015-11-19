@@ -39,6 +39,8 @@ namespace ShootingSharp.task
                 if (runCount > 200)
                 {
 
+                    SoundLoader.GetInstance().StopAllSound();
+
                     runCount = 0;
 
                     Effecter.DrawFlashingGraph(
@@ -51,11 +53,9 @@ namespace ShootingSharp.task
                         2,
                         5);
 
-                    Effecter.CutIn(BossList[0].GetCutinTextureName(), 0, 0, SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height);
+                    Effecter.CutIn(BossList[0].GetCutinTextureName(), 0, 0, SSGame.GetInstance().GetWindowSize().Height, SSGame.GetInstance().GetWindowSize().Height, 2000);
 
-                    DX.ScreenFlip();
-
-                    DX.WaitTimer(2000);
+                    SoundLoader.GetInstance().PlayLoopSound(this.BossList[0].GetMusicName());
 
                     foreach (var item in this.BossList)
                     {

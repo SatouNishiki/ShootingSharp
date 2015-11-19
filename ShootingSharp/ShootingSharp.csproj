@@ -99,6 +99,8 @@
     <Compile Include="SSGame.cs" />
     <Compile Include="task\ActionTaskManager.cs" />
     <Compile Include="task\BackGroundImageTask.cs" />
+    <Compile Include="task\BomDrawTask.cs" />
+    <Compile Include="task\BomUpdateTask.cs" />
     <Compile Include="task\BossActionTask.cs" />
     <Compile Include="task\BossDrawTask.cs" />
     <Compile Include="task\BossMoveTask.cs" />

@@ -33,7 +33,7 @@ namespace ShootingSharp.entity.shot
         /// <summary>
         /// 弾が消えるまでの時間
         /// </summary>
-        protected int deleteTime;
+     //   protected int deleteTime;
 
         /// <summary>
         /// アップデートのたびに呼ばれるカウンタ
@@ -67,6 +67,8 @@ namespace ShootingSharp.entity.shot
         /// </summary>
         protected SSPosition target;
 
+        private ShootingSharp.position.SSPosition pos = new position.SSPosition();
+
         /// <summary>
         /// 通常弾を生成
         /// </summary>
@@ -80,7 +82,7 @@ namespace ShootingSharp.entity.shot
             this.position.PosX = position.PosX;
             this.position.PosY = position.PosY;
 
-            this.deleteTime = this.GetDeleteTime();
+          //  this.deleteTime = this.GetDeleteTime();
         }
 
         /// <summary>
@@ -99,7 +101,7 @@ namespace ShootingSharp.entity.shot
             this.position.PosX = position.PosX;
             this.position.PosY = position.PosY;
 
-            this.deleteTime = this.GetDeleteTime();
+          //  this.deleteTime = this.GetDeleteTime();
         }
 
 
@@ -116,7 +118,7 @@ namespace ShootingSharp.entity.shot
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
 
-            this.deleteTime = this.GetDeleteTime();
+          //  this.deleteTime = this.GetDeleteTime();
         }
 
         /// <summary>
@@ -128,24 +130,25 @@ namespace ShootingSharp.entity.shot
             : base()
         {
             this.Type = ShotType.Direction;
-
+            outOfWindowDeleteEnable = true;
             this.theta = theta * Math.PI / 180.0D;
             this.moveSpeed = 5;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
 
-            this.deleteTime = this.GetDeleteTime();
+           // this.deleteTime = this.GetDeleteTime();
         }
 
         public Shot(IHasSSPosition shooter, SSPosition target)
             : base()
         {
             this.Type = ShotType.Aim;
+            outOfWindowDeleteEnable = true;
             this.moveSpeed = 5;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
 
-            this.deleteTime = this.GetDeleteTime();
+           // this.deleteTime = this.GetDeleteTime();
 
             this.target = new SSPosition();
             this.target.PosX = target.PosX;
@@ -156,7 +159,12 @@ namespace ShootingSharp.entity.shot
         
         public override void OnUpdate()
         {
-            base.OnUpdate();
+           // base.OnUpdate();
+
+            if (!this.IsLiving())
+            {
+                this.OnDeath();
+            }
 
             if (this.outOfWindowDeleteEnable)
             {
@@ -168,7 +176,7 @@ namespace ShootingSharp.entity.shot
                     this.Life = 0;
                 }
             }
-
+/*
             if (this.deleteTime != -1)
             {
                 if (this.deleteTime <= this.updateCount)
@@ -179,7 +187,7 @@ namespace ShootingSharp.entity.shot
 
                 if (this.updateCount <= this.deleteTime)
                     this.updateCount++;
-            }
+            }*/
         }
 
         public override void Move()
@@ -241,8 +249,6 @@ namespace ShootingSharp.entity.shot
         public override position.SSPosition GetTexturePosition()
         {
 
-            ShootingSharp.position.SSPosition pos = new position.SSPosition();
-
             pos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
             pos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
 
@@ -250,7 +256,7 @@ namespace ShootingSharp.entity.shot
         }
 
         public override void Draw()
-        {
+        {/*
             if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                 || this.position.PosX < 0
@@ -258,7 +264,7 @@ namespace ShootingSharp.entity.shot
             {
                 return;
             }
-
+            */
             DX.DrawExtendGraph(
                this.GetTexturePosition().PosX,
                this.GetTexturePosition().PosY,
@@ -277,5 +283,7 @@ namespace ShootingSharp.entity.shot
         {
             return this.moveSpeed;
         }
+        
+        
     }
 }

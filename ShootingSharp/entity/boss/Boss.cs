@@ -69,5 +69,7 @@ namespace ShootingSharp.entity.boss
         public abstract string GetCutinTextureName();
 
         public abstract string GetName();
+
+        public abstract string GetMusicName();
     }
 }

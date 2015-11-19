@@ -41,8 +41,7 @@ namespace ShootingSharp.entity.enemy
 
         public override void OnInteract(Entity entity)
         {
-            //プレイヤーだったら
-            if (entity is EntityPlayer)
+            if (entity is EntityPlayer || entity is item.Item)
             {
                 //とりあえずこっちは何もしない(ボスが体当たりで死んだらアレなので)
                 return;

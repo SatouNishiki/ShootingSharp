@@ -179,6 +179,12 @@ namespace ShootingSharp.entity.enemy
 
             base.OnUpdate();
         }
+
+        protected override item.Item GetDropItem()
+        {
+            return new item.ItemBigPower();
+
+        }
     }
     
 }

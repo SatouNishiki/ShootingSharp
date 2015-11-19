@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DxLibDLL;
 using ShootingSharp.texture;
+using ShootingSharp.task;
 
 namespace ShootingSharp.entity.bom
 {
@@ -13,7 +14,7 @@ namespace ShootingSharp.entity.bom
         protected TextureLoader loader;
         private int drawCount;
 
-        public Bom()
+        public Bom() : base()
         {
             this.loader = TextureLoader.GetInstance();
         }
@@ -40,17 +41,8 @@ namespace ShootingSharp.entity.bom
         }
 
         public override void Draw()
-        {/*
-            DX.DrawExtendGraph(
-                 this.GetTexturePosition().PosX,
-                 this.GetTexturePosition().PosY,
-                 this.GetTexturePosition().PosX + this.GetTextureSize().Width + 1,
-                 this.GetTexturePosition().PosY + this.GetTextureSize().Height + 1,
-                 this.loader.Textures[this.GetTextureName()],
-                 DX.TRUE);
-          */
-
-            DX.DrawRotaGraph(this.position.PosX, this.position.PosY, this.drawCount, (double)this.drawCount / 4.0D,
+        {
+            DX.DrawRotaGraph(this.position.PosX, this.position.PosY, (double)this.drawCount / 3.0D, (double)this.drawCount / 10.0D,
                 this.loader.Textures[this.GetTextureName()], DX.TRUE);
 
             this.drawCount++;
@@ -69,7 +61,18 @@ namespace ShootingSharp.entity.bom
 
         public override int GetRadius()
         {
-            return this.GetTextureSize().Width > this.GetTextureSize().Height ? this.GetTextureSize().Width : this.GetTextureSize().Height;
+            int a = 0;
+
+            if (this.GetTextureSize().Width < this.GetTextureSize().Height)
+            {
+                a = this.GetTextureSize().Height;
+            }
+            else
+            {
+                a = this.GetTextureSize().Width;
+            }
+
+            return (int)Math.Round((a * ((double)this.drawCount / 3.0D)));
         }
 
         public override position.SquareSSPositon GetSquarePosition()
@@ -80,6 +83,20 @@ namespace ShootingSharp.entity.bom
         public override interfaces.SharpType GetSharpType()
         {
             return interfaces.SharpType.Circle;
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            SSTaskFactory.ShotDrawTask.ShotList.ForEach(s => s.Life = 0);
+            SSTaskFactory.ShotMoveTask.ShotList.ForEach(s => s.Life = 0);
+            SSTaskFactory.ShotUpdateTask.ShotList.ForEach(s => s.Life = 0);
+
+            if (this.GetRadius() > SSGame.GetInstance().GetBattleWindowSize().Width)
+            {
+                this.Life = 0;
+            }
         }
     }
 }

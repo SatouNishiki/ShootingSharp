@@ -54,11 +54,13 @@ namespace ShootingSharp.scene
                 DX.DrawStringFToHandle(10, 10, "Result", DX.GetColor(0, 0, 255), FontProvider.GetSisterFontHandle(30, 13));
 
 
-                DX.DrawStringFToHandle(10, 50,  "    Kill Score   " + SSTaskFactory.InfoDrawTask.KillScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20,15));
+                DX.DrawStringFToHandle(10, 50,  "    Kill Score   " + SSTaskFactory.InfoDrawTask.KillScore.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20,15));
 
-                DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+                DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 15));
 
-                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+                DX.DrawStringFToHandle(10, 110, "  + Item Score   " + SSTaskFactory.InfoDrawTask.ItemScore.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 15));
+
+                DX.DrawStringFToHandle(10, 140, "  =  All Score   " + SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 15));
 
 
                 if (flag)
@@ -67,7 +69,7 @@ namespace ShootingSharp.scene
                 }
                 else
                 {
-                    Effecter.DrawContinuityGraph(10, 200, 80, "C.png", "L.png", "E.png", "A.png", "R.png", "!.png", "!.png");
+                    Effecter.DrawContinuityGraph(100, 200, 80, "C.png", "L.png", "E.png", "A.png", "R.png", "!.png", "!.png");
                 }
 
 
@@ -79,7 +81,7 @@ namespace ShootingSharp.scene
                     flag = false;
                 }
                 
-                DX.DrawStringFToHandle(200, 400, "なにかキーを押してください", DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 13));
+                DX.DrawStringFToHandle(200, 400, "なにかキーを押してください", DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 13));
             }
             else
             {
@@ -102,11 +104,13 @@ namespace ShootingSharp.scene
                 DX.DrawStringFToHandle(10, 10, "Result", DX.GetColor(0, 0, 255), FontProvider.GetSisterFontHandle(30, 13));
 
 
-                DX.DrawStringFToHandle(10, 50, "    Kill Score   " + SSTaskFactory.InfoDrawTask.KillScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+                DX.DrawStringFToHandle(10, 50, "    Kill Score   " + SSTaskFactory.InfoDrawTask.KillScore.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 15));
 
-                DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+                DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 15));
 
-                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+                DX.DrawStringFToHandle(10, 110, "  + Item Score   " + SSTaskFactory.InfoDrawTask.ItemScore.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 15));
+
+                DX.DrawStringFToHandle(10, 140, "  =  All Score   " + SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 15));
 
                 if (flag)
                 {
@@ -125,7 +129,7 @@ namespace ShootingSharp.scene
                     flag = false;
                 }
 
-                DX.DrawStringFToHandle(200, 400, "なにかキーを押してください", DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 13));
+                DX.DrawStringFToHandle(200, 400, "なにかキーを押してください", DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 13));
             }
             return !this.IsFinished();
         }
@@ -140,8 +144,8 @@ namespace ShootingSharp.scene
             //何かキーが押されたら終わる
             if (DX.CheckHitKeyAll() != 0)
             {
-                SoundLoader.GetInstance().StopSount("clear.mp3");
-                SoundLoader.GetInstance().StopSount("lose.mp3");
+                SoundLoader.GetInstance().StopSound("clear.mp3");
+                SoundLoader.GetInstance().StopSound("lose.mp3");
                 return true;
             }
             else

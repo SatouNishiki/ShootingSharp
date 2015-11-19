@@ -62,7 +62,7 @@ namespace ShootingSharp.sound
             DX.PlaySoundMem(this.Sounds[name], DX.DX_PLAYTYPE_LOOP);
         }
 
-        public void StopSount(string name)
+        public void StopSound(string name)
         {
             DX.StopSoundMem(this.Sounds[name]);
         }
@@ -70,6 +70,17 @@ namespace ShootingSharp.sound
         public void PlayEffect(string name)
         {
             DX.PlaySoundMem(this.Sounds[name], DX.DX_PLAYTYPE_BACK);
+        }
+
+        public void StopAllSound()
+        {
+            foreach (var item in this.Sounds.Values)
+            {
+                if (DX.CheckSoundMem(item) == 1)
+                {
+                    DX.StopSoundMem(item);
+                }
+            }
         }
     }
 }

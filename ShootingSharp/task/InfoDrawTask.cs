@@ -34,6 +34,9 @@ namespace ShootingSharp.task
 
         private Size windowSize;
 
+        private int drawCount;
+        private int count;
+
         string scoreStr = "Score";
         string playerStr = "Life";
         string powerStr = "Power";
@@ -43,6 +46,9 @@ namespace ShootingSharp.task
             this.BossName = string.Empty;
             this.windowSize = new Size(SSGame.GetInstance().GetBattleWindowSize().Width + 100, SSGame.GetInstance().GetBattleWindowSize().Height);
             TextureLoader.GetInstance().LoadSprite("player_helth.png", 4, 4, 4, 512 / 4, 512 / 4);
+          
+            this.drawCount = 0;
+            this.count = 0;
         }
 
 
@@ -58,7 +64,19 @@ namespace ShootingSharp.task
 
             DX.DrawBox(this.windowSize.Width - 95, this.windowSize.Height - 404, this.windowSize.Width - 5, this.windowSize.Height - 385, DX.GetColor(255, 255, 255), DX.FALSE);
             DX.DrawBox(this.windowSize.Width - 90, this.windowSize.Height - 402, this.windowSize.Width - 90 + this.BossHPPercent / 10 * 8, this.windowSize.Height - 387, DX.GetColor(0, 225, 0), DX.TRUE);
-        
+
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 360, "ボム", (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
+
+            for (int i = 0; i < Player.GetBomCount(); i++)
+            {
+                DX.DrawExtendGraph(
+                    this.windowSize.Width - 95 + i * 40,
+                    this.windowSize.Height - 334,
+                    this.windowSize.Width - 61 + i * 40,
+                    this.windowSize.Height - 300,
+                    TextureLoader.GetInstance().Textures["bom_count" + (drawCount % 6).ToString() + ".png" ],
+                    DX.TRUE);
+            }
 
             DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 300, this.scoreStr, (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
             DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 270, this.Score.ToString(), (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
@@ -80,6 +98,11 @@ namespace ShootingSharp.task
                     TextureLoader.GetInstance().Textures["player_helth.png3"],
                     DX.TRUE);
             }
+
+            if (count % 2 == 0)
+                drawCount++;
+
+            count++;
         }
 
         public void OnEnemyKilled(int score)
