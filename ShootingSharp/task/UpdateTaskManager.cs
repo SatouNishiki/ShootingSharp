@@ -18,6 +18,7 @@ namespace ShootingSharp.task
             this.AddTask(SSTaskFactory.ShotUpdateTask);
             this.AddTask(SSTaskFactory.EnemyUpdateTask);
             this.AddTask(SSTaskFactory.BossUpdateTask);
+            this.AddTask(SSTaskFactory.ItemUpdateTask);
         }
 
     }

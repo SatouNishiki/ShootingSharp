@@ -84,6 +84,20 @@ namespace ShootingSharp.entity.player
             return new ReimuNormalShot(this);
         }
 
-        
+        protected override Shot GetThreeShot(double theta)
+        {
+            return new ReimuNormalShot(this, theta);
+        }
+
+        protected override Shot GetFiveShot(double theta)
+        {
+            return new ReimuNormalShot(this, theta);
+        }
+
+        protected override Shot GetSubShot(double theta)
+        {
+          //  return new ReimuNormalShot(new position.SSPosition(), theta);
+            throw new NotImplementedException();
+        }
     }
 }

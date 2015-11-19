@@ -58,7 +58,7 @@ namespace ShootingSharp.scene
 
                 DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
 
-                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + (SSTaskFactory.InfoDrawTask.TimeScore + SSTaskFactory.InfoDrawTask.KillScore).ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
 
 
                 if (flag)
@@ -106,7 +106,7 @@ namespace ShootingSharp.scene
 
                 DX.DrawStringFToHandle(10, 80, "  + Time Score   " + SSTaskFactory.InfoDrawTask.TimeScore.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
 
-                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + (SSTaskFactory.InfoDrawTask.TimeScore + SSTaskFactory.InfoDrawTask.KillScore).ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
+                DX.DrawStringFToHandle(10, 110, "  =  All Score   " + SSTaskFactory.InfoDrawTask.Score.ToString(), DX.GetColor(255, 0, 0), FontProvider.GetSisterFontHandle(20, 15));
 
                 if (flag)
                 {

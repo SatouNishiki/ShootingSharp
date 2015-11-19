@@ -7,26 +7,29 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class RedFairyShot : Shot
+    public class BlueFairyShot : Shot
     {
-
-        public RedFairyShot(IHasSSPosition shooter) : base(shooter) 
+        public enum ColorType
         {
-            this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
+            Normal, Dark
+        }
+
+        public ColorType Color { get; set; }
+
+        public BlueFairyShot(IHasSSPosition shooter) : base(shooter) 
+        {
             this.moveSpeed = 3;
         }
 
-        public RedFairyShot(IHasSSPosition shooter, double theta)
+        public BlueFairyShot(IHasSSPosition shooter, double theta)
             : base(shooter, theta)
         {
-            this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
             this.moveSpeed = 3;
         }
 
-        public RedFairyShot(IHasSSPosition shooter, position.SSPosition target)
+        public BlueFairyShot(IHasSSPosition shooter, position.SSPosition target)
             : base(shooter, target)
         {
-            this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
             this.moveSpeed = 3;
         }
 
@@ -37,7 +40,10 @@ namespace ShootingSharp.entity.shot
 
         public override string GetTextureName()
         {
-            return "fairy_shot.png0";
+            if (Color == ColorType.Dark)
+                return "dark_blue_fairy_shot.png";
+            else
+                return "blue_fairy_shot.png";
         }
 
         public override System.Drawing.Size GetTextureSize()
@@ -63,8 +69,5 @@ namespace ShootingSharp.entity.shot
         {
             return SharpType.Circle;
         }
-
-     
-        
     }
 }

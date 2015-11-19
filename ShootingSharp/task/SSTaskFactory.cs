@@ -11,6 +11,12 @@ namespace ShootingSharp.task
     {
         public static BackGroundImageTask BackGroundImageTask = TaskCreator<BackGroundImageTask>.Create();
 
+        public static ItemDrawTask ItemDrawTask = TaskCreator<ItemDrawTask>.Create();
+
+        public static ItemMoveTask ItemMoveTask = TaskCreator<ItemMoveTask>.Create();
+
+        public static ItemUpdateTask ItemUpdateTask = TaskCreator<ItemUpdateTask>.Create();
+
         public static BossActionTask BossActionTask = TaskCreator<BossActionTask>.Create();
 
         public static BossDrawTask BossDrawTask = TaskCreator<BossDrawTask>.Create();
@@ -61,6 +67,12 @@ namespace ShootingSharp.task
         public static void Init()
         {
             BackGroundImageTask = TaskCreator<BackGroundImageTask>.Create();
+
+            ItemDrawTask = TaskCreator<ItemDrawTask>.Create();
+
+            ItemMoveTask = TaskCreator<ItemMoveTask>.Create();
+
+            ItemUpdateTask = TaskCreator<ItemUpdateTask>.Create();
 
             BossActionTask = TaskCreator<BossActionTask>.Create();
 

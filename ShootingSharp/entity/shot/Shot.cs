@@ -84,6 +84,26 @@ namespace ShootingSharp.entity.shot
         }
 
         /// <summary>
+        /// 方向弾を生成
+        /// </summary>
+        /// <param name="position">発射位置</param>
+        /// <param name="theta">角度</param>
+        public Shot(SSPosition position, double theta)
+            : base()
+        {
+            this.outOfWindowDeleteEnable = true;
+            this.Type = ShotType.Direction;
+
+            this.theta = theta * Math.PI / 180.0D;
+            this.moveSpeed = 5;
+            this.position.PosX = position.PosX;
+            this.position.PosY = position.PosY;
+
+            this.deleteTime = this.GetDeleteTime();
+        }
+
+
+        /// <summary>
         /// 通常弾を生成
         /// </summary>
         /// <param name="shooter">射手</param>
@@ -203,8 +223,9 @@ namespace ShootingSharp.entity.shot
 
         public override void OnInteract(Entity entity)
         {
-            if (entity is Shot)
+            if (entity is Shot || entity is item.Item)
                 return;
+
 
             //ぶつかったら消える
             this.Life = 0;

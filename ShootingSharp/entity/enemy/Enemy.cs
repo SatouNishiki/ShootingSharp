@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ShootingSharp.entity;
 using ShootingSharp.texture;
 using DxLibDLL;
+using ShootingSharp.task;
 
 namespace ShootingSharp.entity.enemy
 {
@@ -29,6 +30,8 @@ namespace ShootingSharp.entity.enemy
         {
             this.loader = TextureLoader.GetInstance();
             this.score = 10;
+            this.KilledByPlayer += this.OnKilled;
+            this.friendCode = "enemy";
         }
 
         public void OnPop()
@@ -95,6 +98,34 @@ namespace ShootingSharp.entity.enemy
 
         public override void OnDeath()
         {
+           
         }
+
+        protected virtual item.Item GetDropItem()
+        {
+            return new item.ItemSmallPower();
+        }
+
+        private void OnKilled(int score)
+        {
+            Random rnd = new Random();
+            int r = rnd.Next(100);
+           
+            if (r < 30)
+            {
+                item.Item i = this.GetDropItem();
+
+                if (i == null)
+                    return;
+
+                i.SetPosition(this.position);
+
+                this.InteractManager.AddInteractObject(i);
+                SSTaskFactory.ItemDrawTask.ItemList.Add(i);
+                SSTaskFactory.ItemMoveTask.ItemList.Add(i);
+                SSTaskFactory.ItemUpdateTask.ItemList.Add(i);
+            }
+        }
+        
     }
 }

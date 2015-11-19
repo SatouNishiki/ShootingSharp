@@ -83,6 +83,8 @@ namespace ShootingSharp
                 {
                     return null;
                 }
+
+                DX.ChangeFontType(DX.DX_FONTTYPE_ANTIALIASING_8X8);
             }
 
             return instance;

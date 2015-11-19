@@ -84,7 +84,7 @@ namespace ShootingSharp.entity.enemy
         
         public override System.Drawing.Size GetTextureSize()
         {
-            return new System.Drawing.Size(50, 50);
+            return new System.Drawing.Size(30, 30);
         }
 
 
@@ -95,11 +95,13 @@ namespace ShootingSharp.entity.enemy
                 if (moveCount < 50)
                 {
                     this.position.PosY += this.moveSpeed;
+                    this.MoveType = MoveTypeEnum.Down;
                 }
                 else if (moveCount > 60)
                 {
                     this.position.PosX -= this.moveSpeed - 1;
                     this.position.PosY += this.moveSpeed - 1;
+                    this.MoveType = MoveTypeEnum.LeftDown;
                 }
 
             }
@@ -108,11 +110,13 @@ namespace ShootingSharp.entity.enemy
                 if (moveCount < 50)
                 {
                     this.position.PosY += this.moveSpeed;
+                    this.MoveType = MoveTypeEnum.Down;
                 }
                 else if (moveCount > 60)
                 {
                     this.position.PosX += this.moveSpeed - 1;
                     this.position.PosY += this.moveSpeed - 1;
+                    this.MoveType = MoveTypeEnum.RightDown;
                 }
             }
             else if(this.MovingType == 2)
@@ -121,11 +125,13 @@ namespace ShootingSharp.entity.enemy
                 {
                     this.position.PosX += this.moveSpeed - 1;
                     this.position.PosY += this.moveSpeed - 1;
+                    this.MoveType = MoveTypeEnum.RightDown;
                 }
                 else if (moveCount > 60)
                 {
                     this.position.PosX -= this.moveSpeed - 1;
                     this.position.PosY += this.moveSpeed - 1;
+                    this.MoveType = MoveTypeEnum.LeftDown;
                 }
             }
             else
@@ -134,11 +140,13 @@ namespace ShootingSharp.entity.enemy
                 {
                     this.position.PosX -= this.moveSpeed - 1;
                     this.position.PosY += this.moveSpeed - 1;
+                    this.MoveType = MoveTypeEnum.LeftDown;
                 }
                 else if (moveCount > 60)
                 {
                     this.position.PosX += this.moveSpeed - 1;
                     this.position.PosY += this.moveSpeed - 1;
+                    this.MoveType = MoveTypeEnum.RightDown;
                 }
             }
                 this.moveCount++;
@@ -262,6 +270,21 @@ namespace ShootingSharp.entity.enemy
             }
 
             base.OnUpdate();
+        }
+
+        protected override item.Item GetDropItem()
+        {
+            Random rnd = new Random();
+            int r = rnd.Next(100);
+
+            if (r < 10)
+            {
+                return new item.ItemBigPower();
+            }
+            else
+            {
+                return new item.ItemSmallPower();
+            }
         }
     }
 }

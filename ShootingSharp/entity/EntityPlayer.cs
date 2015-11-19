@@ -8,11 +8,28 @@ using ShootingSharp.texture;
 using ShootingSharp.entity.shot;
 using ShootingSharp.task;
 using ShootingSharp.sound;
+using ShootingSharp.interfaces;
+using ShootingSharp.entity.bom;
 
 namespace ShootingSharp.entity
 {
-    public abstract class EntityPlayer : LivingAnimationEntity
+
+    public abstract class EntityPlayer : LivingAnimationEntity, IHasBom
     {
+        public enum MainShotType
+        {
+            Normal, Three, Five
+        }
+
+        public enum SubShotType
+        {
+            None, Side
+        }
+
+        private const int powerMax = 20;
+
+        protected int power;
+
         protected TextureLoader textureLoader;
 
         private int shotCount;
@@ -27,19 +44,31 @@ namespace ShootingSharp.entity
 
         private int tempSpeed;
 
-        public EntityPlayer() : base()
+        protected MainShotType mainShotType;
+        protected SubShotType subShotType;
+
+        private int bommerCount;
+        private int bomCount;
+
+        public EntityPlayer()
+            : base()
         {
-            
+
             this.textureLoader = TextureLoader.GetInstance();
             this.logger.Debug(this.GetType().ToString() + " is create");
 
             this.Life = 3;
             this.MaxLife = 3;
 
+            this.bomCount = 3;
+
             this.position.PosX = SSGame.GetInstance().GetBattleWindowSize().Width / 2;
             this.position.PosY = SSGame.GetInstance().GetBattleWindowSize().Height - 100;
 
             this.textureLoader.LoadSprite("ora.png", 512 / 20, 256 / 20, 1, 20, 20);
+
+            this.mainShotType = MainShotType.Normal;
+            this.subShotType = SubShotType.None;
         }
 
         /// <summary>
@@ -51,7 +80,7 @@ namespace ShootingSharp.entity
             float moveCoefficient;
 
             //ななめ移動なら
-            if (this.MoveType == MoveTypeEnum.RightUp || this.MoveType == MoveTypeEnum.RightDown 
+            if (this.MoveType == MoveTypeEnum.RightUp || this.MoveType == MoveTypeEnum.RightDown
                 || this.MoveType == MoveTypeEnum.LeftUp || this.MoveType == MoveTypeEnum.LeftDown)
             {
                 moveCoefficient = 0.71f;
@@ -69,7 +98,7 @@ namespace ShootingSharp.entity
         {
             if (this.isDeathTime)
             {
-                this.position.PosY --;
+                this.position.PosY--;
 
                 this.deathCount++;
 
@@ -158,7 +187,7 @@ namespace ShootingSharp.entity
                 }
             }
 
-            if(this.tempSpeed != 0)
+            if (this.tempSpeed != 0)
             {
                 this.moveSpeed = tempSpeed;
             }
@@ -203,6 +232,65 @@ namespace ShootingSharp.entity
                     SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
                     this.shotCount = 0;
                     this.PlayShotSound();
+
+                    if (this.mainShotType == MainShotType.Three || this.mainShotType == MainShotType.Five)
+                    {
+                        Shot s2 = this.GetThreeShot(100.0D);
+                        //味方に設定
+                        s2.SetFriendCode(this.friendCode);
+                        this.InteractManager.AddInteractObject(s2);
+                        SSTaskFactory.ShotMoveTask.ShotList.Add(s2);
+                        SSTaskFactory.ShotDrawTask.ShotList.Add(s2);
+                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s2);
+
+                        Shot s3 = this.GetThreeShot(80.0D);
+                        //味方に設定
+                        s3.SetFriendCode(this.friendCode);
+                        this.InteractManager.AddInteractObject(s3);
+                        SSTaskFactory.ShotMoveTask.ShotList.Add(s3);
+                        SSTaskFactory.ShotDrawTask.ShotList.Add(s3);
+                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s3);
+                    }
+
+                    if (this.mainShotType == MainShotType.Five)
+                    {
+                        Shot s4 = this.GetFiveShot(110.0D);
+                        //味方に設定
+                        s4.SetFriendCode(this.friendCode);
+                        this.InteractManager.AddInteractObject(s4);
+                        SSTaskFactory.ShotMoveTask.ShotList.Add(s4);
+                        SSTaskFactory.ShotDrawTask.ShotList.Add(s4);
+                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s4);
+
+                        Shot s5 = this.GetFiveShot(70.0D);
+                        //味方に設定
+                        s5.SetFriendCode(this.friendCode);
+                        this.InteractManager.AddInteractObject(s5);
+                        SSTaskFactory.ShotMoveTask.ShotList.Add(s5);
+                        SSTaskFactory.ShotDrawTask.ShotList.Add(s5);
+                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s5);
+                    }
+                    /*
+                    if (this.subShotType == SubShotType.Side)
+                    {
+                        Shot s2 = this.GetSubShot(80.0D);
+                        //味方に設定
+                        s2.SetFriendCode(this.friendCode);
+                        this.InteractManager.AddInteractObject(s2);
+                        SSTaskFactory.ShotMoveTask.ShotList.Add(s2);
+                        SSTaskFactory.ShotDrawTask.ShotList.Add(s2);
+                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s2);
+                        this.shotCount = 0;
+
+                        Shot s3 = this.GetSubShot(20.0D);
+                        //味方に設定
+                        s3.SetFriendCode(this.friendCode);
+                        this.InteractManager.AddInteractObject(s3);
+                        SSTaskFactory.ShotMoveTask.ShotList.Add(s3);
+                        SSTaskFactory.ShotDrawTask.ShotList.Add(s3);
+                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s3);
+                        this.shotCount = 0;
+                    }*/
                 }
             }
             if (this.shotCount < this.shotInterval)
@@ -210,14 +298,37 @@ namespace ShootingSharp.entity
         }
 
         protected abstract Shot GetShot();
-        
+
+        /// <summary>
+        /// 3-way弾の時でてくる弾です
+        /// </summary>
+        /// <returns></returns>
+        protected abstract Shot GetThreeShot(double theta);
+
+        /// <summary>
+        /// 5-way弾の時でてくる弾です
+        /// </summary>
+        /// <returns></returns>
+        protected abstract Shot GetFiveShot(double theta);
+
+        /// <summary>
+        /// SubShotで出てくる弾です
+        /// </summary>
+        /// <returns></returns>
+        protected abstract Shot GetSubShot(double theta);
+
         public override void OnInteract(Entity entity)
         {
-
+            if (entity is item.Item)
+                return;
 
             if (!this.isDeathTime)
             {
                 this.Life--;
+
+                this.mainShotType = MainShotType.Normal;
+                this.subShotType = SubShotType.None;
+                this.power = 0;
 
                 this.isDeathTime = true;
 
@@ -225,6 +336,7 @@ namespace ShootingSharp.entity
 
                 this.position.PosX = SSGame.GetInstance().GetBattleWindowSize().Width / 2;
                 this.position.PosY = SSGame.GetInstance().GetBattleWindowSize().Height;
+
             }
         }
 
@@ -242,8 +354,8 @@ namespace ShootingSharp.entity
 
             return pos;
         }
-         
-        
+
+
 
         /// <summary>
         /// 移動タイプ決めるよ
@@ -358,9 +470,7 @@ namespace ShootingSharp.entity
 
         public override void OnDeath()
         {
-            
 
-           
         }
 
         public override void OnUpdate()
@@ -375,6 +485,67 @@ namespace ShootingSharp.entity
             }
         }
 
-        
+        public void AddMainShot()
+        {
+            if (this.mainShotType == MainShotType.Normal)
+            {
+                this.mainShotType = MainShotType.Three;
+            }
+            else if (this.mainShotType == MainShotType.Three)
+            {
+                this.mainShotType = MainShotType.Five;
+            }
+        }
+
+        public void AddSubShot()
+        {
+            if (this.subShotType == SubShotType.None)
+            {
+                this.subShotType = SubShotType.Side;
+            }
+        }
+
+        public void AddPower(int power)
+        {
+            this.power += power;
+
+            if (this.power >= powerMax)
+            {
+                if (this.mainShotType != MainShotType.Five)
+                {
+                    this.AddMainShot();
+                }
+                else
+                {
+                    this.power = powerMax;
+                    SSTaskFactory.InfoDrawTask.ItemScore += power * 100;
+                }
+            }
+        }
+
+        public int GetPower()
+        {
+            return this.power;
+        }
+
+        public bool CanShot()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Bom()
+        {/*
+            Shot s = this.GetShot();
+            //味方に設定
+            s.SetFriendCode(this.friendCode);
+            this.InteractManager.AddInteractObject(s);
+            SSTaskFactory.ShotMoveTask.ShotList.Add(s);
+            SSTaskFactory.ShotDrawTask.ShotList.Add(s);
+            SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+            this.shotCount = 0;
+          */
+        }
+
+        protected abstract Bom GetBom();
     }
 }

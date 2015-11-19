@@ -23,7 +23,12 @@ namespace ShootingSharp.task
 
         public int TimeScore { get; set; }
 
+        public int ItemScore { get; set; }
+
         public int BossHPPercent { get; set; }
+
+        public int Score
+        { get { return this.KillScore + this.ItemScore + this.TimeScore; } }
 
         public string BossName { get; set; }
 
@@ -31,6 +36,7 @@ namespace ShootingSharp.task
 
         string scoreStr = "Score";
         string playerStr = "Life";
+        string powerStr = "Power";
 
         public InfoDrawTask()
         {
@@ -54,11 +60,15 @@ namespace ShootingSharp.task
             DX.DrawBox(this.windowSize.Width - 90, this.windowSize.Height - 402, this.windowSize.Width - 90 + this.BossHPPercent / 10 * 8, this.windowSize.Height - 387, DX.GetColor(0, 225, 0), DX.TRUE);
         
 
-            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 200, this.scoreStr, (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
-            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 170, (this.KillScore + this.TimeScore).ToString(), (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 300, this.scoreStr, (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 270, this.Score.ToString(), (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
+
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 200, this.powerStr, (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
+            DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 170, Player.GetPower().ToString(), (uint)DX.GetColor(5, 10, 255), FontProvider.GetSisterFontHandle(25, 9));
 
             DX.DrawStringToHandle(this.windowSize.Width - 90, this.windowSize.Height - 100, this.playerStr, (uint)DX.GetColor(255, 5, 5), FontProvider.GetSisterFontHandle(25, 9));
         
+
 
             for (int i = 0; i < Player.Life; i++)
             {

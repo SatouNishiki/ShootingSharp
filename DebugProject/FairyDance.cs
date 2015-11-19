@@ -23,42 +23,53 @@ namespace DebugProject
         public FairyDance()
             : base()
         {
-            Random rnd = new Random();
-
             EntityReimu p = new EntityReimu();
             this.AddInteractObject(p);
             this.AddPlayer(p);
 
-/*
+
             for (int i = 0; i < 80; i++)
             {
                 EnemyRedFairy enemy = new EnemyRedFairy();
-                enemy.SetPosition(new SSPosition(rnd.Next(this.windowSize.Width), 1));
+                enemy.SetPosition(new SSPosition((int)Math.Round(Math.Abs(Math.Sin(i) * (this.windowSize.Width - 400))) + 200, 1));
                 enemy.MovingType = 2;
                 enemy.ActionType = 3;
 
-                enemy.SetPopCount(i * 40 + 20);
+                enemy.SetPopCount(i * 30 + 20);
                 this.AddEnemy(enemy);
             }
            
             for (int i = 0; i < 50; i++)
             {
                 EnemyRedFairy enemy = new EnemyRedFairy();
-                enemy.SetPosition(new SSPosition(rnd.Next(this.windowSize.Width), 1));
+                enemy.SetPosition(new SSPosition((int)Math.Round(Math.Abs(Math.Cos(i) * (this.windowSize.Width - 400))) + 200, 1));
                 enemy.MovingType = 3;
 
                 enemy.ActionType = 3;
 
-                enemy.SetPopCount(i * 30 + 20 + 20 * 50);
+                enemy.SetPopCount(i * 20 + 20 + 20 * 50);
                 this.AddEnemy(enemy);
             }
-            */
+
+
+            for (int i = 0; i < 30; i++)
+            {
+                EnemyBlueFairy enemy = new EnemyBlueFairy();
+                enemy.SetPosition(new SSPosition(1, 1));
+                enemy.MovingType = 0;
+
+                enemy.ActionType = 0;
+
+                enemy.SetPopCount(i * 40 + 20);
+                this.AddEnemy(enemy);
+            }
+            
 
             this.AddBoss(new BossRumia());
 
-            SSTaskFactory.BackGroundImageTask.ImageHandle = TextureLoader.GetInstance().Textures["back_2.jpg"];
+            SSTaskFactory.BackGroundImageTask.ImageHandle = TextureLoader.GetInstance().Textures["back_3.jpg"];
             SSTaskFactory.BackGroundImageTask.ScrollSpeed = 2;
-            SSTaskFactory.BackGroundImageTask.ImageY = 800;
+            SSTaskFactory.BackGroundImageTask.ImageY = 768;
 
          
             this.soundName = "ready.mp3";

@@ -19,11 +19,15 @@ namespace ShootingSharp.scene
     {
         
         /// <summary>
-        /// あたり判定を行うオブジェクトを全て格納するリスト
+        /// プレイヤーとあたり判定をしないオブジェクトを全て格納するリスト
         /// </summary>
-        protected List<Entity> ohtherInteracters;
+        protected List<Entity> playerInteracters;
 
-        protected List<Shot> shotInteractors;
+        /// <summary>
+        /// プレイヤーとあたり判定をするオブジェクトを格納
+        /// </summary>
+        protected List<Entity> notPlayerInteractors;
+
 
         protected UpdateTaskManager updateTask = SSTaskFactory.UpdateTask;
         protected DrawTaskManager drawTask = SSTaskFactory.DrawTask;
@@ -46,8 +50,8 @@ namespace ShootingSharp.scene
 
         public ShootingSceneBase()
         {
-            this.ohtherInteracters = new List<Entity>();
-            this.shotInteractors = new List<Shot>();
+            this.playerInteracters = new List<Entity>();
+            this.notPlayerInteractors = new List<Entity>();
             this.Type = ResultSceneBase.ResultType.Clear;
 
         }
@@ -72,7 +76,7 @@ namespace ShootingSharp.scene
             this.infoDrawTask.Run();
 
 
-            foreach (var item in this.ohtherInteracters)
+            foreach (var item in this.playerInteracters)
             {
                 if (!item.IsLiving())
                 {
@@ -80,7 +84,7 @@ namespace ShootingSharp.scene
                 }
             }
 
-            ohtherInteracters.RemoveAll(e => temp.IndexOf(e) >= 0);
+            playerInteracters.RemoveAll(e => temp.IndexOf(e) >= 0);
             temp.Clear();
 
             if (this.IsFinished())
@@ -154,11 +158,15 @@ namespace ShootingSharp.scene
         {
             if (interact is Shot)
             {
-                this.shotInteractors.Add((Shot)interact);
+                this.notPlayerInteractors.Add(interact);
+            }
+            else if (interact is entity.item.Item)
+            {
+                this.notPlayerInteractors.Add(interact);
             }
             else
             {
-                this.ohtherInteracters.Add(interact);
+                this.playerInteracters.Add(interact);
             }
             interact.InteractManager = this;
         }
@@ -175,7 +183,7 @@ namespace ShootingSharp.scene
             {
                 
                 //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
-                foreach (var i in ohtherInteracters)
+                foreach (var i in playerInteracters)
                 {
                     if (i.IsLiving() && interact.IsInteract(i))
                     {
@@ -186,7 +194,7 @@ namespace ShootingSharp.scene
             else
             {
                 //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
-                foreach (var i in shotInteractors)
+                foreach (var i in notPlayerInteractors)
                 {
                     if (i.IsLiving() && interact.IsInteract(i))
                     {
@@ -230,5 +238,7 @@ namespace ShootingSharp.scene
             boss.InteractManager = this;
             SSTaskFactory.BossPopTask.BossList.Add(boss);
         }
+
+
     }
 }

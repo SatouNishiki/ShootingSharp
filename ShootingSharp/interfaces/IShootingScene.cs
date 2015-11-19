@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ShootingSharp.entity;
 using ShootingSharp.entity.enemy;
 using ShootingSharp.entity.boss;
+using ShootingSharp.entity.item;
 
 namespace ShootingSharp.interfaces
 {
@@ -28,6 +29,7 @@ namespace ShootingSharp.interfaces
         /// </summary>
         /// <param name="boss"></param>
         void AddBoss(Boss boss);
+
 
         string GetName();
     }

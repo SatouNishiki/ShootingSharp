@@ -10,6 +10,7 @@ using System.IO;
 using ShootingSharp.task;
 using ShootingSharp.sound;
 using ShootingSharp.texture;
+using ShootingSharp.core;
 
 namespace ShootingSharp.scene
 {
@@ -62,6 +63,7 @@ namespace ShootingSharp.scene
             if (flag)
             {
                 sloader.PlayLoopSound("title.mp3");
+
             }
 
             if (DX.CheckHitKeyAll() == 0)
@@ -140,6 +142,8 @@ namespace ShootingSharp.scene
 
             int i = 0;
 
+            DX.DrawStringToHandle(50, 30, "ステージ選択", DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(35, 20));
+
             foreach (var item in SceneList)
             {
                 if (i >= SceneItemsCount)
@@ -147,15 +151,17 @@ namespace ShootingSharp.scene
 
                 if (i == selectedIndex)
                 {
-                    DX.DrawString(10, i * 15 + 10, item.Key, DX.GetColor(255, 0, 0));
+                    DX.DrawStringToHandle(50, i * 35 + 100, item.Key, DX.GetColor(60, 255, 140), FontProvider.GetSisterFontHandle(20, 10));
                 }
                 else
                 {
-                    DX.DrawString(10, i * 15 + 10, item.Key, DX.GetColor(100, 0, 0));
+                    DX.DrawStringToHandle(50, i * 35 + 100, item.Key, DX.GetColor(60, 180, 140), FontProvider.GetSisterFontHandle(20, 10));
                 }
 
                 i++;
             }
+
+            DX.DrawTriangle(10, selectedIndex * 35 + 100, 10, selectedIndex * 35 + 120, 30, selectedIndex * 35 + 110, DX.GetColor(255, 0, 0), DX.TRUE);
         }
 
         public bool ExistNextScene()
