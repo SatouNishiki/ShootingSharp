@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ShootingSharp.position;
+using ShootingSharp.collid;
 
 namespace ShootingSharp.interfaces
-{
+{/*
     public enum SharpType
     {
         Circle, Square
     }
-
+    */
     public interface IInteracter : IHasSSPosition
-    {
+    {/*
         /// <summary>
         /// 衝突判定管理クラス
         /// </summary>
@@ -25,12 +26,12 @@ namespace ShootingSharp.interfaces
         /// <param name="obj">相手</param>
         /// <returns></returns>
         bool IsInteract(IInteracter obj);
-
+        */
         /// <summary>
         /// 当たったときの処理
         /// </summary>
-        void OnInteract(entity.Entity entity);
-
+        void OnInteract(CollitionInfo info);
+        /*
         /// <summary>
         /// 円の半径を返す
         /// </summary>
@@ -59,5 +60,7 @@ namespace ShootingSharp.interfaces
         /// フレンドコードを設定
         /// </summary>
         void SetFriendCode(string code);
+         */
+        ColliderBase GetCollider();
     }
 }

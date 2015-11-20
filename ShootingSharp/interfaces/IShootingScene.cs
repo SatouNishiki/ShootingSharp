@@ -30,6 +30,11 @@ namespace ShootingSharp.interfaces
         /// <param name="boss"></param>
         void AddBoss(Boss boss);
 
+        void AddBom(entity.bom.Bom bom);
+
+        void AddShot(entity.shot.Shot shot);
+
+        void AddItem(entity.item.Item item);
 
         string GetName();
     }

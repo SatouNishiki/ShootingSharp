@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using ShootingSharp.position;
 using ShootingSharp.interfaces;
 
-namespace ShootingSharp.entity
+namespace ShootingSharp.collid
 {
     /// <summary>
     /// あたり判定の計算クラス
     /// </summary>
-    public static class InteractCalculator
+    public static class CollitionCalculator
     {
         /// <summary>
         /// 二次元ベクトルを表す内部クラス
@@ -150,7 +150,7 @@ namespace ShootingSharp.entity
             //円の中に長方形の４点のうちどれかがあるかどうか判定
             for (int i = 0; i < 4; i++)
             {
-                if (PointCircleInteractHelper(square.GetSquarePosition().SquarePosition[i], circle.GetPosition(), circle.GetRadius()))
+                if (PointCircleInteractHelper(((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[i], circle.GetPosition(), ((CircleCollider)(circle.GetCollider())).Radius))
                 {
                     return true;
                 }
@@ -160,8 +160,8 @@ namespace ShootingSharp.entity
 
 
             //長方形の中に物体が入り込んでいるかどうかを判定判定
-            double theta = GetThetaHelper(square.GetSquarePosition().SquarePosition[0], square.GetSquarePosition().SquarePosition[1], circle.GetPosition());//3点の成す角1
-            double theta2 = GetThetaHelper(square.GetSquarePosition().SquarePosition[2], square.GetSquarePosition().SquarePosition[3], circle.GetPosition());//3点の成す角2
+            double theta = GetThetaHelper(((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[0], ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[1], circle.GetPosition());//3点の成す角1
+            double theta2 = GetThetaHelper(((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[2], ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[3], circle.GetPosition());//3点の成す角2
 
             if (0 <= theta && theta <= Math.PI / 2 && 0 <= theta2 && theta2 <= Math.PI / 2)
                 return true;
@@ -176,12 +176,12 @@ namespace ShootingSharp.entity
                 double d = GetDistanceHelper(
                     circle.GetPosition().PosX,
                     circle.GetPosition().PosY,
-                    square.GetSquarePosition().SquarePosition[i].PosX,
-                    square.GetSquarePosition().SquarePosition[i].PosY,
-                    square.GetSquarePosition().SquarePosition[(i + 1) % 4].PosX,
-                    square.GetSquarePosition().SquarePosition[(i + 1) % 4].PosY);
+                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[i].PosX,
+                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[i].PosY,
+                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[(i + 1) % 4].PosX,
+                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[(i + 1) % 4].PosY);
 
-                if (d < circle.GetRadius())
+                if (d < ((CircleCollider)(circle.GetCollider())).Radius)
                 {
                     return true;
                 }
@@ -230,7 +230,7 @@ namespace ShootingSharp.entity
             int y0 = obj2.GetPosition().PosY;
             int y1 = obj1.GetPosition().PosY;
 
-            int d = obj1.GetRadius() + obj2.GetRadius();
+            int d = ((CircleCollider)obj1.GetCollider()).Radius + ((CircleCollider)obj2.GetCollider()).Radius;
 
             return (x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1) < d * d;
         }

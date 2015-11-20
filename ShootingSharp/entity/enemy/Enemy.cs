@@ -26,24 +26,27 @@ namespace ShootingSharp.entity.enemy
 
         public Action<int> KilledByPlayer;
 
+        protected collid.CircleCollider collider;
+
         public Enemy() : base()
         {
             this.loader = TextureLoader.GetInstance();
             this.score = 10;
             this.KilledByPlayer += this.OnKilled;
-            this.friendCode = "enemy";
+          
         }
 
         public void OnPop()
         {
-            this.InteractManager.AddInteractObject(this);
+         //   this.InteractManager.AddInteractObject(this);
+            this.Scene.AddEnemy(this);
         }
 
-        public override void OnInteract(Entity entity)
+        public override void OnInteract(collid.CollitionInfo info)
         {
-            if (entity is EntityPlayer || entity is item.Item)
+            if (info.CollitionObjectType.IsAssignableFrom(typeof(EntityPlayer)) || info.CollitionObjectType.IsAssignableFrom(typeof(item.Item)))
             {
-                //とりあえずこっちは何もしない(ボスが体当たりで死んだらアレなので)
+                //とりあえずこっちは何もしない(体当たりで死んだらアレなので)
                 return;
             }
 
@@ -118,13 +121,13 @@ namespace ShootingSharp.entity.enemy
                     return;
 
                 i.SetPosition(this.position);
-
-                this.InteractManager.AddInteractObject(i);
-                SSTaskFactory.ItemDrawTask.ItemList.Add(i);
-                SSTaskFactory.ItemMoveTask.ItemList.Add(i);
-                SSTaskFactory.ItemUpdateTask.ItemList.Add(i);
+                this.Scene.AddItem(i);
             }
         }
-        
+
+        public override collid.ColliderBase GetCollider()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -46,16 +46,5 @@ namespace ShootingSharp.entity.shot
             return 20;
         }
 
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override SharpType GetSharpType()
-        {
-            return SharpType.Circle;
-        }
-
-        
     }
 }

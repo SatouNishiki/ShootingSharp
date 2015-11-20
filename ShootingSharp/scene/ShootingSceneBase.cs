@@ -15,7 +15,7 @@ using ShootingSharp.entity.player;
 
 namespace ShootingSharp.scene
 {
-    public abstract class ShootingSceneBase : IShootingScene, IInteractManager
+    public abstract class ShootingSceneBase : IShootingScene
     {
         
         /// <summary>
@@ -150,7 +150,7 @@ namespace ShootingSharp.scene
         {
             return new ResultSceneBase(this.Type);
         }
-
+/*
         /// <summary>
         /// あたり判定を有するオブジェクトとして登録します
         /// </summary>
@@ -175,8 +175,8 @@ namespace ShootingSharp.scene
             }
             interact.InteractManager = this;
         }
-
-
+        */
+        /*
         public Entity GetInteractObject(Entity interact)
         {
             if (!interact.IsLiving())
@@ -184,18 +184,7 @@ namespace ShootingSharp.scene
 
             interactor = null;
 
-          /*  if (interact is Shot)
-            {
-                
-                //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
-                foreach (var i in playerInteracters)
-                {
-                    if (i.IsLiving() && interact.IsInteract(i))
-                    {
-                        interactor = i;
-                    }
-                }
-            }*/
+          
            // else
          //   {
                 //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
@@ -210,7 +199,7 @@ namespace ShootingSharp.scene
 
             return interactor;
         }
-
+        */
         
 
         public void AddPlayer(EntityPlayer player)
@@ -220,13 +209,17 @@ namespace ShootingSharp.scene
             SSTaskFactory.PlayerMoveTask.Player = player;
             SSTaskFactory.PlayerActionTask.Player = player;
             SSTaskFactory.InfoDrawTask.Player = player;
-            player.InteractManager = this;
+            SSTaskFactory.CollitionTask.AddInteractors(player);
+            player.Scene = this;
+          //  player.InteractManager = this;
         }
 
 
         public void AddEnemy(entity.enemy.Enemy enemy)
         {
-            enemy.InteractManager = this;
+        //    enemy.InteractManager = this;
+            enemy.Scene = this;
+            SSTaskFactory.CollitionTask.AddInteractors(enemy);
             SSTaskFactory.EnemyPopTask.EnemyList.Add(enemy);
         }
 
@@ -240,10 +233,34 @@ namespace ShootingSharp.scene
         public void AddBoss(entity.boss.Boss boss)
         {
 
-            boss.InteractManager = this;
+           // boss.InteractManager = this;
+            boss.Scene = this;
+            SSTaskFactory.CollitionTask.AddInteractors(boss);
             SSTaskFactory.BossPopTask.BossList.Add(boss);
         }
 
+        public void AddBom(entity.bom.Bom bom)
+        {
+            SSTaskFactory.BomUpdateTask.BomList.Add(bom);
+            SSTaskFactory.BomDrawTask.BomList.Add(bom);
+            SSTaskFactory.CollitionTask.AddInteractors(bom);
+        }
 
+        public void AddShot(Shot shot)
+        {
+            SSTaskFactory.ShotMoveTask.ShotList.Add(shot);
+            SSTaskFactory.ShotDrawTask.ShotList.Add(shot);
+            SSTaskFactory.ShotUpdateTask.ShotList.Add(shot);
+            SSTaskFactory.CollitionTask.AddInteractors(shot);
+        }
+
+
+        public void AddItem(entity.item.Item item)
+        {
+            SSTaskFactory.ItemDrawTask.ItemList.Add(item);
+            SSTaskFactory.ItemMoveTask.ItemList.Add(item);
+            SSTaskFactory.ItemUpdateTask.ItemList.Add(item);
+            SSTaskFactory.CollitionTask.AddInteractors(item);
+        }
     }
 }

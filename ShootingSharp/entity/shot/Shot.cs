@@ -31,11 +31,6 @@ namespace ShootingSharp.entity.shot
         public ShotType Type { get; set; }
 
         /// <summary>
-        /// 弾が消えるまでの時間
-        /// </summary>
-     //   protected int deleteTime;
-
-        /// <summary>
         /// アップデートのたびに呼ばれるカウンタ
         /// </summary>
         protected int updateCount;
@@ -69,6 +64,8 @@ namespace ShootingSharp.entity.shot
 
         private ShootingSharp.position.SSPosition pos = new position.SSPosition();
 
+        protected collid.ColliderBase collider;
+
         /// <summary>
         /// 通常弾を生成
         /// </summary>
@@ -76,13 +73,12 @@ namespace ShootingSharp.entity.shot
         public Shot(SSPosition position)
             : base()
         {
-            this.outOfWindowDeleteEnable = true;
+            Init();
+           
             this.Type = ShotType.Normal;
-            this.moveSpeed = 5;
+            
             this.position.PosX = position.PosX;
             this.position.PosY = position.PosY;
-
-          //  this.deleteTime = this.GetDeleteTime();
         }
 
         /// <summary>
@@ -93,15 +89,14 @@ namespace ShootingSharp.entity.shot
         public Shot(SSPosition position, double theta)
             : base()
         {
-            this.outOfWindowDeleteEnable = true;
+            Init();
+
             this.Type = ShotType.Direction;
 
             this.theta = theta * Math.PI / 180.0D;
-            this.moveSpeed = 5;
             this.position.PosX = position.PosX;
             this.position.PosY = position.PosY;
 
-          //  this.deleteTime = this.GetDeleteTime();
         }
 
 
@@ -112,13 +107,11 @@ namespace ShootingSharp.entity.shot
         public Shot(IHasSSPosition shooter)
             : base()
         {
-            this.outOfWindowDeleteEnable = true;
+            Init();
+
             this.Type = ShotType.Normal;
-            this.moveSpeed = 5;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
-
-          //  this.deleteTime = this.GetDeleteTime();
         }
 
         /// <summary>
@@ -130,25 +123,20 @@ namespace ShootingSharp.entity.shot
             : base()
         {
             this.Type = ShotType.Direction;
-            outOfWindowDeleteEnable = true;
+
+            Init();
             this.theta = theta * Math.PI / 180.0D;
-            this.moveSpeed = 5;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
-
-           // this.deleteTime = this.GetDeleteTime();
         }
 
         public Shot(IHasSSPosition shooter, SSPosition target)
             : base()
         {
+            Init();
             this.Type = ShotType.Aim;
-            outOfWindowDeleteEnable = true;
-            this.moveSpeed = 5;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
-
-           // this.deleteTime = this.GetDeleteTime();
 
             this.target = new SSPosition();
             this.target.PosX = target.PosX;
@@ -156,16 +144,20 @@ namespace ShootingSharp.entity.shot
 
             this.theta = Math.Atan2(target.PosY - this.position.PosY, target.PosX - this.position.PosX);
         }
+
+        protected virtual void Init()
+        {
+            this.outOfWindowDeleteEnable = true;
+            this.moveSpeed = 5;
+            this.collider = new collid.CircleCollider(this.GetType(), null);
+         //   this.collider.Radius = this.GetRadius();
+        }
         
         public override void OnUpdate()
         {
-           // base.OnUpdate();
+            base.OnUpdate();
 
-            if (!this.IsLiving())
-            {
-                this.OnDeath();
-            }
-
+            
             if (this.outOfWindowDeleteEnable)
             {
                 if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
@@ -176,18 +168,7 @@ namespace ShootingSharp.entity.shot
                     this.Life = 0;
                 }
             }
-/*
-            if (this.deleteTime != -1)
-            {
-                if (this.deleteTime <= this.updateCount)
-                {
-                    this.Life = 0;
-                    this.updateCount = 0;
-                }
 
-                if (this.updateCount <= this.deleteTime)
-                    this.updateCount++;
-            }*/
         }
 
         public override void Move()
@@ -229,9 +210,9 @@ namespace ShootingSharp.entity.shot
             }
         }
 
-        public override void OnInteract(Entity entity)
+        public override void OnInteract(collid.CollitionInfo info)
         {
-            if (entity is Shot || entity is item.Item)
+            if (info.CollitionObjectType.IsAssignableFrom(typeof(Shot)) || info.CollitionObjectType.IsAssignableFrom(typeof(item.Item)))
                 return;
 
 
@@ -256,7 +237,7 @@ namespace ShootingSharp.entity.shot
         }
 
         public override void Draw()
-        {/*
+        {
             if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                 || this.position.PosX < 0
@@ -264,7 +245,7 @@ namespace ShootingSharp.entity.shot
             {
                 return;
             }
-            */
+            
             DX.DrawExtendGraph(
                this.GetTexturePosition().PosX,
                this.GetTexturePosition().PosY,
@@ -283,7 +264,12 @@ namespace ShootingSharp.entity.shot
         {
             return this.moveSpeed;
         }
-        
-        
+
+        public override collid.ColliderBase GetCollider()
+        {
+            return this.collider;
+        }
+
+     //   public abstract int GetRadius();
     }
 }

@@ -14,10 +14,6 @@ namespace ShootingSharp.entity
     /// </summary>
     public abstract class Entity : IAction, IInteracter, IMoveable, IUpdateable, IDrawable
     {
-        /// <summary>
-        /// フレンドコード
-        /// </summary>
-        protected string friendCode;
        
         /// <summary>
         /// 自分の位置
@@ -32,75 +28,13 @@ namespace ShootingSharp.entity
         protected Logger logger;
 
 
-        /// <summary>
-        /// 衝突判定管理クラス
-        /// </summary>
-        public IInteractManager InteractManager { get; set; }
-
+        public scene.ShootingSceneBase Scene { get; set; }
 
         public Entity()
         {
             this.position = new position.SSPosition();
             this.logger = Logger.GetInstance();
-            this.friendCode = this.GetType().FullName;
         }
-
-       
-        /// <summary>
-        /// 当たってる？
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public virtual bool IsInteract(IInteracter obj)
-        {
-            //フレンドコードが同じなら味方であると判定してfalseを返す
-            if (this.GetFriendCode() == obj.GetFriendCode())
-                return false;
-            
-            if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
-                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
-                 || this.position.PosX < 0
-                 || this.position.PosY < 0)
-                return false;
-
-            if (obj.GetPosition().PosX > SSGame.GetInstance().GetBattleWindowSize().Width
-                || obj.GetPosition().PosY > SSGame.GetInstance().GetBattleWindowSize().Height
-                || obj.GetPosition().PosX < 0
-                || obj.GetPosition().PosY < 0)
-                return false;
-            
-            if (this.GetSharpType() == SharpType.Circle)
-            {
-
-                if (obj.GetSharpType() == SharpType.Circle)
-                {
-                    return InteractCalculator.IsInteractCircleCircle(this, obj);
-                }
-                else
-                {
-                    return InteractCalculator.IsInteractCircleSquare(this, obj);
-                }
-            }
-            else
-            {
-                if (obj.GetSharpType() == SharpType.Circle)
-                {
-                    return InteractCalculator.IsInteractCircleSquare(obj, this);
-                }
-                else
-                {
-                    return InteractCalculator.IsInteractSquareSquare(this, obj);
-                }
-            }
-            
-        }
-
-        
-        /// <summary>
-        /// 当たったとき
-        /// </summary>
-        public abstract void OnInteract(Entity entity);
-
         /// <summary>
         /// 中心位置
         /// </summary>
@@ -142,33 +76,7 @@ namespace ShootingSharp.entity
         /// <summary>
         /// アップデートのとき
         /// </summary>
-        public virtual void OnUpdate()
-        {
-            if (!(this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
-                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
-                 || this.position.PosX < 0
-                 || this.position.PosY < 0))
-            {
-                Entity entity = this.InteractManager.GetInteractObject(this);
-                //何かとぶつかってたら
-                if (entity != null)
-                {
-                    this.OnInteract(entity);
-                    entity.OnInteract(this);
-                }
-            }
-        }
-
-        public virtual string GetFriendCode()
-        {
-            return this.friendCode;
-        }
-
-
-        public void SetFriendCode(string code)
-        {
-            this.friendCode = code;
-        }
+        public abstract void OnUpdate();
 
         /// <summary>
         /// 動く
@@ -180,25 +88,11 @@ namespace ShootingSharp.entity
         /// </summary>
         public abstract void DoAction();
 
-        /// <summary>
-        /// 半径返す
-        /// </summary>
-        /// <returns></returns>
-        public abstract int GetRadius();
 
         public abstract bool IsLiving();
 
-        /// <summary>
-        /// 長方形の四隅を返す
-        /// </summary>
-        /// <returns></returns>
-        public abstract SquareSSPositon GetSquarePosition();
+        public abstract void OnInteract(collid.CollitionInfo info);
 
-        /// <summary>
-        /// 形状タイプを返す
-        /// </summary>
-        /// <returns></returns>
-        public abstract SharpType GetSharpType();
-
+        public abstract collid.ColliderBase GetCollider();
     }
 }

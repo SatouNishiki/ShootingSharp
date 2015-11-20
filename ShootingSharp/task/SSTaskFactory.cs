@@ -65,6 +65,8 @@ namespace ShootingSharp.task
 
         public static InfoDrawTask InfoDrawTask = TaskCreator<InfoDrawTask>.Create();
 
+        public static CollitionTask CollitionTask = TaskCreator<CollitionTask>.Create();
+
         /// <summary>
         /// 全てのタスクを初期化します
         /// </summary>
@@ -125,6 +127,8 @@ namespace ShootingSharp.task
             ActionTask = TaskCreator<ActionTaskManager>.Create();
 
             InfoDrawTask = TaskCreator<InfoDrawTask>.Create();
+
+            CollitionTask = TaskCreator<CollitionTask>.Create();
         }
 
     }

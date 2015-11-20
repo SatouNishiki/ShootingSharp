@@ -8,7 +8,7 @@ using ShootingSharp.texture;
 
 namespace ShootingSharp.entity.shot
 {
-    public class BlackCircleShot : Shot
+    public class BlackCircleShot : CircleShot
     {
         public BlackCircleShot(interfaces.IHasSSPosition shooter, double theta)
             : base(shooter, theta)
@@ -47,16 +47,6 @@ namespace ShootingSharp.entity.shot
         public override int GetRadius()
         {
             return 1;
-        }
-
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
         }
 
     }

@@ -53,6 +53,8 @@ namespace ShootingSharp.entity
        
         private int bomCount;
 
+        protected collid.CircleCollider collider;
+
         public EntityPlayer()
             : base()
         {
@@ -73,7 +75,8 @@ namespace ShootingSharp.entity
             this.mainShotType = MainShotType.Normal;
             this.subShotType = SubShotType.None;
 
-            this.friendCode = "player";
+            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider.Radius = this.GetRadius();
         }
 
         /// <summary>
@@ -229,32 +232,19 @@ namespace ShootingSharp.entity
                 if (shotCount >= this.shotInterval)
                 {
                     Shot s = this.GetShot();
-                    //味方に設定
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
+
                     this.shotCount = 0;
                     this.PlayShotSound();
 
                     if (this.mainShotType == MainShotType.Three || this.mainShotType == MainShotType.Five)
                     {
                         Shot s2 = this.GetThreeShot(100.0D);
-                        //味方に設定
-                        s2.SetFriendCode(this.friendCode);
-                        this.InteractManager.AddInteractObject(s2);
-                        SSTaskFactory.ShotMoveTask.ShotList.Add(s2);
-                        SSTaskFactory.ShotDrawTask.ShotList.Add(s2);
-                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s2);
+                        this.Scene.AddShot(s2);
+
 
                         Shot s3 = this.GetThreeShot(80.0D);
-                        //味方に設定
-                        s3.SetFriendCode(this.friendCode);
-                        this.InteractManager.AddInteractObject(s3);
-                        SSTaskFactory.ShotMoveTask.ShotList.Add(s3);
-                        SSTaskFactory.ShotDrawTask.ShotList.Add(s3);
-                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s3);
+                        this.Scene.AddShot(s3);
                     }
 
                     if (this.mainShotType == MainShotType.Five)
@@ -262,20 +252,11 @@ namespace ShootingSharp.entity
                         if (this.fiveShotCount % 2 == 0)
                         {
                             Shot s4 = this.GetFiveShot(110.0D);
-                            //味方に設定
-                            s4.SetFriendCode(this.friendCode);
-                            this.InteractManager.AddInteractObject(s4);
-                            SSTaskFactory.ShotMoveTask.ShotList.Add(s4);
-                            SSTaskFactory.ShotDrawTask.ShotList.Add(s4);
-                            SSTaskFactory.ShotUpdateTask.ShotList.Add(s4);
+                            this.Scene.AddShot(s4);
+
 
                             Shot s5 = this.GetFiveShot(70.0D);
-                            //味方に設定
-                            s5.SetFriendCode(this.friendCode);
-                            this.InteractManager.AddInteractObject(s5);
-                            SSTaskFactory.ShotMoveTask.ShotList.Add(s5);
-                            SSTaskFactory.ShotDrawTask.ShotList.Add(s5);
-                            SSTaskFactory.ShotUpdateTask.ShotList.Add(s5);
+                            this.Scene.AddShot(s5);
                         }
 
                         this.fiveShotCount++;
@@ -333,9 +314,9 @@ namespace ShootingSharp.entity
         /// <returns></returns>
         protected abstract Shot GetSubShot(double theta);
 
-        public override void OnInteract(Entity entity)
+        public override void OnInteract(collid.CollitionInfo info)
         {
-            if (entity is item.Item)
+            if (info.CollitionObjectType.IsAssignableFrom(typeof(item.Item)))
                 return;
 
             if (!this.isDeathTime)
@@ -447,16 +428,6 @@ namespace ShootingSharp.entity
             }
         }
 
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
-        }
-
         public override void Draw()
         {
             if (this.isDeathTime || this.noInteractTime > 0)
@@ -554,11 +525,13 @@ namespace ShootingSharp.entity
         {
             Bom s = this.GetBom();
             s.SetPosition(new position.SSPosition(this.position.PosX, this.position.PosY));
-            s.SetFriendCode(this.friendCode);
-            this.InteractManager.AddInteractObject(s);
+      //      s.SetFriendCode(this.friendCode);
+        /*    this.InteractManager.AddInteractObject(s);
             SSTaskFactory.BomUpdateTask.BomList.Add(s);
             SSTaskFactory.BomDrawTask.BomList.Add(s);
+            */
 
+            this.Scene.AddBom(s);
             this.bomCount--;
 
             Effecter.CutIn(this.GetCutInTextureName(), 0, 0, SSGame.GetInstance().GetWindowSize().Height, SSGame.GetInstance().GetWindowSize().Height, 1000);
@@ -572,5 +545,12 @@ namespace ShootingSharp.entity
         }
 
         public abstract string GetCutInTextureName();
+
+        public override collid.ColliderBase GetCollider()
+        {
+            return this.collider;
+        }
+
+        public abstract int GetRadius();
     }
 }

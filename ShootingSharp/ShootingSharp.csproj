@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="collid\CircleCollider.cs" />
+    <Compile Include="collid\ColliderBase.cs" />
+    <Compile Include="collid\CollitionInfo.cs" />
+    <Compile Include="collid\SquareCollition.cs" />
     <Compile Include="core\Effecter.cs" />
     <Compile Include="core\FileUtility.cs" />
     <Compile Include="core\FontProvider.cs" />
@@ -61,7 +65,7 @@
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\EntityLiving.cs" />
     <Compile Include="entity\EntityPlayer.cs" />
-    <Compile Include="entity\InteractCalculator.cs" />
+    <Compile Include="collid\CollitionCalculator.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemBigPower.cs" />
     <Compile Include="entity\item\ItemSmallPower.cs" />
@@ -70,6 +74,7 @@
     <Compile Include="entity\shot\BlackCircleShot.cs" />
     <Compile Include="entity\shot\BlackLongShot.cs" />
     <Compile Include="entity\shot\BlueFairyShot.cs" />
+    <Compile Include="entity\shot\CircleShot.cs" />
     <Compile Include="entity\shot\NormalShot.cs" />
     <Compile Include="entity\shot\RedFairyShot.cs" />
     <Compile Include="entity\shot\ReimuNormalShot.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="task\BossMoveTask.cs" />
     <Compile Include="task\BossPopTask.cs" />
     <Compile Include="task\BossUpdateTask.cs" />
+    <Compile Include="task\CollitionTask.cs" />
     <Compile Include="task\DrawTaskManager.cs" />
     <Compile Include="task\EnemyActionTask.cs" />
     <Compile Include="task\EnemyDrawTask.cs" />
