@@ -20,11 +20,9 @@ namespace ShootingSharp.scene.shootingScene
         {
             EntityReimu p = new EntityReimu();
             p.SetPosition(new SSPosition(SSGame.GetInstance().GetBattleWindowSize().Width / 2, SSGame.GetInstance().GetBattleWindowSize().Height - 10));
-            this.AddInteractObject(p);
             this.AddPlayer(p);
 
             SampleEnemy enemy = new SampleEnemy();
-            enemy.InteractManager = this;
             enemy.SetPopCount(100);
             this.AddEnemy(enemy);
 

@@ -24,7 +24,6 @@ namespace DebugProject
             : base()
         {
             EntityReimu p = new EntityReimu();
-            this.AddInteractObject(p);
             this.AddPlayer(p);
 
 

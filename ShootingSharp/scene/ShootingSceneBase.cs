@@ -37,6 +37,7 @@ namespace ShootingSharp.scene
         protected BackGroundImageTask backimageTask = SSTaskFactory.BackGroundImageTask;
         protected InfoDrawTask infoDrawTask = SSTaskFactory.InfoDrawTask;
         protected BossPopTask bossPopTask = SSTaskFactory.BossPopTask;
+        protected CollitionTask collitionTask = SSTaskFactory.CollitionTask;
 
         private List<Entity> temp = new List<Entity>();
 
@@ -48,7 +49,6 @@ namespace ShootingSharp.scene
 
         protected ResultSceneBase.ResultType Type;
 
-        private Entity interactor = null;
 
         public ShootingSceneBase()
         {
@@ -71,9 +71,10 @@ namespace ShootingSharp.scene
             this.backimageTask.Run();
             this.popTask.Run();
             this.bossPopTask.Run();
-            this.actionTask.Run();
-            this.updateTask.Run();
             this.moveTask.Run();
+            this.updateTask.Run();
+            this.actionTask.Run();
+            this.collitionTask.Run();
             this.drawTask.Run();
             this.infoDrawTask.Run();
 
@@ -150,56 +151,6 @@ namespace ShootingSharp.scene
         {
             return new ResultSceneBase(this.Type);
         }
-/*
-        /// <summary>
-        /// あたり判定を有するオブジェクトとして登録します
-        /// </summary>
-        /// <param name="interact"></param>
-        public void AddInteractObject(Entity interact)
-        {
-            if (interact is Shot)
-            {
-                this.notPlayerInteractors.Add(interact);
-            }
-            else if (interact is entity.item.Item)
-            {
-                this.notPlayerInteractors.Add(interact);
-            }
-            else if (interact is entity.bom.Bom)
-            {
-                this.notPlayerInteractors.Add(interact);
-            }
-            else
-            {
-                this.playerInteracters.Add(interact);
-            }
-            interact.InteractManager = this;
-        }
-        */
-        /*
-        public Entity GetInteractObject(Entity interact)
-        {
-            if (!interact.IsLiving())
-                return null;
-
-            interactor = null;
-
-          
-           // else
-         //   {
-                //引数のオブジェクトのあたり判定チェックに全オブジェクトをチェックさせる
-                foreach (var i in notPlayerInteractors)
-                {
-                    if (i.IsLiving() && interact.IsInteract(i))
-                    {
-                        interactor = i;
-                    }
-                }
-          //  }
-
-            return interactor;
-        }
-        */
         
 
         public void AddPlayer(EntityPlayer player)
@@ -211,16 +162,22 @@ namespace ShootingSharp.scene
             SSTaskFactory.InfoDrawTask.Player = player;
             SSTaskFactory.CollitionTask.AddInteractors(player);
             player.Scene = this;
-          //  player.InteractManager = this;
         }
 
 
         public void AddEnemy(entity.enemy.Enemy enemy)
         {
-        //    enemy.InteractManager = this;
             enemy.Scene = this;
-            SSTaskFactory.CollitionTask.AddInteractors(enemy);
             SSTaskFactory.EnemyPopTask.EnemyList.Add(enemy);
+        }
+
+        public void PopEnemy(entity.enemy.Enemy enemy)
+        {
+            SSTaskFactory.EnemyActionTask.EnemyList.Add(enemy);
+            SSTaskFactory.EnemyDrawTask.EnemyList.Add(enemy);
+            SSTaskFactory.EnemyMoveTask.EnemyList.Add(enemy);
+            SSTaskFactory.EnemyUpdateTask.EnemyList.Add(enemy);
+            SSTaskFactory.CollitionTask.AddInteractors(enemy);
         }
 
 
@@ -232,15 +189,21 @@ namespace ShootingSharp.scene
 
         public void AddBoss(entity.boss.Boss boss)
         {
-
-           // boss.InteractManager = this;
             boss.Scene = this;
-            SSTaskFactory.CollitionTask.AddInteractors(boss);
             SSTaskFactory.BossPopTask.BossList.Add(boss);
+        }
+
+        public void PopBoss(entity.boss.Boss boss)
+        {
+            SSTaskFactory.BossActionTask.BossList.Add(boss);
+            SSTaskFactory.BossDrawTask.BossList.Add(boss);
+            SSTaskFactory.BossMoveTask.BossList.Add(boss);
+            SSTaskFactory.CollitionTask.AddInteractors(boss);
         }
 
         public void AddBom(entity.bom.Bom bom)
         {
+            bom.Scene = this;
             SSTaskFactory.BomUpdateTask.BomList.Add(bom);
             SSTaskFactory.BomDrawTask.BomList.Add(bom);
             SSTaskFactory.CollitionTask.AddInteractors(bom);
@@ -248,6 +211,7 @@ namespace ShootingSharp.scene
 
         public void AddShot(Shot shot)
         {
+            shot.Scene = this;
             SSTaskFactory.ShotMoveTask.ShotList.Add(shot);
             SSTaskFactory.ShotDrawTask.ShotList.Add(shot);
             SSTaskFactory.ShotUpdateTask.ShotList.Add(shot);
@@ -257,6 +221,7 @@ namespace ShootingSharp.scene
 
         public void AddItem(entity.item.Item item)
         {
+            item.Scene = this;
             SSTaskFactory.ItemDrawTask.ItemList.Add(item);
             SSTaskFactory.ItemMoveTask.ItemList.Add(item);
             SSTaskFactory.ItemUpdateTask.ItemList.Add(item);

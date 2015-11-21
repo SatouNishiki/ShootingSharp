@@ -7,7 +7,7 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class BlueFairyShot : Shot
+    public class BlueFairyShot : CircleShot
     {
         public enum ColorType
         {
@@ -33,10 +33,6 @@ namespace ShootingSharp.entity.shot
             this.moveSpeed = 3;
         }
 
-        public override void OnDeath()
-        {
-            //なにもしない
-        }
 
         public override string GetTextureName()
         {
@@ -49,10 +45,6 @@ namespace ShootingSharp.entity.shot
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(20, 20);
-        }
-
-        public override void DoAction()
-        {
         }
 
         public override int GetRadius()

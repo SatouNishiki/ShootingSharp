@@ -32,16 +32,6 @@ namespace ShootingSharp.entity.enemy
             return 30;
         }
 
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
-        }
-
         public override string GetTextureName()
         {
             throw new NotImplementedException();

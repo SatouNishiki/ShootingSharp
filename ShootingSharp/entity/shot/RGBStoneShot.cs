@@ -8,7 +8,7 @@ using ShootingSharp.position;
 
 namespace ShootingSharp.entity.shot
 {
-    public class RGBStoneShot : Shot
+    public class RGBStoneShot : CircleShot
     {
         public enum ColorType
         {
@@ -25,11 +25,6 @@ namespace ShootingSharp.entity.shot
             this.moveSpeed = 1;
             this.initPosX = position.PosX;
             this.color = color;
-        }
-
-        public override void OnDeath()
-        {
-
         }
 
         public override string GetTextureName()
@@ -55,11 +50,6 @@ namespace ShootingSharp.entity.shot
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(15, 20);
-        }
-
-        public override void DoAction()
-        {
-
         }
 
         public override int GetRadius()

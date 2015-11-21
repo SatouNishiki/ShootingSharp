@@ -27,11 +27,6 @@ namespace ShootingSharp.task
                 //出現フレーム数になったら
                 if ((UInt64)e.GetPopCount() == this.count)
                 {
-                    //各タスクに登録(=出現)
-                    SSTaskFactory.EnemyActionTask.EnemyList.Add(e);
-                    SSTaskFactory.EnemyDrawTask.EnemyList.Add(e);
-                    SSTaskFactory.EnemyMoveTask.EnemyList.Add(e);
-                    SSTaskFactory.EnemyUpdateTask.EnemyList.Add(e);
                     e.KilledByPlayer += SSTaskFactory.InfoDrawTask.OnEnemyKilled;
                     e.OnPop();
                 }

@@ -13,10 +13,13 @@ namespace ShootingSharp.entity.bom
     {
         protected TextureLoader loader;
         private int drawCount;
+        protected collid.CircleCollider collider;
 
         public Bom() : base()
         {
             this.loader = TextureLoader.GetInstance();
+            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider.Radius = this.GetRadius();
         }
 
         public override void OnDeath()
@@ -24,7 +27,7 @@ namespace ShootingSharp.entity.bom
             
         }
 
-        public override void OnInteract(Entity entity)
+        public override void OnInteract(collid.CollitionInfo info)
         {
             //なにもしない(貫通)
         }
@@ -59,7 +62,7 @@ namespace ShootingSharp.entity.bom
 
         }
 
-        public override int GetRadius()
+        public virtual int GetRadius()
         {
             int a = 0;
 
@@ -75,15 +78,6 @@ namespace ShootingSharp.entity.bom
             return (int)Math.Round((a * ((double)this.drawCount / 3.0D)));
         }
 
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
-        }
 
         public override void OnUpdate()
         {
@@ -97,6 +91,11 @@ namespace ShootingSharp.entity.bom
             {
                 this.Life = 0;
             }
+        }
+
+        public override collid.ColliderBase GetCollider()
+        {
+            return this.collider;
         }
     }
 }

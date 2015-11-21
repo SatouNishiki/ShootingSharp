@@ -9,8 +9,8 @@ namespace ShootingSharp.collid
 {
     public class SquareCollition : ColliderBase
     {
-        public SquareCollition(Type baseType, params Type[] collitionTypes)
-            : base(baseType, collitionTypes)
+        public SquareCollition(Type baseType, params Type[] noCollitionTypes)
+            : base(baseType, noCollitionTypes)
         {
 
         }

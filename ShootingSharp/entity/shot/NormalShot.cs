@@ -9,18 +9,13 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class NormalShot : Shot
+    public class NormalShot : CircleShot
     {
 
         public NormalShot(IHasSSPosition shooter) : base(shooter) { }
 
         public NormalShot(IHasSSPosition shooter, double theta) : base(shooter, theta) { }
 
-
-        public override void DoAction()
-        {
-            throw new NotImplementedException();
-        }
 
         public override int GetRadius()
         {
@@ -47,9 +42,5 @@ namespace ShootingSharp.entity.shot
             DX.DrawCircle(this.position.PosX, this.position.PosY, this.GetRadius(), DX.GetColor(0, 255, 0));
         }
 
-        public override void OnDeath()
-        {
-            //なにもしない
-        }
     }
 }

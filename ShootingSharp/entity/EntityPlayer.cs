@@ -316,7 +316,7 @@ namespace ShootingSharp.entity
 
         public override void OnInteract(collid.CollitionInfo info)
         {
-            if (info.CollitionObjectType.IsAssignableFrom(typeof(item.Item)))
+            if (typeof(item.Item).IsAssignableFrom(info.CollitionObjectType))
                 return;
 
             if (!this.isDeathTime)

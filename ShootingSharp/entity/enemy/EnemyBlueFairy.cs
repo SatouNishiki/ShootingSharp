@@ -118,28 +118,13 @@ namespace ShootingSharp.entity.enemy
                         this.position.PosY <= SSTaskFactory.PlayerUpdateTask.Player.GetPosition().PosY)
                     {
                         Shot s3 = new BlueFairyShot(this, 60);
-                        //味方に設定
-                        s3.SetFriendCode(this.friendCode);
-                        this.InteractManager.AddInteractObject(s3);
-                        SSTaskFactory.ShotMoveTask.ShotList.Add(s3);
-                        SSTaskFactory.ShotDrawTask.ShotList.Add(s3);
-                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s3);
+                        this.Scene.AddShot(s3);
 
                         Shot s4 = new BlueFairyShot(this, 90);
-                        //味方に設定
-                        s4.SetFriendCode(this.friendCode);
-                        this.InteractManager.AddInteractObject(s4);
-                        SSTaskFactory.ShotMoveTask.ShotList.Add(s4);
-                        SSTaskFactory.ShotDrawTask.ShotList.Add(s4);
-                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s4);
+                        this.Scene.AddShot(s4);
 
                         Shot s2 = new BlueFairyShot(this, 75);
-                        //味方に設定
-                        s2.SetFriendCode(this.friendCode);
-                        this.InteractManager.AddInteractObject(s2);
-                        SSTaskFactory.ShotMoveTask.ShotList.Add(s2);
-                        SSTaskFactory.ShotDrawTask.ShotList.Add(s2);
-                        SSTaskFactory.ShotUpdateTask.ShotList.Add(s2);
+                        this.Scene.AddShot(s2);
 
                         this.shotCount = 0;
                     }
@@ -155,17 +140,7 @@ namespace ShootingSharp.entity.enemy
         {
             return 16;
         }
-
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
-        }
-
+        
         public override void OnUpdate()
         {
             if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width

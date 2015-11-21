@@ -22,10 +22,10 @@ namespace ShootingSharp.collid
 
         public Type BaseType { get; set; }
 
-        public ColliderBase(Type baseType, params Type[] collitionTypes)
+        public ColliderBase(Type baseType, params Type[] noCollitionTypes)
         {
             this.BaseType = baseType;
-            this.NoCollitionTypes = collitionTypes;
+            this.NoCollitionTypes = noCollitionTypes;
         }
 
         public abstract SharpType GetSharpType();

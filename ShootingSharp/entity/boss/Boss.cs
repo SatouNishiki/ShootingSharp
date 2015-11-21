@@ -11,23 +11,27 @@ namespace ShootingSharp.entity.boss
     public abstract class Boss : LivingAnimationEntity
     {
         protected TextureLoader loader;
+        protected collid.CircleCollider collider;
 
         public Boss() : base()
         {
             loader = TextureLoader.GetInstance();
             this.position.PosX = SSGame.GetInstance().GetBattleWindowSize().Width / 2;
             this.position.PosY = 100;
+            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider.Radius = this.GetRadius();
+            
         }
 
         public void OnPop()
         {
-            this.InteractManager.AddInteractObject(this);
+            this.Scene.PopBoss(this);
         }
 
 
-        public override void OnInteract(Entity entity)
+        public override void OnInteract(collid.CollitionInfo info)
         {
-            if (entity is EntityPlayer)
+            if (typeof(EntityPlayer).IsAssignableFrom(info.CollitionObjectType))
             {
                 return;
             }
@@ -56,20 +60,17 @@ namespace ShootingSharp.entity.boss
                DX.TRUE);
         }
 
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
-        }
-
         public abstract string GetCutinTextureName();
 
         public abstract string GetName();
 
         public abstract string GetMusicName();
+
+        public abstract int GetRadius();
+
+        public override collid.ColliderBase GetCollider()
+        {
+            return this.collider;
+        }
     }
 }

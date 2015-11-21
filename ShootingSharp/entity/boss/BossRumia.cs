@@ -124,11 +124,7 @@ namespace ShootingSharp.entity.boss
                         if (i % 10 == 0)
                         {
                             Shot s = new BlackLongShot(this, (double)i);
-                            s.SetFriendCode(this.friendCode);
-                            this.InteractManager.AddInteractObject(s);
-                            SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                            SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                            SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                            this.Scene.AddShot(s);
                         }
                     }
                 }
@@ -145,11 +141,7 @@ namespace ShootingSharp.entity.boss
             if (actionCount % 10 == 0)
             {
                 Shot s = new BlackCircleShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
-                s.SetFriendCode(this.friendCode);
-                this.InteractManager.AddInteractObject(s);
-                SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                this.Scene.AddShot(s);
             }
 
             if (actionCount % 90 == 0)
@@ -157,11 +149,7 @@ namespace ShootingSharp.entity.boss
                 for (int i = 0; i < 10; i++)
                 {
                     Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Red);
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
                 }
             }
 
@@ -170,11 +158,7 @@ namespace ShootingSharp.entity.boss
                 for (int i = 0; i < 10; i++)
                 {
                     Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Blue);
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
                 }
             }
 
@@ -183,11 +167,7 @@ namespace ShootingSharp.entity.boss
                 for (int i = 0; i < 10; i++)
                 {
                     Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Green);
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
                 }
             }
 

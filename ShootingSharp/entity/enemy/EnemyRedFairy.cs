@@ -159,12 +159,7 @@ namespace ShootingSharp.entity.enemy
                 if (this.moveCount % shotCount == 0)
                 {
                     Shot s = new RedFairyShot(this);
-                    //味方に設定
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
 
                 }
             }
@@ -173,12 +168,7 @@ namespace ShootingSharp.entity.enemy
                 if (this.moveCount % shotCount == 0)
                 {
                     Shot s = new RedFairyShot(this, 70.0D);
-                    //味方に設定
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
 
                 }
             }
@@ -187,12 +177,7 @@ namespace ShootingSharp.entity.enemy
                 if (this.moveCount % shotCount == 0)
                 {
                     Shot s = new RedFairyShot(this, 110.0D);
-                    //味方に設定
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
 
                 }
             }
@@ -201,13 +186,7 @@ namespace ShootingSharp.entity.enemy
                 if (this.moveCount % shotCount == 0)
                 {
                     Shot s = new RedFairyShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
-                    //味方に設定
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
-
+                    this.Scene.AddShot(s);
                 }
             }
             else if(this.ActionType == 4)
@@ -216,12 +195,7 @@ namespace ShootingSharp.entity.enemy
                 {
                     Shot s = new RedFairyShot(this, 110.0D);
                     s.SetMoveSpeed(2);
-                    //味方に設定
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
 
                 }
             }
@@ -231,12 +205,7 @@ namespace ShootingSharp.entity.enemy
                 {
                     Shot s = new RedFairyShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
                     s.SetMoveSpeed(2);
-                    //味方に設定
-                    s.SetFriendCode(this.friendCode);
-                    this.InteractManager.AddInteractObject(s);
-                    SSTaskFactory.ShotMoveTask.ShotList.Add(s);
-                    SSTaskFactory.ShotDrawTask.ShotList.Add(s);
-                    SSTaskFactory.ShotUpdateTask.ShotList.Add(s);
+                    this.Scene.AddShot(s);
 
                 }
             }
@@ -248,15 +217,6 @@ namespace ShootingSharp.entity.enemy
             return 16;
         }
 
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
-        }
 
         public override void OnUpdate()
         {

@@ -212,7 +212,7 @@ namespace ShootingSharp.entity.shot
 
         public override void OnInteract(collid.CollitionInfo info)
         {
-            if (info.CollitionObjectType.IsAssignableFrom(typeof(Shot)) || info.CollitionObjectType.IsAssignableFrom(typeof(item.Item)))
+            if (typeof(Shot).IsAssignableFrom(info.CollitionObjectType) || typeof(item.Item).IsAssignableFrom(info.CollitionObjectType))
                 return;
 
 
@@ -270,6 +270,14 @@ namespace ShootingSharp.entity.shot
             return this.collider;
         }
 
-     //   public abstract int GetRadius();
+        public override void DoAction()
+        {
+            
+        }
+
+        public override void OnDeath()
+        {
+            
+        }
     }
 }

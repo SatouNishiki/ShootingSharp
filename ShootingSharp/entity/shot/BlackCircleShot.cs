@@ -23,12 +23,6 @@ namespace ShootingSharp.entity.shot
             this.textureLoader.LoadDerivationGraph(167, 62, 30, 30, "shot.png");
             this.moveSpeed = 3;
         }
-
-        public override void OnDeath()
-        {
-            //
-        }
-
         public override string GetTextureName()
         {
             return "shot.png167+62";
@@ -37,11 +31,6 @@ namespace ShootingSharp.entity.shot
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(12, 12);
-        }
-
-        public override void DoAction()
-        {
-            throw new NotImplementedException();
         }
 
         public override int GetRadius()

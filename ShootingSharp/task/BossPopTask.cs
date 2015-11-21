@@ -59,10 +59,6 @@ namespace ShootingSharp.task
 
                     foreach (var item in this.BossList)
                     {
-                        SSTaskFactory.BossActionTask.BossList.Add(item);
-                        SSTaskFactory.BossDrawTask.BossList.Add(item);
-                        SSTaskFactory.BossMoveTask.BossList.Add(item);
-                        SSTaskFactory.BossUpdateTask.BossList.Add(item);
                         SSTaskFactory.InfoDrawTask.BossName += item.GetName();
                         item.OnPop();
                     }

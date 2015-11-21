@@ -7,7 +7,7 @@ using DxLibDLL;
 
 namespace ShootingSharp.entity.shot
 {
-    public class BlackLongShot : Shot
+    public class BlackLongShot : CircleShot
     {
         private int drawCount;
         private int gTheta;
@@ -24,10 +24,6 @@ namespace ShootingSharp.entity.shot
             this.moveSpeed = 2;
         }
 
-        public override void OnDeath()
-        {
-           
-        }
 
         public override string GetTextureName()
         {
@@ -39,9 +35,6 @@ namespace ShootingSharp.entity.shot
             return new System.Drawing.Size(5, 10);
         }
 
-        public override void DoAction()
-        {
-        }
 
         public override int GetRadius()
         {

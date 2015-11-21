@@ -7,7 +7,7 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class ReimuNormalShot : Shot
+    public class ReimuNormalShot : CircleShot
     {
         public ReimuNormalShot(IHasSSPosition shooter) : base(shooter) 
         {
@@ -21,11 +21,6 @@ namespace ShootingSharp.entity.shot
             this.moveSpeed = -10;
         }
 
-        public override void OnDeath()
-        {
-            //なにもしない
-        }
-
         public override string GetTextureName()
         {
             return "reimu_shot.png8";
@@ -36,11 +31,6 @@ namespace ShootingSharp.entity.shot
             return new System.Drawing.Size(20, 20);
         }
         
-        public override void DoAction()
-        {
-            throw new NotImplementedException();
-        }
-
         public override int GetRadius()
         {
             return 20;

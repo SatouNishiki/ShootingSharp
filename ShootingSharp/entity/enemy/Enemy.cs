@@ -33,18 +33,19 @@ namespace ShootingSharp.entity.enemy
             this.loader = TextureLoader.GetInstance();
             this.score = 10;
             this.KilledByPlayer += this.OnKilled;
+            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider.Radius = this.GetRadius();
           
         }
 
         public void OnPop()
         {
-         //   this.InteractManager.AddInteractObject(this);
-            this.Scene.AddEnemy(this);
+            this.Scene.PopEnemy(this);
         }
 
         public override void OnInteract(collid.CollitionInfo info)
         {
-            if (info.CollitionObjectType.IsAssignableFrom(typeof(EntityPlayer)) || info.CollitionObjectType.IsAssignableFrom(typeof(item.Item)))
+            if (typeof(EntityPlayer).IsAssignableFrom(info.CollitionObjectType) || typeof(item.Item).IsAssignableFrom(info.CollitionObjectType))
             {
                 //とりあえずこっちは何もしない(体当たりで死んだらアレなので)
                 return;
@@ -127,7 +128,9 @@ namespace ShootingSharp.entity.enemy
 
         public override collid.ColliderBase GetCollider()
         {
-            throw new NotImplementedException();
+            return this.collider;
         }
+
+        public abstract int GetRadius();
     }
 }

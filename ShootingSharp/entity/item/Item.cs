@@ -11,12 +11,15 @@ namespace ShootingSharp.entity.item
     public abstract class Item : EntityLiving
     {
         protected TextureLoader loader;
+        protected collid.CircleCollider collider;
 
         public Item()
             : base()
         {
             this.loader = TextureLoader.GetInstance();
             this.moveSpeed = 2;
+            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider.Radius = this.GetRadius();
         }
 
         public override void OnDeath()
@@ -24,11 +27,11 @@ namespace ShootingSharp.entity.item
             //なにもなし
         }
 
-        public override void OnInteract(Entity entity)
+        public override void OnInteract(collid.CollitionInfo info)
         {
-            if (entity is EntityPlayer)
+            if (typeof(EntityPlayer).IsAssignableFrom(info.CollitionObjectType))
             {
-                this.AddItemEffect(((EntityPlayer)entity));
+                this.AddItemEffect(((EntityPlayer)info.CollitionInteractor));
                 this.Life = 0;
             }
         }
@@ -64,19 +67,9 @@ namespace ShootingSharp.entity.item
             
         }
 
-        public override int GetRadius()
+        public virtual int GetRadius()
         {
             return this.GetTextureSize().Width > this.GetTextureSize().Height ? this.GetTextureSize().Height : this.GetTextureSize().Width;
-        }
-
-        public override position.SquareSSPositon GetSquarePosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override interfaces.SharpType GetSharpType()
-        {
-            return interfaces.SharpType.Circle;
         }
 
         /// <summary>
@@ -84,5 +77,10 @@ namespace ShootingSharp.entity.item
         /// </summary>
         /// <param name="player"></param>
         public abstract void AddItemEffect(EntityPlayer player);
+
+        public override collid.ColliderBase GetCollider()
+        {
+            return this.collider;
+        }
     }
 }
