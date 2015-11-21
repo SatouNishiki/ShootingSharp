@@ -40,6 +40,12 @@ namespace ShootingSharp.position
             get { return this.posY; }
             set { this.posY = value; }
         }
+
+        public void Offset(int x, int y)
+        {
+            this.posX += x;
+            this.posY += y;
+        }
         
     }
 }
