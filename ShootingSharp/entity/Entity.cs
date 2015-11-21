@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ShootingSharp.position;
 using ShootingSharp.interfaces;
 using ShootingSharp.core;
+using ShootingSharp.ai;
 
 namespace ShootingSharp.entity
 {
@@ -27,13 +28,17 @@ namespace ShootingSharp.entity
 
         protected Logger logger;
 
-
         public scene.ShootingSceneBase Scene { get; set; }
+
+        protected List<AIMicroThread> MoveAI;
+        protected List<AIMicroThread> ActionAI;
 
         public Entity()
         {
             this.position = new position.SSPosition();
             this.logger = Logger.GetInstance();
+            this.ActionAI = new List<AIMicroThread>();
+            this.MoveAI = new List<AIMicroThread>();
         }
         /// <summary>
         /// 中心位置

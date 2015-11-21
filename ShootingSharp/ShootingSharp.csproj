@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ai\AIMicroThread.cs" />
     <Compile Include="collid\CircleCollider.cs" />
     <Compile Include="collid\ColliderBase.cs" />
     <Compile Include="collid\CollitionInfo.cs" />
