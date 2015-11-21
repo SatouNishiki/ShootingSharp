@@ -8,6 +8,7 @@ using ShootingSharp.interfaces;
 using ShootingSharp.entity;
 using ShootingSharp.texture;
 using DxLibDLL;
+using ShootingSharp.entity.item;
 
 namespace ShootingSharp.entity.shot
 {
@@ -24,6 +25,8 @@ namespace ShootingSharp.entity.shot
         {
             Normal, Direction, Aim, Homing
         }
+
+        protected readonly Type[] noCollitionTypes = { typeof(Item), typeof(Shot) };
 
         /// <summary>
         /// ショットのタイプ
@@ -149,8 +152,6 @@ namespace ShootingSharp.entity.shot
         {
             this.outOfWindowDeleteEnable = true;
             this.moveSpeed = 5;
-            this.collider = new collid.CircleCollider(this.GetType(), null);
-         //   this.collider.Radius = this.GetRadius();
         }
         
         public override void OnUpdate()
@@ -212,10 +213,6 @@ namespace ShootingSharp.entity.shot
 
         public override void OnInteract(collid.CollitionInfo info)
         {
-            if (typeof(Shot).IsAssignableFrom(info.CollitionObjectType) || typeof(item.Item).IsAssignableFrom(info.CollitionObjectType))
-                return;
-
-
             //ぶつかったら消える
             this.Life = 0;
 

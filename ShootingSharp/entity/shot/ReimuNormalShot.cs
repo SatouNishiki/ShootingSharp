@@ -7,7 +7,7 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class ReimuNormalShot : CircleShot
+    public class ReimuNormalShot : PlayerCircleShot
     {
         public ReimuNormalShot(IHasSSPosition shooter) : base(shooter) 
         {

@@ -18,7 +18,7 @@ namespace ShootingSharp.entity.boss
             loader = TextureLoader.GetInstance();
             this.position.PosX = SSGame.GetInstance().GetBattleWindowSize().Width / 2;
             this.position.PosY = 100;
-            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider = new collid.CircleCollider(this.GetType(), typeof(EntityPlayer));
             this.collider.Radius = this.GetRadius();
             
         }

@@ -7,7 +7,7 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class RedFairyShot : CircleShot
+    public class RedFairyShot : EnemyCircleShot
     {
 
         public RedFairyShot(IHasSSPosition shooter) : base(shooter) 
@@ -46,7 +46,6 @@ namespace ShootingSharp.entity.shot
             return 3;
         }
 
-     
         
     }
 }

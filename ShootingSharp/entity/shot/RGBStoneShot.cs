@@ -8,7 +8,7 @@ using ShootingSharp.position;
 
 namespace ShootingSharp.entity.shot
 {
-    public class RGBStoneShot : CircleShot
+    public class RGBStoneShot : EnemyCircleShot
     {
         public enum ColorType
         {

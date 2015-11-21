@@ -33,7 +33,7 @@ namespace ShootingSharp.entity.enemy
             this.loader = TextureLoader.GetInstance();
             this.score = 10;
             this.KilledByPlayer += this.OnKilled;
-            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider = new collid.CircleCollider(this.GetType(), typeof(Enemy), typeof(item.Item));
             this.collider.Radius = this.GetRadius();
           
         }
@@ -45,7 +45,7 @@ namespace ShootingSharp.entity.enemy
 
         public override void OnInteract(collid.CollitionInfo info)
         {
-            if (typeof(EntityPlayer).IsAssignableFrom(info.CollitionObjectType) || typeof(item.Item).IsAssignableFrom(info.CollitionObjectType))
+            if (typeof(EntityPlayer).IsAssignableFrom(info.CollitionObjectType))
             {
                 //とりあえずこっちは何もしない(体当たりで死んだらアレなので)
                 return;

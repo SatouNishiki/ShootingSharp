@@ -11,6 +11,7 @@ using ShootingSharp.sound;
 using ShootingSharp.interfaces;
 using ShootingSharp.entity.bom;
 using ShootingSharp.core;
+using ShootingSharp.entity.item;
 
 namespace ShootingSharp.entity
 {
@@ -75,7 +76,7 @@ namespace ShootingSharp.entity
             this.mainShotType = MainShotType.Normal;
             this.subShotType = SubShotType.None;
 
-            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider = new collid.CircleCollider(this.GetType(), typeof(Bom), typeof(PlayerCircleShot));
             this.collider.Radius = this.GetRadius();
         }
 
@@ -316,7 +317,7 @@ namespace ShootingSharp.entity
 
         public override void OnInteract(collid.CollitionInfo info)
         {
-            if (typeof(item.Item).IsAssignableFrom(info.CollitionObjectType))
+            if (typeof(Item).IsAssignableFrom(info.CollitionObjectType))
                 return;
 
             if (!this.isDeathTime)

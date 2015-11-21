@@ -8,7 +8,7 @@ using ShootingSharp.texture;
 
 namespace ShootingSharp.entity.shot
 {
-    public class BlackCircleShot : CircleShot
+    public class BlackCircleShot : EnemyCircleShot
     {
         public BlackCircleShot(interfaces.IHasSSPosition shooter, double theta)
             : base(shooter, theta)

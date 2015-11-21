@@ -7,7 +7,7 @@ using DxLibDLL;
 
 namespace ShootingSharp.entity.shot
 {
-    public class BlackLongShot : CircleShot
+    public class BlackLongShot : EnemyCircleShot
     {
         private int drawCount;
         private int gTheta;

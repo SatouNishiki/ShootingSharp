@@ -8,13 +8,13 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public abstract class CircleShot : Shot
+    public abstract class PlayerCircleShot : CircleShot
     {
-         /// <summary>
+          /// <summary>
         /// 通常弾を生成
         /// </summary>
         /// <param name="position">発射位置</param>
-        public CircleShot(SSPosition position)
+        public PlayerCircleShot(SSPosition position)
             : base(position)
         {
         }
@@ -24,7 +24,7 @@ namespace ShootingSharp.entity.shot
         /// </summary>
         /// <param name="position">発射位置</param>
         /// <param name="theta">角度</param>
-        public CircleShot(SSPosition position, double theta)
+        public PlayerCircleShot(SSPosition position, double theta)
             : base(position , theta)
         {
 
@@ -35,7 +35,7 @@ namespace ShootingSharp.entity.shot
         /// 通常弾を生成
         /// </summary>
         /// <param name="shooter">射手</param>
-        public CircleShot(IHasSSPosition shooter)
+        public PlayerCircleShot(IHasSSPosition shooter)
             : base(shooter)
         {
         }
@@ -45,12 +45,12 @@ namespace ShootingSharp.entity.shot
         /// </summary>
         /// <param name="shooter">射手</param>
         /// <param name="theta">角度</param>
-        public CircleShot(IHasSSPosition shooter, double theta)
+        public PlayerCircleShot(IHasSSPosition shooter, double theta)
             : base(shooter, theta)
         {
         }
 
-        public CircleShot(IHasSSPosition shooter, SSPosition target)
+        public PlayerCircleShot(IHasSSPosition shooter, SSPosition target)
             : base(shooter, target)
         {
         }
@@ -58,16 +58,7 @@ namespace ShootingSharp.entity.shot
         protected override void Init()
         {
             base.Init();
-
-            collid.CircleCollider c = new collid.CircleCollider(this.GetType(), null);
-            foreach (var n in noCollitionTypes)
-            {
-                c.AddNoCollitionTypes(n);
-            }
-            c.Radius = this.GetRadius();
-            this.collider = c;
+            this.collider.AddNoCollitionTypes(typeof(entity.EntityPlayer), typeof(bom.Bom));
         }
-
-        public abstract int GetRadius();
     }
 }

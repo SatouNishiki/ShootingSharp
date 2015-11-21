@@ -18,7 +18,7 @@ namespace ShootingSharp.entity.bom
         public Bom() : base()
         {
             this.loader = TextureLoader.GetInstance();
-            this.collider = new collid.CircleCollider(this.GetType(), null);
+            this.collider = new collid.CircleCollider(this.GetType(), typeof(EntityPlayer), typeof(item.Item));
             this.collider.Radius = this.GetRadius();
         }
 
@@ -49,6 +49,7 @@ namespace ShootingSharp.entity.bom
                 this.loader.Textures[this.GetTextureName()], DX.TRUE);
 
             this.drawCount++;
+            this.collider.Radius = this.GetRadius();
 
         }
 

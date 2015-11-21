@@ -9,7 +9,7 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class NormalShot : CircleShot
+    public class NormalShot : EnemyCircleShot
     {
 
         public NormalShot(IHasSSPosition shooter) : base(shooter) { }

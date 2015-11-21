@@ -7,7 +7,7 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.entity.shot
 {
-    public class BlueFairyShot : CircleShot
+    public class BlueFairyShot : EnemyCircleShot
     {
         public enum ColorType
         {
