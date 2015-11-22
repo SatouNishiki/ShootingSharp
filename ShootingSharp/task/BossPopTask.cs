@@ -40,6 +40,7 @@ namespace ShootingSharp.task
                 {
 
                     SoundLoader.GetInstance().StopAllSound();
+                    movie.MovieManager.GetInstance().StopMovie();
 
                     runCount = 0;
 

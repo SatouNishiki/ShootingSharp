@@ -35,19 +35,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ai\SmallStarsShotAI.cs" />
+    <Compile Include="ai\StarsShotAI.cs" />
+    <Compile Include="Bakemono.cs" />
+    <Compile Include="enemy\Mayoi.cs" />
     <Compile Include="FairyDance.cs" />
     <Compile Include="program.cs" />
+    <Compile Include="shot\SmallStarsShot.cs" />
+    <Compile Include="shot\StarsShot.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="DxLibDotNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ShootingSharp\lib\DxLibDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="ShootingSharp">
       <HintPath>..\ShootingSharp\bin\Debug\ShootingSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="enemy\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

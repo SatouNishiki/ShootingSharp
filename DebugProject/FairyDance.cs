@@ -18,7 +18,7 @@ namespace DebugProject
 {
     public class FairyDance : ShootingSceneBase
     {
-        private Size windowSize = new Size(SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height);
+        
 
         public FairyDance()
             : base()
@@ -65,11 +65,10 @@ namespace DebugProject
             */
 
             this.AddBoss(new BossRumia());
-
+            
             SSTaskFactory.BackGroundImageTask.ImageHandle = TextureLoader.GetInstance().Textures["back_3.jpg"];
             SSTaskFactory.BackGroundImageTask.ScrollSpeed = 2;
             SSTaskFactory.BackGroundImageTask.ImageY = 768;
-
          
             this.soundName = "ready.mp3";
         }

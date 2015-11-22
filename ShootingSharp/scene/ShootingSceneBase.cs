@@ -12,6 +12,7 @@ using ShootingSharp.core;
 using ShootingSharp.texture;
 using ShootingSharp.entity.shot;
 using ShootingSharp.entity.player;
+using System.Drawing;
 
 namespace ShootingSharp.scene
 {
@@ -48,6 +49,8 @@ namespace ShootingSharp.scene
         protected TextureLoader loader = TextureLoader.GetInstance();
 
         protected ResultSceneBase.ResultType Type;
+
+        protected Size windowSize = new Size(SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height);
 
 
         public ShootingSceneBase()
@@ -124,6 +127,7 @@ namespace ShootingSharp.scene
         protected virtual void OnFinished()
         {
             SoundLoader.GetInstance().StopAllSound();
+            movie.MovieManager.GetInstance().StopMovie();
 
             if (this.Type == ResultSceneBase.ResultType.Clear)
             {

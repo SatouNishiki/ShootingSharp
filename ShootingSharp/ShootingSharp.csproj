@@ -48,7 +48,10 @@
   <ItemGroup>
     <Compile Include="ai\AITask.cs" />
     <Compile Include="ai\DownMoveAI.cs" />
+    <Compile Include="ai\LeftDownMoveAI.cs" />
+    <Compile Include="ai\LeftMoveAI.cs" />
     <Compile Include="ai\NoneAI.cs" />
+    <Compile Include="ai\RightDownMoveAI.cs" />
     <Compile Include="ai\RightMoveAI.cs" />
     <Compile Include="collid\CircleCollider.cs" />
     <Compile Include="collid\ColliderBase.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="interfaces\ITask.cs" />
     <Compile Include="interfaces\IUpdateable.cs" />
     <Compile Include="interfaces\IDrawable.cs" />
+    <Compile Include="movie\MovieManager.cs" />
     <Compile Include="position\SquareSSPositon.cs" />
     <Compile Include="position\SSPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -57,12 +57,14 @@ namespace ShootingSharp.texture
 
 
             foreach (var s in files)
-            {
+            {/*
                 string name = s.Substring(path.Length + 1, s.Length - path.Length - 1);
                 //keyはファイルのフルパスからディレクトリ名と\\を除いたもの(=ファイル名のみ)にする
                 this.Textures.Add(name, DX.LoadGraph(s));
+                */
 
-                logger.Debug(name + " is load");
+                this.Textures.Add(Path.GetFileName(s), DX.LoadGraph(s));
+                logger.Debug(Path.GetFileName(s) + " is load");
             }
 
         }

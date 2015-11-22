@@ -30,6 +30,7 @@ namespace DebugProject
 
            
             titleScene.AddScene("フェアリーダンス", typeof(FairyDance));
+            titleScene.AddScene("化物語", typeof(Bakemono));
             
             game.StartScene = titleScene;
 

@@ -47,6 +47,7 @@ namespace ShootingSharp.entity
             this.ActionAI = new List<AITask>();
             this.MoveAI = new List<AITask>();
             this.AIEnabled = true;
+            this.MoveSpeed = 1;
         }
         /// <summary>
         /// 中心位置
