@@ -18,19 +18,19 @@ namespace ShootingSharp.entity.shot
 
         public BlueFairyShot(IHasSSPosition shooter) : base(shooter) 
         {
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
         public BlueFairyShot(IHasSSPosition shooter, double theta)
             : base(shooter, theta)
         {
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
         public BlueFairyShot(IHasSSPosition shooter, position.SSPosition target)
             : base(shooter, target)
         {
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
 

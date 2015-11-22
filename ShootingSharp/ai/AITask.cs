@@ -11,12 +11,12 @@ namespace ShootingSharp.ai
     /// <summary>
     /// AIのひな形クラス
     /// </summary>
-    public abstract class AIMicroThread
+    public abstract class AITask
     {
         /// <summary>
         /// 優先度 小さいほうから実行される
         /// </summary>
-        protected int priority;
+        public int priority { get; private set; }
         protected EntityPlayer player;
         protected Entity entity;
         protected int frame;
@@ -32,7 +32,7 @@ namespace ShootingSharp.ai
         /// <param name="entity">実行者</param>
         /// <param name="priority">優先度</param>
         /// <param name="frame">実行フレーム数</param>
-        public AIMicroThread(Entity entity, int priority, int frame)
+        public AITask(Entity entity, int priority, int frame)
         {
             this.player = SSTaskFactory.PlayerUpdateTask.Player;
             this.entity = entity;
@@ -42,20 +42,20 @@ namespace ShootingSharp.ai
 
 
         /// <summary>
-        /// マイクロスレッドをコンストラタで指定したフレーム数だけ繰り返し実行します
+        /// AIをコンストラタで指定したフレーム数だけ繰り返し実行します
         /// </summary>
         /// <returns>falseで実行終了</returns>
         public bool Run()
         {
-            this.MicroThread().Reset();
 
             if (this.frame <= this.frameCount)
             {
+                this.frameCount = 0;
                 return false;
             }
             else
             {
-                this.MicroThread().MoveNext();
+                this.RunMethod();
                 this.frameCount++;
                 return true;
 
@@ -63,6 +63,6 @@ namespace ShootingSharp.ai
 
         }
 
-        protected abstract IEnumerator<object> MicroThread();
+        protected abstract void RunMethod();
     }
 }

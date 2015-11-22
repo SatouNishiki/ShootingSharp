@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ShootingSharp;
 using ShootingSharp.core;
 using ShootingSharp.scene;
-using ShootingSharp.scene.shootingScene;
 
 namespace DebugProject
 {
@@ -29,9 +28,7 @@ namespace DebugProject
 
             TitleSceneBase titleScene = new TitleSceneBase();
 
-            titleScene.AddScene("サンプルシーン1", typeof(ShootingSampleScene));
-            titleScene.AddScene("サンプルシーン2", typeof(ShootingSampleScene));
-            titleScene.AddScene("サンプルシーン3", typeof(ShootingSampleScene));
+           
             titleScene.AddScene("フェアリーダンス", typeof(FairyDance));
             
             game.StartScene = titleScene;

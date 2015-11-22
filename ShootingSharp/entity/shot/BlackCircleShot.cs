@@ -14,14 +14,14 @@ namespace ShootingSharp.entity.shot
             : base(shooter, theta)
         {
             this.textureLoader.LoadDerivationGraph(167, 62, 30, 30, "shot.png");
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
         public BlackCircleShot(interfaces.IHasSSPosition shooter, position.SSPosition target)
             : base(shooter, target)
         {
             this.textureLoader.LoadDerivationGraph(167, 62, 30, 30, "shot.png");
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
         public override string GetTextureName()
         {

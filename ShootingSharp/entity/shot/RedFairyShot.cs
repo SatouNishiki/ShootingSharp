@@ -13,21 +13,21 @@ namespace ShootingSharp.entity.shot
         public RedFairyShot(IHasSSPosition shooter) : base(shooter) 
         {
             this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
         public RedFairyShot(IHasSSPosition shooter, double theta)
             : base(shooter, theta)
         {
             this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
         public RedFairyShot(IHasSSPosition shooter, position.SSPosition target)
             : base(shooter, target)
         {
             this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
 

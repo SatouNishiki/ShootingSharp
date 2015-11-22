@@ -28,7 +28,7 @@ namespace ShootingSharp.entity.enemy
             : base()
         {
             this.loader.LoadSprite("blue_fairy.png", 6, 2, 12, 49, 50);
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
         }
 
         public override string GetUpTextureName()
@@ -76,10 +76,6 @@ namespace ShootingSharp.entity.enemy
             return "blue_fairy.png1";
         }
 
-        public override void SetMoveType()
-        {
-            
-        }
 
         
         public override System.Drawing.Size GetTextureSize()
@@ -92,15 +88,15 @@ namespace ShootingSharp.entity.enemy
         {
             if (this.MovingType == 0)
             {
-                this.position.PosX += this.moveSpeed - 1;
-                this.position.PosY += this.moveSpeed - 1;
+                this.position.PosX += this.MoveSpeed - 1;
+                this.position.PosY += this.MoveSpeed - 1;
                 this.MoveType = MoveTypeEnum.RightDown;
 
             }
             else if (this.MovingType == 1)
             {
-                this.position.PosX -= this.moveSpeed - 1;
-                this.position.PosY += this.moveSpeed - 1;
+                this.position.PosX -= this.MoveSpeed - 1;
+                this.position.PosY += this.MoveSpeed - 1;
             }
            
                 this.moveCount++;

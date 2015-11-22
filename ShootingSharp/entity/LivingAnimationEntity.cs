@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShootingSharp.position;
 
 namespace ShootingSharp.entity
 {
@@ -24,6 +25,7 @@ namespace ShootingSharp.entity
         /// </summary>
         public MoveTypeEnum MoveType { get; set; }
 
+        private SSPosition beforePosition;
 
         public LivingAnimationEntity()
             : base()
@@ -55,7 +57,75 @@ namespace ShootingSharp.entity
         /// <summary>
         /// 移動タイプを決定する
         /// </summary>
-        public abstract void SetMoveType();
+        public virtual void SetMoveType()
+        {
+            if (beforePosition == null)
+            {
+                this.beforePosition = new SSPosition(this.position.PosX, this.position.PosY);
+                return;
+            }
+
+            if (this.position.PosX == this.beforePosition.PosX && this.beforePosition.PosY == this.position.PosY)
+            {
+                this.MoveType = MoveTypeEnum.Center;
+                return;
+            }
+
+            if (this.position.PosX == this.beforePosition.PosX)
+            {
+                if (this.position.PosY > this.beforePosition.PosY)
+                {
+                    this.MoveType = MoveTypeEnum.Down;
+                }
+                else
+                {
+                    this.MoveType = MoveTypeEnum.Up;
+                }
+                return;
+            }
+
+            if (this.position.PosX > this.beforePosition.PosX)
+            {
+                if (this.beforePosition.PosY == this.position.PosY)
+                {
+                    this.MoveType = MoveTypeEnum.Right;
+                    return;
+                }
+
+                if (this.beforePosition.PosY > this.position.PosY)
+                {
+                    this.MoveType = MoveTypeEnum.RightUp;
+                    return;
+                }
+
+                if (this.beforePosition.PosY < this.position.PosY)
+                {
+                    this.MoveType = MoveTypeEnum.RightDown;
+                    return;
+                }
+            }
+
+            if (this.position.PosX < this.beforePosition.PosX)
+            {
+                if (this.beforePosition.PosY == this.position.PosY)
+                {
+                    this.MoveType = MoveTypeEnum.Left;
+                    return;
+                }
+
+                if (this.beforePosition.PosY > this.position.PosY)
+                {
+                    this.MoveType = MoveTypeEnum.LeftUp;
+                    return;
+                }
+
+                if (this.beforePosition.PosY < this.position.PosY)
+                {
+                    this.MoveType = MoveTypeEnum.LeftDown;
+                    return;
+                }
+            }
+        }
 
         /// <summary>
         /// AnimationTypeに応じた画像を返す

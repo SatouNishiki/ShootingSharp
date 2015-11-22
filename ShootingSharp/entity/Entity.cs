@@ -24,21 +24,29 @@ namespace ShootingSharp.entity
         /// <summary>
         /// 移動速度
         /// </summary>
-        protected int moveSpeed;
+        public int MoveSpeed { get; protected set; }
 
         protected Logger logger;
 
         public scene.ShootingSceneBase Scene { get; set; }
 
-        protected List<AIMicroThread> MoveAI;
-        protected List<AIMicroThread> ActionAI;
+        private List<AITask> MoveAI;
+        private List<AITask> ActionAI;
+
+
+        private int moveAICount;
+        private int actionAICount;
+
+        public bool AIEnabled { get; set; }
+
 
         public Entity()
         {
             this.position = new position.SSPosition();
             this.logger = Logger.GetInstance();
-            this.ActionAI = new List<AIMicroThread>();
-            this.MoveAI = new List<AIMicroThread>();
+            this.ActionAI = new List<AITask>();
+            this.MoveAI = new List<AITask>();
+            this.AIEnabled = true;
         }
         /// <summary>
         /// 中心位置
@@ -86,12 +94,52 @@ namespace ShootingSharp.entity
         /// <summary>
         /// 動く
         /// </summary>
-        public abstract void Move();
+        public virtual void Move()
+        {
+            if (this.AIEnabled)
+            {
+
+                if (this.MoveAI.Count == 0)
+                    return;
+
+                if (!this.MoveAI[moveAICount].Run())
+                {
+                    this.moveAICount++;
+
+                    if (this.moveAICount >= this.MoveAI.Count)
+                    {
+                        this.moveAICount = 0;
+                    }
+
+                    this.Move();
+                }
+            }
+        }
 
         /// <summary>
         /// ショットとか
         /// </summary>
-        public abstract void DoAction();
+        public virtual void DoAction()
+        {
+            if (this.AIEnabled)
+            {
+
+                if (this.ActionAI.Count == 0)
+                    return;
+
+                if (!this.ActionAI[actionAICount].Run())
+                {
+                    this.actionAICount++;
+
+                    if (this.actionAICount >= this.ActionAI.Count)
+                    {
+                        this.actionAICount = 0;
+                    }
+
+                    this.DoAction();
+                }
+            }
+        }
 
 
         public abstract bool IsLiving();
@@ -99,5 +147,28 @@ namespace ShootingSharp.entity
         public abstract void OnInteract(collid.CollitionInfo info);
 
         public abstract collid.ColliderBase GetCollider();
+
+        public void AddMoveAI(AITask ai)
+        {
+            this.MoveAI.Add(ai);
+
+            var quary = from s in this.MoveAI
+                        orderby s.priority
+                        select s;
+
+            this.MoveAI = quary.ToList();
+        }
+
+        public void AddActionAI(AITask ai)
+        {
+            this.ActionAI.Add(ai);
+
+            var quary = from s in this.ActionAI
+                        orderby s.priority
+                        select s;
+
+            this.ActionAI = quary.ToList();
+        }
+
     }
 }

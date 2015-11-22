@@ -28,7 +28,8 @@ namespace ShootingSharp.entity.enemy
             : base()
         {
             this.loader.LoadSprite("fairy.png", 8, 8, 64, 32, 32);
-            this.moveSpeed = 3;
+            this.MoveSpeed = 3;
+         
         }
 
         public override string GetUpTextureName()
@@ -76,11 +77,6 @@ namespace ShootingSharp.entity.enemy
             return "fairy.png8";
         }
 
-        public override void SetMoveType()
-        {
-            
-        }
-
         
         public override System.Drawing.Size GetTextureSize()
         {
@@ -94,13 +90,13 @@ namespace ShootingSharp.entity.enemy
             {
                 if (moveCount < 50)
                 {
-                    this.position.PosY += this.moveSpeed;
+                    this.position.PosY += this.MoveSpeed;
                     this.MoveType = MoveTypeEnum.Down;
                 }
                 else if (moveCount > 60)
                 {
-                    this.position.PosX -= this.moveSpeed - 1;
-                    this.position.PosY += this.moveSpeed - 1;
+                    this.position.PosX -= this.MoveSpeed - 1;
+                    this.position.PosY += this.MoveSpeed - 1;
                     this.MoveType = MoveTypeEnum.LeftDown;
                 }
 
@@ -109,13 +105,13 @@ namespace ShootingSharp.entity.enemy
             {
                 if (moveCount < 50)
                 {
-                    this.position.PosY += this.moveSpeed;
+                    this.position.PosY += this.MoveSpeed;
                     this.MoveType = MoveTypeEnum.Down;
                 }
                 else if (moveCount > 60)
                 {
-                    this.position.PosX += this.moveSpeed - 1;
-                    this.position.PosY += this.moveSpeed - 1;
+                    this.position.PosX += this.MoveSpeed - 1;
+                    this.position.PosY += this.MoveSpeed - 1;
                     this.MoveType = MoveTypeEnum.RightDown;
                 }
             }
@@ -123,14 +119,14 @@ namespace ShootingSharp.entity.enemy
             {
                 if (moveCount < 50)
                 {
-                    this.position.PosX += this.moveSpeed - 1;
-                    this.position.PosY += this.moveSpeed - 1;
+                    this.position.PosX += this.MoveSpeed - 1;
+                    this.position.PosY += this.MoveSpeed - 1;
                     this.MoveType = MoveTypeEnum.RightDown;
                 }
                 else if (moveCount > 60)
                 {
-                    this.position.PosX -= this.moveSpeed - 1;
-                    this.position.PosY += this.moveSpeed - 1;
+                    this.position.PosX -= this.MoveSpeed - 1;
+                    this.position.PosY += this.MoveSpeed - 1;
                     this.MoveType = MoveTypeEnum.LeftDown;
                 }
             }
@@ -138,18 +134,19 @@ namespace ShootingSharp.entity.enemy
             {
                 if (moveCount < 50)
                 {
-                    this.position.PosX -= this.moveSpeed - 1;
-                    this.position.PosY += this.moveSpeed - 1;
+                    this.position.PosX -= this.MoveSpeed - 1;
+                    this.position.PosY += this.MoveSpeed - 1;
                     this.MoveType = MoveTypeEnum.LeftDown;
                 }
                 else if (moveCount > 60)
                 {
-                    this.position.PosX += this.moveSpeed - 1;
-                    this.position.PosY += this.moveSpeed - 1;
+                    this.position.PosX += this.MoveSpeed - 1;
+                    this.position.PosY += this.MoveSpeed - 1;
                     this.MoveType = MoveTypeEnum.RightDown;
                 }
             }
                 this.moveCount++;
+         
         }
 
         public override void DoAction()

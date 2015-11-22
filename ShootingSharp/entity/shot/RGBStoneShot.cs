@@ -22,7 +22,7 @@ namespace ShootingSharp.entity.shot
         public RGBStoneShot(SSPosition position, ColorType color)
             : base(position)
         {
-            this.moveSpeed = 1;
+            this.MoveSpeed = 1;
             this.initPosX = position.PosX;
             this.color = color;
         }
@@ -59,8 +59,8 @@ namespace ShootingSharp.entity.shot
 
         public override void Move()
         {
-            this.position.PosX = (int)((this.initPosX + Math.Round(Math.Sin(this.moveCount / 12.0D) * this.moveSpeed * 12)));
-            this.position.PosY += this.moveSpeed;
+            this.position.PosX = (int)((this.initPosX + Math.Round(Math.Sin(this.moveCount / 12.0D) * this.MoveSpeed * 12)));
+            this.position.PosY += this.MoveSpeed;
 
 
             this.moveCount++;

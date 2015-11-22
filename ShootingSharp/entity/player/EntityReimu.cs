@@ -15,7 +15,7 @@ namespace ShootingSharp.entity.player
         public EntityReimu()
             : base()
         {
-            this.moveSpeed = 6;
+            this.MoveSpeed = 6;
             this.shotInterval = 5;
 
             int loadTextureSize = 1024 / 21;

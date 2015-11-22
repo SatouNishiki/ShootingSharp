@@ -48,7 +48,7 @@ namespace DebugProject
 
                 enemy.SetPopCount(i * 20 + 20 + 20 * 50);
                 this.AddEnemy(enemy);
-            }
+            }/*
 
 
             for (int i = 0; i < 30; i++)
@@ -62,7 +62,7 @@ namespace DebugProject
                 enemy.SetPopCount(i * 40 + 20);
                 this.AddEnemy(enemy);
             }
-            
+            */
 
             this.AddBoss(new BossRumia());
 

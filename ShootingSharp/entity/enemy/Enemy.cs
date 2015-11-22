@@ -28,6 +28,7 @@ namespace ShootingSharp.entity.enemy
 
         protected collid.CircleCollider collider;
 
+
         public Enemy() : base()
         {
             this.loader = TextureLoader.GetInstance();
@@ -132,5 +133,6 @@ namespace ShootingSharp.entity.enemy
         }
 
         public abstract int GetRadius();
+
     }
 }

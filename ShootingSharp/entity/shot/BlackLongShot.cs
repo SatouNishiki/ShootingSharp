@@ -15,13 +15,13 @@ namespace ShootingSharp.entity.shot
         public BlackLongShot(interfaces.IHasSSPosition shooter, double theta)
             : base(shooter, theta)
         {
-            this.moveSpeed = 2;
+            this.MoveSpeed = 2;
         }
 
         public BlackLongShot(interfaces.IHasSSPosition shooter, position.SSPosition target)
             : base(shooter, target)
         {
-            this.moveSpeed = 2;
+            this.MoveSpeed = 2;
         }
 
 

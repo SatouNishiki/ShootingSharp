@@ -17,7 +17,7 @@ namespace ShootingSharp.entity.item
             : base()
         {
             this.loader = TextureLoader.GetInstance();
-            this.moveSpeed = 2;
+            this.MoveSpeed = 2;
             this.collider = new collid.CircleCollider(this.GetType(), null);
             this.collider.Radius = this.GetRadius();
         }
@@ -59,7 +59,7 @@ namespace ShootingSharp.entity.item
 
         public override void Move()
         {
-            this.position.PosY += this.moveSpeed;
+            this.position.PosY += this.MoveSpeed;
         }
 
         public override void DoAction()

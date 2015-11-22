@@ -151,7 +151,7 @@ namespace ShootingSharp.entity.shot
         protected virtual void Init()
         {
             this.outOfWindowDeleteEnable = true;
-            this.moveSpeed = 5;
+            this.MoveSpeed = 5;
         }
         
         public override void OnUpdate()
@@ -185,28 +185,28 @@ namespace ShootingSharp.entity.shot
             if (this.Type == ShotType.Normal)
             {
                 this.moveX = 0;
-                this.moveY = this.moveSpeed;
+                this.moveY = this.MoveSpeed;
             }
 
             else if (this.Type == ShotType.Direction)
             {
 
-                this.moveX = (int)Math.Round((double)this.moveSpeed * Math.Cos(theta));
-                this.moveY = (int)Math.Round((double)this.moveSpeed * Math.Sin(theta));
+                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
+                this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
 
                 if (this.moveX == 0 && this.moveY == 0)
                 {
-                    this.moveY = this.moveSpeed;
+                    this.moveY = this.MoveSpeed;
                 }
             }
             else if (this.Type == ShotType.Aim)
             {
-                this.moveX = (int)Math.Round((double)this.moveSpeed * Math.Cos(theta));
-                this.moveY = (int)Math.Round((double)this.moveSpeed * Math.Sin(theta));
+                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
+                this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
 
                 if (this.moveX == 0 && this.moveY == 0)
                 {
-                    this.moveY = this.moveSpeed;
+                    this.moveY = this.MoveSpeed;
                 }
             }
         }
@@ -254,12 +254,12 @@ namespace ShootingSharp.entity.shot
 
         public void SetMoveSpeed(int speed)
         {
-            this.moveSpeed = speed;
+            this.MoveSpeed = speed;
         }
 
         public int GetMoveSpeed()
         {
-            return this.moveSpeed;
+            return this.MoveSpeed;
         }
 
         public override collid.ColliderBase GetCollider()

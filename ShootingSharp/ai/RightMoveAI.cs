@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ShootingSharp.ai
 {
-    public class DownMoveAI : AITask
+    public class RightMoveAI : AITask
     {
-        public DownMoveAI(entity.Entity entity, int priority, int frame)
+        public RightMoveAI(entity.Entity entity, int priority, int frame)
             : base(entity, priority, frame)
         {
 
         }
 
+
         protected override void RunMethod()
         {
-            entity.GetPosition().PosY += entity.MoveSpeed;
-
+            this.entity.GetPosition().PosX += this.entity.MoveSpeed;
         }
     }
 }

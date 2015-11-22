@@ -132,40 +132,40 @@ namespace ShootingSharp.entity
 
             if (DX.CheckHitKey(DX.KEY_INPUT_LSHIFT) == 1 || DX.CheckHitKey(DX.KEY_INPUT_RSHIFT) == 1)
             {
-                this.tempSpeed = this.moveSpeed;
-                this.moveSpeed /= 2;
+                this.tempSpeed = this.MoveSpeed;
+                this.MoveSpeed /= 2;
             }
 
             if (this.MoveType == MoveTypeEnum.Right)
             {
                 if (this.CanRightMove())
-                    this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosX += (int)(this.MoveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.Left)
             {
                 if (this.CanLeftMove())
-                    this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosX -= (int)(this.MoveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.Up)
             {
                 if (this.CanUpMove())
-                    this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY -= (int)(this.MoveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.Down)
             {
                 if (this.CanDownMove())
-                    this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY += (int)(this.MoveSpeed * this.GetMoveCoefficient());
             }
 
             if (this.MoveType == MoveTypeEnum.RightUp)
             {
                 if (this.CanRightMove() && this.CanUpMove())
                 {
-                    this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
-                    this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosX += (int)(this.MoveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY -= (int)(this.MoveSpeed * this.GetMoveCoefficient());
                 }
             }
 
@@ -173,8 +173,8 @@ namespace ShootingSharp.entity
             {
                 if (this.CanRightMove() && this.CanDownMove())
                 {
-                    this.position.PosX += (int)(this.moveSpeed * this.GetMoveCoefficient());
-                    this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosX += (int)(this.MoveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY += (int)(this.MoveSpeed * this.GetMoveCoefficient());
                 }
             }
 
@@ -182,8 +182,8 @@ namespace ShootingSharp.entity
             {
                 if (this.CanLeftMove() && this.CanUpMove())
                 {
-                    this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
-                    this.position.PosY -= (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosX -= (int)(this.MoveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY -= (int)(this.MoveSpeed * this.GetMoveCoefficient());
                 }
             }
 
@@ -191,14 +191,14 @@ namespace ShootingSharp.entity
             {
                 if (this.CanLeftMove() && this.CanDownMove())
                 {
-                    this.position.PosX -= (int)(this.moveSpeed * this.GetMoveCoefficient());
-                    this.position.PosY += (int)(this.moveSpeed * this.GetMoveCoefficient());
+                    this.position.PosX -= (int)(this.MoveSpeed * this.GetMoveCoefficient());
+                    this.position.PosY += (int)(this.MoveSpeed * this.GetMoveCoefficient());
                 }
             }
 
             if (this.tempSpeed != 0)
             {
-                this.moveSpeed = tempSpeed;
+                this.MoveSpeed = tempSpeed;
             }
 
             tempSpeed = 0;
