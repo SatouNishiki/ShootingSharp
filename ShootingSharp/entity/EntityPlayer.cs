@@ -235,6 +235,10 @@ namespace ShootingSharp.entity
                     Shot s = this.GetShot();
                     this.Scene.AddShot(s);
 
+                    Shot s10 = this.GetShot();
+                    s10.GetPosition().Offset(0, -5);
+                    this.Scene.AddShot(s);
+
                     this.shotCount = 0;
                     this.PlayShotSound();
 
