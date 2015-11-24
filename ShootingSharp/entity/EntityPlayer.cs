@@ -53,7 +53,6 @@ namespace ShootingSharp.entity
 
        
         private int bomCount;
-
         protected collid.CircleCollider collider;
 
         public EntityPlayer()
@@ -78,6 +77,7 @@ namespace ShootingSharp.entity
 
             this.collider = new collid.CircleCollider(this.GetType(), typeof(Bom), typeof(PlayerCircleShot));
             this.collider.Radius = this.GetRadius();
+
         }
 
         /// <summary>

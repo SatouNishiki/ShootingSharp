@@ -10,15 +10,20 @@ using ShootingSharp.task;
 
 namespace DebugProject.enemy
 {
-    public class Mayoi : Enemy
+    public class Tsubasa : Enemy
     {
-        private int type;
-
-        public Mayoi()
+        public Tsubasa()
             : base()
         {
             this.AIEnabled = true;
-            this.MoveSpeed = 1;
+            this.MoveSpeed = 2;
+
+            this.AddMoveAI(new RightDownMoveAI(this, 0, 1000));
+
+            this.AddActionAI(new CircleShotAI(this, 1, 1, SSTaskFactory.PlayerUpdateTask.Player, 0));
+
+            this.AddActionAI(new NoneAI(this, 0, 30));
+
         }
 
         public override int GetRadius()
@@ -38,17 +43,17 @@ namespace DebugProject.enemy
 
         public override string GetLeftDownTextureName()
         {
-            throw new NotImplementedException();
+            return "tsubasa_left.png";
         }
 
         public override string GetLeftTextureName()
         {
-            return "mayoi_left.png";
+            return "tsubasa_left.png";
         }
 
         public override string GetLeftUpTextureName()
         {
-            throw new NotImplementedException();
+            return "tsubasa_left.png";
         }
 
         public override string GetRightDownTextureName()
@@ -58,7 +63,7 @@ namespace DebugProject.enemy
 
         public override string GetRightTextureName()
         {
-            return "mayoi_right.png";
+            throw new NotImplementedException();
         }
 
         public override string GetRightUpTextureName()
@@ -78,43 +83,8 @@ namespace DebugProject.enemy
 
         public override void SetMoveType()
         {
-            if (this.type == 0)
-            {
-                this.MoveType = MoveTypeEnum.Right;
-            }
-            else
-            {
-                this.MoveType = MoveTypeEnum.Left;
-            }
+            this.MoveType = MoveTypeEnum.Left;
         }
 
-        public void SetType(int t)
-        {
-            this.type = t;
-
-            if (this.type == 0)
-            {
-                this.AddMoveAI(new LeftDownMoveAI(this, 0, 120));
-                this.AddMoveAI(new NoneAI(this, 1, 100));
-                this.AddMoveAI(new LeftMoveAI(this, 2, 1000));
-
-             //   this.AddActionAI(new NoneAI(this, 0, 120));
-
-                for (int i = 0; i < 36 ; i ++)
-                {
-                    this.AddActionAI(new StarsShotAI(this, 1 + 3 * i, 1, i * 30, i % 6));
-                    this.AddActionAI(new SmallStarsShotAI(this, 2 + 3 * i, 1, SSTaskFactory.PlayerUpdateTask.Player.GetPosition(), i % 4));
-                    this.AddActionAI(new NoneAI(this, 3 + 3 * i, 5));
-               
-                }
-
-                this.AddActionAI(new NoneAI(this, 2 + 2 * 360, 1000));
-
-            }
-            else
-            {
-                this.AddMoveAI(new RightDownMoveAI(this, 0, 100));
-            }
-        }
     }
 }

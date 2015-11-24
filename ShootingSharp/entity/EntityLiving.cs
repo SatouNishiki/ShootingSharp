@@ -32,13 +32,15 @@ namespace ShootingSharp.entity
         /// <returns></returns>
         public override bool IsLiving()
         {
-            return this.Life > 0;
+            return base.IsLiving() && this.Life > 0;
         }
 
         public abstract void OnDeath();
 
         public override void OnUpdate()
         {
+            base.OnUpdate();
+
             if (!this.IsLiving())
             {
                 this.OnDeath();

@@ -35,12 +35,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ai\CircleShotAI.cs" />
     <Compile Include="ai\SmallStarsShotAI.cs" />
     <Compile Include="ai\StarsShotAI.cs" />
     <Compile Include="Bakemono.cs" />
     <Compile Include="enemy\Mayoi.cs" />
+    <Compile Include="enemy\Tsubasa.cs" />
+    <Compile Include="enemy\Tsukihi.cs" />
     <Compile Include="FairyDance.cs" />
     <Compile Include="program.cs" />
+    <Compile Include="shot\CirclesShot.cs" />
     <Compile Include="shot\SmallStarsShot.cs" />
     <Compile Include="shot\StarsShot.cs" />
   </ItemGroup>

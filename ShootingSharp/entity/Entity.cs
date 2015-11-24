@@ -28,6 +28,8 @@ namespace ShootingSharp.entity
 
         protected Logger logger;
 
+ //       protected System.Drawing.Size textureSize;
+
         public scene.ShootingSceneBase Scene { get; set; }
 
         private List<AITask> MoveAI;
@@ -36,6 +38,8 @@ namespace ShootingSharp.entity
 
         private int moveAICount;
         private int actionAICount;
+
+        private bool isLiving;
 
         public bool AIEnabled { get; set; }
 
@@ -48,6 +52,7 @@ namespace ShootingSharp.entity
             this.MoveAI = new List<AITask>();
             this.AIEnabled = true;
             this.MoveSpeed = 1;
+            this.isLiving = true;
         }
         /// <summary>
         /// 中心位置
@@ -90,7 +95,13 @@ namespace ShootingSharp.entity
         /// <summary>
         /// アップデートのとき
         /// </summary>
-        public abstract void OnUpdate();
+        public virtual void OnUpdate()
+        {
+
+            if (this.position.PosX < 0 || this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
+                || this.position.PosY < 0 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height)
+                this.isLiving = false;
+        }
 
         /// <summary>
         /// 動く
@@ -143,7 +154,10 @@ namespace ShootingSharp.entity
         }
 
 
-        public abstract bool IsLiving();
+        public virtual bool IsLiving()
+        {
+            return this.isLiving;
+        }
 
         public abstract void OnInteract(collid.CollitionInfo info);
 

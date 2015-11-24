@@ -44,6 +44,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ai\AITask.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="ai\NoneAI.cs" />
     <Compile Include="ai\RightDownMoveAI.cs" />
     <Compile Include="ai\RightMoveAI.cs" />
+    <Compile Include="ai\SinShotAI.cs" />
     <Compile Include="collid\CircleCollider.cs" />
     <Compile Include="collid\ColliderBase.cs" />
     <Compile Include="collid\CollitionInfo.cs" />

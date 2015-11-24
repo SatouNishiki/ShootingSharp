@@ -9,6 +9,8 @@ using ShootingSharp.entity;
 using ShootingSharp.texture;
 using DxLibDLL;
 using ShootingSharp.entity.item;
+using System.Windows;
+using ShootingSharp.task;
 
 namespace ShootingSharp.entity.shot
 {
@@ -23,7 +25,7 @@ namespace ShootingSharp.entity.shot
         /// </summary>
         public enum ShotType
         {
-            Normal, Direction, Aim, Homing
+            Normal, Direction, Aim, Homing, Sin
         }
 
         protected readonly Type[] noCollitionTypes = { typeof(Item), typeof(Shot) };
@@ -32,6 +34,8 @@ namespace ShootingSharp.entity.shot
         /// ショットのタイプ
         /// </summary>
         public ShotType Type { get; set; }
+
+        public double SinShotTheta { get; set; }
 
         /// <summary>
         /// アップデートのたびに呼ばれるカウンタ
@@ -69,6 +73,78 @@ namespace ShootingSharp.entity.shot
 
         protected collid.ColliderBase collider;
 
+        private Vector vec2;
+
+        public class Builder 
+        {
+            public SSPosition initPos;
+            public Shot.ShotType type;
+            public double theta;
+            public SSPosition target;
+            private Type baseType;
+
+            public Builder(Type baseType)
+            {
+                this.baseType = baseType;
+            }
+
+            public Builder Position(SSPosition pos)
+            {
+                this.initPos = pos;
+                return this;
+            }
+
+            public Builder Type(Shot.ShotType type)
+            {
+                this.type = type;
+                return this;
+            }
+
+            public Builder Theta(double theta)
+            {
+                this.theta = theta;
+                return this;
+            }
+
+            public Builder Target(SSPosition target)
+            {
+                this.target = target;
+                return this;
+            }
+
+            public Shot Build()
+            {
+                if (typeof(Shot).IsAssignableFrom(this.baseType))
+                {
+                    return (Shot)Activator.CreateInstance(this.baseType, this);
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+
+        }
+
+        public Shot(Builder builder)
+        {
+            this.Type = builder.type;
+            this.position = new SSPosition(builder.initPos.PosX, builder.initPos.PosY);
+            this.theta = builder.theta;
+            this.target = builder.target;
+        }
+
+        public Shot()
+        {
+            Init();
+
+            this.Type = ShotType.Normal;
+            this.position.PosX = SSTaskFactory.PlayerUpdateTask.Player.GetPosition().PosX;
+            this.position.PosY = SSTaskFactory.PlayerUpdateTask.Player.GetPosition().PosY;
+
+        }
+
         /// <summary>
         /// 通常弾を生成
         /// </summary>
@@ -99,6 +175,9 @@ namespace ShootingSharp.entity.shot
             this.theta = theta * Math.PI / 180.0D;
             this.position.PosX = position.PosX;
             this.position.PosY = position.PosY;
+
+            this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
+            this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
 
         }
 
@@ -131,6 +210,9 @@ namespace ShootingSharp.entity.shot
             this.theta = theta * Math.PI / 180.0D;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
+
+            this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
+            this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
         }
 
         public Shot(IHasSSPosition shooter, SSPosition target)
@@ -146,6 +228,28 @@ namespace ShootingSharp.entity.shot
             this.target.PosY = target.PosY;
 
             this.theta = Math.Atan2(target.PosY - this.position.PosY, target.PosX - this.position.PosX);
+
+            this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
+            this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
+        }
+
+        /// <summary>
+        /// 誘導弾作成
+        /// </summary>
+        /// <param name="shooter"></param>
+        /// <param name="target"></param>
+        public Shot(IHasSSPosition shooter, IHasSSPosition target)
+            : base()
+        {
+            Init();
+            this.Type = ShotType.Homing;
+            this.position.PosX = shooter.GetPosition().PosX;
+            this.position.PosY = shooter.GetPosition().PosY;
+            /*
+            this.target = new SSPosition();
+            this.target.PosX = target.GetPosition().PosX;
+            this.target.PosY = target.GetPosition().PosY;*/
+            this.target = target.GetPosition();
         }
 
         protected virtual void Init()
@@ -170,6 +274,8 @@ namespace ShootingSharp.entity.shot
                 }
             }
 
+            this.updateCount++;
+
         }
 
         public override void Move()
@@ -191,9 +297,6 @@ namespace ShootingSharp.entity.shot
             else if (this.Type == ShotType.Direction)
             {
 
-                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
-                this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
-
                 if (this.moveX == 0 && this.moveY == 0)
                 {
                     this.moveY = this.MoveSpeed;
@@ -201,13 +304,43 @@ namespace ShootingSharp.entity.shot
             }
             else if (this.Type == ShotType.Aim)
             {
-                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
-                this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
+                
 
                 if (this.moveX == 0 && this.moveY == 0)
                 {
                     this.moveY = this.MoveSpeed;
                 }
+            }
+            else if (this.Type == ShotType.Homing)
+            {
+                Vector vec1 = new Vector(target.PosX - this.position.PosX, target.PosY - this.position.PosY);
+                vec1.Normalize();
+                vec1 *= vec1.Length;
+                Vector outVec = vec1 + vec2;
+                outVec.Normalize();
+                outVec *= this.MoveSpeed;
+                vec2 = outVec;
+
+                this.moveX = (int)Math.Round(vec2.X);
+           
+                this.moveY = this.MoveSpeed;
+
+            
+                if (this.moveX == 0 && this.moveY == 0)
+                {
+                    this.moveY = this.MoveSpeed;
+                }
+            }
+            else if (this.Type == ShotType.Sin)
+            {
+             //   this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Sin(this.SinShotTheta));
+             //   this.moveY = this.MoveSpeed;
+
+               // this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(this.moveX * Math.PI / 180.0D)) + 1;
+           //     this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(this.moveY * Math.PI / 180.0D)) + 1;
+
+                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(this.position.PosX));
+                this.moveY = this.MoveSpeed;
             }
         }
 

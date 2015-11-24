@@ -10,6 +10,9 @@ namespace ShootingSharp.entity.shot
 {
     public abstract class EnemyCircleShot : CircleShot
     {
+
+        public EnemyCircleShot() : base() { }
+
           /// <summary>
         /// 通常弾を生成
         /// </summary>
@@ -53,6 +56,12 @@ namespace ShootingSharp.entity.shot
         public EnemyCircleShot(IHasSSPosition shooter, SSPosition target)
             : base(shooter, target)
         {
+        }
+
+        public EnemyCircleShot(IHasSSPosition shooter, IHasSSPosition target)
+            : base(shooter, target)
+        {
+
         }
 
         protected override void Init()
