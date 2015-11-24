@@ -140,7 +140,8 @@ namespace ShootingSharp.entity.boss
 
             if (actionCount % 10 == 0)
             {
-                Shot s = new BlackCircleShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
+                //Shot s = new BlackCircleShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
+                Shot s = new Shot.Builder(typeof(BlackCircleShot)).Position(this.position).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
                 this.Scene.AddShot(s);
             }
 

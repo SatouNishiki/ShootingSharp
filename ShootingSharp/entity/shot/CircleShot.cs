@@ -9,7 +9,7 @@ using ShootingSharp.interfaces;
 namespace ShootingSharp.entity.shot
 {
     public abstract class CircleShot : Shot
-    {
+    {/*
         public CircleShot()
             : base()
         {
@@ -63,6 +63,12 @@ namespace ShootingSharp.entity.shot
 
         public CircleShot(IHasSSPosition shooter, IHasSSPosition target)
             : base(shooter, target)
+        {
+
+        }*/
+
+        public CircleShot(Builder builder)
+            : base(builder)
         {
 
         }

@@ -81,6 +81,8 @@ namespace ShootingSharp.entity.shot
             public Shot.ShotType type;
             public double theta;
             public SSPosition target;
+            public int moveX;
+            public int moveY;
             private Type baseType;
 
             public Builder(Type baseType)
@@ -102,7 +104,7 @@ namespace ShootingSharp.entity.shot
 
             public Builder Theta(double theta)
             {
-                this.theta = theta;
+                this.theta = theta * Math.PI / 180.0D;
                 return this;
             }
 
@@ -127,14 +129,23 @@ namespace ShootingSharp.entity.shot
 
         }
 
-        public Shot(Builder builder)
+        public Shot(Builder builder) : base()
         {
+            Init();
             this.Type = builder.type;
             this.position = new SSPosition(builder.initPos.PosX, builder.initPos.PosY);
             this.theta = builder.theta;
             this.target = builder.target;
-        }
 
+            if (this.target != null)
+            {
+                this.theta = Math.Atan2(target.PosY - this.position.PosY, target.PosX - this.position.PosX);
+
+                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
+                this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
+            }
+        }
+        /*
         public Shot()
         {
             Init();
@@ -245,13 +256,10 @@ namespace ShootingSharp.entity.shot
             this.Type = ShotType.Homing;
             this.position.PosX = shooter.GetPosition().PosX;
             this.position.PosY = shooter.GetPosition().PosY;
-            /*
-            this.target = new SSPosition();
-            this.target.PosX = target.GetPosition().PosX;
-            this.target.PosY = target.GetPosition().PosY;*/
+           
             this.target = target.GetPosition();
         }
-
+    */
         protected virtual void Init()
         {
             this.outOfWindowDeleteEnable = true;
