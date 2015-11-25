@@ -8,14 +8,16 @@ namespace ShootingSharp.entity.bom
 {
     public class ReimuBom : Bom
     {
+        public ReimuBom()
+            : base()
+        {
+            this.textureSize = new System.Drawing.Size(30, 30);
+        }
+
         public override string GetTextureName()
         {
             return "reimu_bom2.png";
         }
 
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(30, 30);
-        }
     }
 }

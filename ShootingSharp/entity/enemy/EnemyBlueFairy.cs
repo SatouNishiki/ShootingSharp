@@ -29,6 +29,7 @@ namespace ShootingSharp.entity.enemy
         {
             this.loader.LoadSprite("blue_fairy.png", 6, 2, 12, 49, 50);
             this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(30, 30);
         }
 
         public override string GetUpTextureName()
@@ -77,11 +78,11 @@ namespace ShootingSharp.entity.enemy
         }
 
 
-        
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(30, 30);
-        }
+        }*/
 
 
         public override void Move()
@@ -113,13 +114,16 @@ namespace ShootingSharp.entity.enemy
                         this.position.PosX < SSTaskFactory.PlayerUpdateTask.Player.GetPosition().PosX + 10 &&
                         this.position.PosY <= SSTaskFactory.PlayerUpdateTask.Player.GetPosition().PosY)
                     {
-                        Shot s3 = new BlueFairyShot(this, 60);
+                       // Shot s3 = new BlueFairyShot(this, 60);
+                        Shot s3 = new Shot.Builder(typeof(BlueFairyShot)).Position(this.position).Theta(60).Build();
                         this.Scene.AddShot(s3);
 
-                        Shot s4 = new BlueFairyShot(this, 90);
+                     //   Shot s4 = new BlueFairyShot(this, 90);
+                        Shot s4 = new Shot.Builder(typeof(BlueFairyShot)).Position(this.position).Theta(90).Build();
                         this.Scene.AddShot(s4);
 
-                        Shot s2 = new BlueFairyShot(this, 75);
+                       // Shot s2 = new BlueFairyShot(this, 75);
+                        Shot s2 = new Shot.Builder(typeof(BlueFairyShot)).Position(this.position).Theta(75).Build();
                         this.Scene.AddShot(s2);
 
                         this.shotCount = 0;

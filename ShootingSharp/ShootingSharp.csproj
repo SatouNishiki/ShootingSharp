@@ -47,13 +47,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ai\DirectionShotAI.cs" />
+    <Compile Include="ai\PlayerAimShotAI.cs" />
     <Compile Include="ai\AITask.cs" />
     <Compile Include="ai\DownMoveAI.cs" />
     <Compile Include="ai\LeftDownMoveAI.cs" />
     <Compile Include="ai\LeftMoveAI.cs" />
     <Compile Include="ai\NoneAI.cs" />
+    <Compile Include="ai\NormalShotAITask.cs" />
     <Compile Include="ai\RightDownMoveAI.cs" />
     <Compile Include="ai\RightMoveAI.cs" />
+    <Compile Include="ai\ShotAITask.cs" />
     <Compile Include="ai\SinShotAI.cs" />
     <Compile Include="collid\CircleCollider.cs" />
     <Compile Include="collid\ColliderBase.cs" />
@@ -62,6 +66,7 @@
     <Compile Include="core\Effecter.cs" />
     <Compile Include="core\FileUtility.cs" />
     <Compile Include="core\FontProvider.cs" />
+    <Compile Include="core\FPSController.cs" />
     <Compile Include="core\Logger.cs" />
     <Compile Include="entity\bom\Bom.cs" />
     <Compile Include="entity\bom\ReimuBom.cs" />

@@ -7,6 +7,7 @@ using ShootingSharp.entity.enemy;
 using ShootingSharp.ai;
 using DebugProject.ai;
 using ShootingSharp.task;
+using DebugProject.shot;
 
 namespace DebugProject.enemy
 {
@@ -19,6 +20,7 @@ namespace DebugProject.enemy
         {
             this.AIEnabled = true;
             this.MoveSpeed = 1;
+            this.textureSize = new System.Drawing.Size(32, 32);
         }
 
         public override int GetRadius()
@@ -70,11 +72,11 @@ namespace DebugProject.enemy
         {
             throw new NotImplementedException();
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(32, 32);
-        }
+        }*/
 
         public override void SetMoveType()
         {
@@ -98,12 +100,14 @@ namespace DebugProject.enemy
                 this.AddMoveAI(new NoneAI(this, 1, 100));
                 this.AddMoveAI(new LeftMoveAI(this, 2, 1000));
 
-             //   this.AddActionAI(new NoneAI(this, 0, 120));
 
                 for (int i = 0; i < 36 ; i ++)
                 {
-                    this.AddActionAI(new StarsShotAI(this, 1 + 3 * i, 1, i * 30, i % 6));
-                    this.AddActionAI(new SmallStarsShotAI(this, 2 + 3 * i, 1, SSTaskFactory.PlayerUpdateTask.Player.GetPosition(), i % 4));
+                 //   this.AddActionAI(new StarsShotAI(this, 1 + 3 * i, 1, i * 30, i % 6));
+                //    this.AddActionAI(new SmallStarsShotAI(this, 2 + 3 * i, 1, SSTaskFactory.PlayerUpdateTask.Player.GetPosition(), i % 4));
+
+                    this.AddActionAI(new DirectionShotAI<StarsShot>(this, 1 + 3 * i, 1, i % 6, i * 30));
+                    this.AddActionAI(new PlayerAimShotAI<SmallStarsShot>(this, 2 + 3 * i, 1, i % 4));
                     this.AddActionAI(new NoneAI(this, 3 + 3 * i, 5));
                
                 }

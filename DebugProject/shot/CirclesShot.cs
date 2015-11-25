@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DxLibDLL;
 using ShootingSharp.entity.shot;
 using ShootingSharp.interfaces;
 using ShootingSharp.position;
-using DxLibDLL;
 
 namespace DebugProject.shot
 {
     public class CirclesShot : EnemyCircleShot
     {
-        private int colorType;
+       // private int colorType;
 
-
+        /*
         public CirclesShot(IHasSSPosition shooter, double theta, int color)
             : base(shooter, theta)
         {
@@ -35,8 +35,18 @@ namespace DebugProject.shot
             this.MoveSpeed = 3;
             this.colorType = color;
         }
+        */
 
+        
 
+        public CirclesShot(Builder builder)
+            : base(builder)
+        {
+            this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(30, 30);
+        //    this.colorType = builder.metaData;
+        }
+        
         public override int GetRadius()
         {
             return 10;
@@ -44,21 +54,21 @@ namespace DebugProject.shot
 
         public override string GetTextureName()
         {
-            if (this.colorType < 3)
+            if (this.metaData < 3)
             {
-                return "circles" + this.colorType.ToString() + ".png";
+                return "circles" + this.metaData.ToString() + ".png";
             }
             else
             {
                 return "circles2.png";
             }
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(30, 30);
         }
-
+        */
 
     }
 }

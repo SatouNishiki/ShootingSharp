@@ -13,10 +13,10 @@ namespace DebugProject.shot
 {
     public class StarsShot : EnemyCircleShot
     {
-        public int ColorType { get; set; }
+     //   public int ColorType { get; set; }
 
         private double gTheta;
-
+        /*
         public StarsShot(IHasSSPosition shooter, double theta, int color)
             : base(shooter, theta)
         {
@@ -30,23 +30,31 @@ namespace DebugProject.shot
             this.MoveSpeed = 3;
             this.ColorType = color;
         }
+        */
 
+        public StarsShot(Builder builder)
+            : base(builder)
+        {
+            this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(30, 30);
+          //  this.ColorType = builder.metaData;
+        }
         public override string GetTextureName()
         {
-            if (this.ColorType < 6)
+            if (this.metaData < 6)
             {
-                return "stars" + this.ColorType.ToString() + ".png" ;
+                return "stars" + this.metaData.ToString() + ".png" ;
             }
             else
             {
                 return "stars0.png";
             }
-        }
+        }/*
 
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(30, 30);
-        }
+        }*/
 
         public override int GetRadius()
         {

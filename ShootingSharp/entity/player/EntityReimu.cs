@@ -10,7 +10,7 @@ namespace ShootingSharp.entity.player
 {
     public class EntityReimu : EntityPlayer
     {
-        private const int textureSize = 35;
+        private const int size = 35;
 
         public EntityReimu()
             : base()
@@ -20,6 +20,7 @@ namespace ShootingSharp.entity.player
 
             int loadTextureSize = 1024 / 21;
             this.textureLoader.LoadSprite("reimu.png", 21, 3, 19, loadTextureSize, loadTextureSize);
+            this.textureSize = new System.Drawing.Size(size, size);
         }
 
         public override string GetUpTextureName()
@@ -67,12 +68,12 @@ namespace ShootingSharp.entity.player
             return "reimu.png7";
         }
 
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(textureSize, textureSize);
         }
-
+        */
         public override int GetRadius()
         {
            //return this.GetTextureSize().Height > this.GetTextureSize().Width ? this.GetTextureSize().Width / 4 : this.GetTextureSize().Height / 4;
@@ -81,17 +82,20 @@ namespace ShootingSharp.entity.player
 
         protected override shot.Shot GetShot()
         {
-            return new ReimuNormalShot(this);
+          //  return new ReimuNormalShot(this);
+            return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Build();
         }
 
         protected override Shot GetThreeShot(double theta)
         {
-            return new ReimuNormalShot(this, theta);
+          //  return new ReimuNormalShot(this, theta);
+            return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Theta(theta).Build();
         }
 
         protected override Shot GetFiveShot(double theta)
         {
-            return new ReimuNormalShot(this, theta);
+          //  return new ReimuNormalShot(this, theta);
+            return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Theta(theta).Build();
         }
 
         protected override Shot GetSubShot(double theta)

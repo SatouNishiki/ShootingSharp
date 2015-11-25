@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ShootingSharp.entity.shot;
+using ShootingSharp.entity;
 
 namespace ShootingSharp.task
 {
     public class ShotDrawTask : interfaces.ITask
     {
-        public List<Shot> ShotList { get; set; }
+        public List<Shot> ShotList { get; private set; }
 
         public ShotDrawTask()
         {
@@ -18,14 +19,22 @@ namespace ShootingSharp.task
 
         public void Run()
         {
-            foreach (var s in this.ShotList)
+            for (int i = 0; i < this.ShotList.Count; i++)
             {
-                s.Draw();
+                this.ShotList[i].Draw();
 
             }
+        }
 
-            //死んでるやつを削除
-            this.ShotList.RemoveAll(shot => !shot.IsLiving());
+        public void AddShot(Shot shot)
+        {
+            shot.OnDispose += this.DeathAt;
+            this.ShotList.Add(shot);
+        }
+
+        private void DeathAt(Entity entity)
+        {
+            this.ShotList.Remove((Shot)entity);
         }
     }
 }

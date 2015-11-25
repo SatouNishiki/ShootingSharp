@@ -15,7 +15,7 @@ namespace ShootingSharp.entity.shot
         }
 
         public ColorType Color { get; set; }
-
+        /*
         public BlueFairyShot(IHasSSPosition shooter) : base(shooter) 
         {
             this.MoveSpeed = 3;
@@ -33,7 +33,14 @@ namespace ShootingSharp.entity.shot
             this.MoveSpeed = 3;
         }
 
+        */
 
+        public BlueFairyShot(Builder builder)
+            : base(builder)
+        {
+            this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(20, 20);
+        }
         public override string GetTextureName()
         {
             if (Color == ColorType.Dark)
@@ -41,11 +48,11 @@ namespace ShootingSharp.entity.shot
             else
                 return "blue_fairy_shot.png";
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(20, 20);
-        }
+        }*/
 
         public override int GetRadius()
         {

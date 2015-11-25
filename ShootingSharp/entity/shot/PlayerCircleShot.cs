@@ -9,7 +9,7 @@ using ShootingSharp.interfaces;
 namespace ShootingSharp.entity.shot
 {
     public abstract class PlayerCircleShot : CircleShot
-    {
+    {/*
           /// <summary>
         /// 通常弾を生成
         /// </summary>
@@ -54,7 +54,13 @@ namespace ShootingSharp.entity.shot
             : base(shooter, target)
         {
         }
+        */
 
+        public PlayerCircleShot(Builder builder)
+            : base(builder)
+        {
+
+        }
         protected override void Init()
         {
             base.Init();

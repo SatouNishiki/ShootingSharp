@@ -44,6 +44,11 @@ namespace ShootingSharp.entity
             if (!this.IsLiving())
             {
                 this.OnDeath();
+
+                if (this.OnDispose != null)
+                {
+                    this.OnDispose(this);
+                }
             }
             
         }

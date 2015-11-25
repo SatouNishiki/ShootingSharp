@@ -10,7 +10,7 @@ namespace ShootingSharp.entity.shot
 {
     public abstract class EnemyCircleShot : CircleShot
     {
-
+        /*
         public EnemyCircleShot() : base() { }
 
           /// <summary>
@@ -63,7 +63,13 @@ namespace ShootingSharp.entity.shot
         {
 
         }
+        */
 
+        public EnemyCircleShot(Builder builder)
+            : base(builder)
+        {
+
+        }
         protected override void Init()
         {
             base.Init();
