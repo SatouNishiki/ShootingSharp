@@ -32,10 +32,10 @@ namespace DebugProject.ai
 
         protected override void RunMethod()
         {
-            if (this.target == null)
-                entity.Scene.AddShot(new StarsShot(entity, this.theta, this.color));
-            else
-                entity.Scene.AddShot(new StarsShot(entity, this.target, this.color));
+          //  if (this.target == null)
+          //      entity.Scene.AddShot(new StarsShot(entity, this.theta, this.color));
+        //    else
+        //        entity.Scene.AddShot(new StarsShot(entity, this.target, this.color));
         }
     }
 }

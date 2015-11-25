@@ -23,7 +23,7 @@ namespace DebugProject.enemy
             this.AddActionAI(new CircleShotAI(this, 1, 1, SSTaskFactory.PlayerUpdateTask.Player, 0));
 
             this.AddActionAI(new NoneAI(this, 0, 30));
-
+            this.textureSize = new System.Drawing.Size(32, 32);
         }
 
         public override int GetRadius()
@@ -75,11 +75,11 @@ namespace DebugProject.enemy
         {
             throw new NotImplementedException();
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(32, 32);
-        }
+        }*/
 
         public override void SetMoveType()
         {

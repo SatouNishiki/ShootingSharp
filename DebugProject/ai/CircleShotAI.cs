@@ -41,12 +41,12 @@ namespace DebugProject.ai
 
         protected override void RunMethod()
         {
-            if (this.target == null && this.target2 == null)
-                entity.Scene.AddShot(new CirclesShot(entity, this.theta, this.color));
-            else if (this.target == null)
-                entity.Scene.AddShot(new CirclesShot(entity, ShootingSharp.task.SSTaskFactory.PlayerUpdateTask.Player, this.color));
-            else
-                entity.Scene.AddShot(new CirclesShot(entity, this.target, this.color));
+       //     if (this.target == null && this.target2 == null)
+        //        entity.Scene.AddShot(new CirclesShot(entity, this.theta, this.color));
+         //   else if (this.target == null)
+         //       entity.Scene.AddShot(new CirclesShot(entity, ShootingSharp.task.SSTaskFactory.PlayerUpdateTask.Player, this.color));
+         //   else
+          //      entity.Scene.AddShot(new CirclesShot(entity, this.target, this.color));
         }
     }
 }

@@ -75,14 +75,17 @@ namespace ShootingSharp.entity.shot
 
         private Vector vec2;
 
+        protected int metaData;
+
         public class Builder 
         {
-            public SSPosition initPos;
-            public Shot.ShotType type;
-            public double theta;
-            public SSPosition target;
-            public int moveX;
-            public int moveY;
+            public SSPosition initPos { get; private set; }
+            public Shot.ShotType type { get; private set; }
+            public double theta { get; private set; }
+            public SSPosition target { get; private set; }
+            public int moveX { get; private set; }
+            public int moveY { get; private set; }
+            public int metaData { get; private set; }
             private Type baseType;
 
             public Builder(Type baseType)
@@ -114,6 +117,12 @@ namespace ShootingSharp.entity.shot
                 return this;
             }
 
+            public Builder MetaData(int meta)
+            {
+                this.metaData = meta;
+                return this;
+            }
+
             public Shot Build()
             {
                 if (typeof(Shot).IsAssignableFrom(this.baseType))
@@ -136,11 +145,17 @@ namespace ShootingSharp.entity.shot
             this.position = new SSPosition(builder.initPos.PosX, builder.initPos.PosY);
             this.theta = builder.theta;
             this.target = builder.target;
+            this.metaData = builder.metaData;
 
             if (this.target != null)
             {
                 this.theta = Math.Atan2(target.PosY - this.position.PosY, target.PosX - this.position.PosX);
 
+                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
+                this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
+            }
+            else if (this.theta != 0.0D)
+            {
                 this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
                 this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
             }
@@ -416,6 +431,11 @@ namespace ShootingSharp.entity.shot
         public override void OnDeath()
         {
             
+        }
+
+        public void SetMetaData(int meta)
+        {
+            this.metaData = meta;
         }
     }
 }

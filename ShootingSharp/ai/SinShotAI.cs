@@ -8,22 +8,18 @@ using ShootingSharp.interfaces;
 
 namespace ShootingSharp.ai
 {
-    public class SinShotAI<T> : AITask where T : Shot,new()
+    public class SinShotAI<T> : ShotAITask<T> where T : Shot
     {
 
-        public SinShotAI(entity.Entity entity, int priority, int frame)
-            : base(entity, priority, frame)
+        public SinShotAI(entity.Entity entity, int priority, int frame, int meta)
+            : base(entity, priority, frame, meta)
         {
         }
 
-        protected override void RunMethod()
+        public override Shot GetShot()
         {
-            T shot = new T();
-            shot.SinShotTheta = 30;
-            shot.Type = Shot.ShotType.Sin;
-            shot.SetMoveSpeed(3);
-            shot.SetPosition(new position.SSPosition(entity.GetPosition().PosX, entity.GetPosition().PosY));
-            entity.Scene.AddShot(shot);
+          //  return new Shot.Builder(typeof(T)).Position(entity.GetPosition()).Type(Shot.ShotType.Sin).Build();
+            throw new NotImplementedException();
         }
     }
 }

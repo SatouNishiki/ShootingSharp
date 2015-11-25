@@ -12,7 +12,7 @@ namespace ShootingSharp.entity.shot
         private int drawCount;
         private int gTheta;
 
-        public BlackLongShot(interfaces.IHasSSPosition shooter, double theta)
+     /*   public BlackLongShot(interfaces.IHasSSPosition shooter, double theta)
             : base(shooter, theta)
         {
             this.MoveSpeed = 2;
@@ -23,19 +23,25 @@ namespace ShootingSharp.entity.shot
         {
             this.MoveSpeed = 2;
         }
+        */
 
+        public BlackLongShot(Builder builder)
+            : base(builder)
+        {
+            this.MoveSpeed = 2;
+            this.textureSize = new System.Drawing.Size(5, 10);
+        }
 
         public override string GetTextureName()
         {
             return "black_long_shot.png";
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(5, 10);
-        }
-
-
+        }*/
+        
         public override int GetRadius()
         {
             return 1;

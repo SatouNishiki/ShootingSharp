@@ -23,6 +23,7 @@ namespace ShootingSharp.entity.boss
             this.Life = 1000;
             this.MaxLife = Life;
             this.canMove = true;
+            this.textureSize = new System.Drawing.Size(150, 150);
         }
 
         public override string GetUpTextureName()
@@ -79,12 +80,12 @@ namespace ShootingSharp.entity.boss
         {
             //なにもしない
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(150, 150);
         }
-
+        */
         public override void Move()
         {
             if (this.canMove)
@@ -123,7 +124,8 @@ namespace ShootingSharp.entity.boss
                     {
                         if (i % 10 == 0)
                         {
-                            Shot s = new BlackLongShot(this, (double)i);
+                         //   Shot s = new BlackLongShot(this, (double)i);
+                            Shot s = new Shot.Builder(typeof(BlackLongShot)).Position(this.position).Theta((double)i).Build();
                             this.Scene.AddShot(s);
                         }
                     }
@@ -149,7 +151,9 @@ namespace ShootingSharp.entity.boss
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Red);
+                    //Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Red);
+             //       Shot s = new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)). RGBStoneShot.ColorType.Red)
+                    Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Red);
                     this.Scene.AddShot(s);
                 }
             }
@@ -158,7 +162,8 @@ namespace ShootingSharp.entity.boss
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Blue);
+                  //  Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Blue);
+                    Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Blue);
                     this.Scene.AddShot(s);
                 }
             }
@@ -167,7 +172,8 @@ namespace ShootingSharp.entity.boss
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Green);
+                //    Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Green);
+                    Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Green);
                     this.Scene.AddShot(s);
                 }
             }

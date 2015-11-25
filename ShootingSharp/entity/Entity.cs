@@ -28,7 +28,7 @@ namespace ShootingSharp.entity
 
         protected Logger logger;
 
- //       protected System.Drawing.Size textureSize;
+        protected System.Drawing.Size textureSize;
 
         public scene.ShootingSceneBase Scene { get; set; }
 
@@ -43,6 +43,7 @@ namespace ShootingSharp.entity
 
         public bool AIEnabled { get; set; }
 
+        public Action<Entity> OnDispose;
 
         public Entity()
         {
@@ -78,7 +79,10 @@ namespace ShootingSharp.entity
         /// 画像サイズ
         /// </summary>
         /// <returns></returns>
-        public abstract System.Drawing.Size GetTextureSize();
+        public System.Drawing.Size GetTextureSize()
+        {
+            return this.textureSize;
+        }
 
         /// <summary>
         /// 画像の表示場所

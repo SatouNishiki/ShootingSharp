@@ -42,17 +42,18 @@ namespace ShootingSharp.entity.shot
         {
             this.textureLoader.LoadSprite("fairy_shot.png", 512 / 20, 256 / 20, 8, 20, 20);
             this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(20, 20);
         }
 
         public override string GetTextureName()
         {
             return "fairy_shot.png0";
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(20, 20);
-        }
+        }*/
 
         public override int GetRadius()
         {

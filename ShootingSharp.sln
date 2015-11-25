@@ -4,11 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShootingSharp", "ShootingSharp\ShootingSharp.csproj", "{E4CFB39C-298E-43E3-AE63-B1590D0CCFDF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{691911DA-8D23-4B8C-9D55-450BF6D892D5} = {691911DA-8D23-4B8C-9D55-450BF6D892D5}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugProject", "DebugProject\DebugProject.csproj", "{691911DA-8D23-4B8C-9D55-450BF6D892D5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4CFB39C-298E-43E3-AE63-B1590D0CCFDF} = {E4CFB39C-298E-43E3-AE63-B1590D0CCFDF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

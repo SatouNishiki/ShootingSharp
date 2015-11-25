@@ -12,10 +12,10 @@ namespace DebugProject.shot
 {
     public class SmallStarsShot : EnemyCircleShot
     {
-        private int colorType;
+     //   private int colorType;
 
         private double gTheta;
-
+        /*
         public SmallStarsShot(IHasSSPosition shooter, double theta, int color)
             : base(shooter, theta)
         {
@@ -29,7 +29,15 @@ namespace DebugProject.shot
             this.MoveSpeed = 3;
             this.colorType = color;
         }
+        */
 
+        public SmallStarsShot(Builder builder)
+            : base(builder)
+        {
+            this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(10, 10);
+        //    this.colorType = builder.metaData;
+        }
 
         public override int GetRadius()
         {
@@ -38,24 +46,24 @@ namespace DebugProject.shot
 
         public override string GetTextureName()
         {
-            if (this.colorType < 3)
+            if (this.metaData < 3)
             {
-                return "stars" + this.colorType.ToString() + ".png";
+                return "stars" + this.metaData.ToString() + ".png";
             }
             else
             {
                 return "stars5.png";
             }
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(10, 10);
         }
-
+        */
         public override void Draw()
         {
-            DX.DrawRotaGraph(this.GetTexturePosition().PosX, this.GetTexturePosition().PosY, 1.0D, (Math.PI / 180.0D) * this.gTheta, this.textureLoader.Textures[this.GetTextureName()], DX.TRUE);
+            DX.DrawRotaGraph(this.GetTexturePosition().PosX, this.GetTexturePosition().PosY, 0.7D, (Math.PI / 180.0D) * this.gTheta, this.textureLoader.Textures[this.GetTextureName()], DX.TRUE);
         }
 
         public override void OnUpdate()

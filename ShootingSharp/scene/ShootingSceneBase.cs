@@ -216,9 +216,9 @@ namespace ShootingSharp.scene
         public void AddShot(Shot shot)
         {
             shot.Scene = this;
-            SSTaskFactory.ShotMoveTask.ShotList.Add(shot);
-            SSTaskFactory.ShotDrawTask.ShotList.Add(shot);
-            SSTaskFactory.ShotUpdateTask.ShotList.Add(shot);
+            SSTaskFactory.ShotMoveTask.AddShot(shot);
+            SSTaskFactory.ShotDrawTask.AddShot(shot);
+            SSTaskFactory.ShotUpdateTask.AddShot(shot);
             SSTaskFactory.CollitionTask.AddInteractors(shot);
         }
 

@@ -19,12 +19,22 @@ namespace ShootingSharp.entity.shot
         private int initPosX;
         private ColorType color;
 
-        public RGBStoneShot(SSPosition position, ColorType color)
-            : base(position)
+        public RGBStoneShot(Builder buider)
+            : base(buider)
+        {
+            this.MoveSpeed = 1;
+            this.initPosX = position.PosX;
+            this.color = ColorType.Red;
+            this.textureSize = new System.Drawing.Size(15, 20);
+        }
+        
+        public RGBStoneShot(Builder builder, ColorType color)
+            : base(builder)
         {
             this.MoveSpeed = 1;
             this.initPosX = position.PosX;
             this.color = color;
+            this.textureSize = new System.Drawing.Size(15, 20);
         }
 
         public override string GetTextureName()
@@ -46,11 +56,11 @@ namespace ShootingSharp.entity.shot
             }
             
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(15, 20);
-        }
+        }*/
 
         public override int GetRadius()
         {

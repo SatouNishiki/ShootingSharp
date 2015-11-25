@@ -31,17 +31,18 @@ namespace ShootingSharp.entity.shot
         {
             this.textureLoader.LoadDerivationGraph(167, 62, 30, 30, "shot.png");
             this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(12, 12);
         }
         public override string GetTextureName()
         {
             return "shot.png167+62";
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(12, 12);
         }
-
+        */
         public override int GetRadius()
         {
             return 1;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DxLibDLL;
 using ShootingSharp.interfaces;
 using System.Drawing;
+using ShootingSharp.core;
 
 namespace ShootingSharp
 {
@@ -25,9 +26,12 @@ namespace ShootingSharp
 
         private IScene nowScene;
 
+        private FPSController fps;
+
         private SSGame()
         {
             this.SceneNameSpace = new List<string>();
+            this.fps = new FPSController(60.0f, 800);
         }
 
         public void Run()
@@ -56,8 +60,8 @@ namespace ShootingSharp
                     }
                 }
 
+                fps.All();
                 DX.ScreenFlip();
-                
             }
 
             DX.DxLib_End();
@@ -85,6 +89,7 @@ namespace ShootingSharp
                 }
 
                 DX.ChangeFontType(DX.DX_FONTTYPE_ANTIALIASING_8X8);
+                
             }
 
             return instance;

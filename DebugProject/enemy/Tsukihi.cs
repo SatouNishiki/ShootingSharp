@@ -19,9 +19,11 @@ namespace DebugProject.enemy
 
             this.AddMoveAI(new LeftDownMoveAI(this, 0, 1000));
 
-            this.AddActionAI(new SinShotAI<RedFairyShot>(this, 0, 1));
+        //    this.AddActionAI(new SinShotAI<RedFairyShot>(this, 0, 1));
 
             this.AddActionAI(new NoneAI(this, 0, 30));
+
+            this.textureSize = new System.Drawing.Size(32, 32);
         }
 
         public override int GetRadius()
@@ -73,11 +75,11 @@ namespace DebugProject.enemy
         {
             throw new NotImplementedException();
         }
-
+        /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(32, 32);
-        }
+        }*/
 
         public override void SetMoveType()
         {

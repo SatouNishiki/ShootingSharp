@@ -13,7 +13,7 @@ namespace ShootingSharp.entity.item
         public ItemSmallPower()
             : base()
         {
-         
+            this.textureSize = new System.Drawing.Size(30, 30);
         }
 
         public override void AddItemEffect(EntityPlayer player)
@@ -27,10 +27,10 @@ namespace ShootingSharp.entity.item
         {
             return "small_power.png";
         }
-
+       /*
         public override System.Drawing.Size GetTextureSize()
         {
             return new System.Drawing.Size(30, 30);
-        }
+        }*/
     }
 }
