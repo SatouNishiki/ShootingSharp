@@ -18,6 +18,7 @@ namespace ShootingSharp.entity.item
         {
             this.loader = TextureLoader.GetInstance();
             this.MoveSpeed = 2;
+           
             this.collider = new collid.CircleCollider(this.GetType(), null);
             this.collider.Radius = this.GetRadius();
         }
@@ -69,7 +70,7 @@ namespace ShootingSharp.entity.item
 
         public virtual int GetRadius()
         {
-            return this.GetTextureSize().Width > this.GetTextureSize().Height ? this.GetTextureSize().Height : this.GetTextureSize().Width;
+            return this.GetTextureSize().Width > this.GetTextureSize().Height ? this.GetTextureSize().Width : this.GetTextureSize().Height;
         }
 
         /// <summary>

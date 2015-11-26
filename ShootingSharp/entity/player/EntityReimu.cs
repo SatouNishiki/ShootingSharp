@@ -16,7 +16,7 @@ namespace ShootingSharp.entity.player
             : base()
         {
             this.MoveSpeed = 6;
-            this.shotInterval = 1;
+            this.shotInterval = 5;
 
             int loadTextureSize = 1024 / 21;
             this.textureLoader.LoadSprite("reimu.png", 21, 3, 19, loadTextureSize, loadTextureSize);

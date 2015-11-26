@@ -41,7 +41,7 @@ namespace DebugProject.shot
 
         public override int GetRadius()
         {
-            return 3;
+            return 1;
         }
 
         public override string GetTextureName()
@@ -55,12 +55,7 @@ namespace DebugProject.shot
                 return "stars5.png";
             }
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(10, 10);
-        }
-        */
+        
         public override void Draw()
         {
             DX.DrawRotaGraph(this.GetTexturePosition().PosX, this.GetTexturePosition().PosY, 0.7D, (Math.PI / 180.0D) * this.gTheta, this.textureLoader.Textures[this.GetTextureName()], DX.TRUE);

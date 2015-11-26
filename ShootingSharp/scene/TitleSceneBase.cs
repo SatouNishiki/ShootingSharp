@@ -55,6 +55,7 @@ namespace ShootingSharp.scene
             this.interval = 5;
             sloader = SoundLoader.GetInstance();
             tLoader = TextureLoader.GetInstance();
+            SSMath.Init();
            
         }
 

@@ -58,7 +58,7 @@ namespace DebugProject.shot
 
         public override int GetRadius()
         {
-            return 3;
+            return 2;
         }
 
         public override void Draw()

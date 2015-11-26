@@ -11,6 +11,7 @@ using DxLibDLL;
 using ShootingSharp.entity.item;
 using System.Windows;
 using ShootingSharp.task;
+using ShootingSharp.core;
 
 namespace ShootingSharp.entity.shot
 {
@@ -77,6 +78,10 @@ namespace ShootingSharp.entity.shot
 
         protected int metaData;
 
+        private int r;
+        private int loopSpeed;
+        private double loopCount;
+
         public class Builder 
         {
             public SSPosition initPos { get; private set; }
@@ -86,6 +91,8 @@ namespace ShootingSharp.entity.shot
             public int moveX { get; private set; }
             public int moveY { get; private set; }
             public int metaData { get; private set; }
+            public int r { get; private set; }
+            public int loopSpeed { get; private set; }
             private Type baseType;
 
             public Builder(Type baseType)
@@ -123,6 +130,18 @@ namespace ShootingSharp.entity.shot
                 return this;
             }
 
+            public Builder CircleRadius(int r)
+            {
+                this.r = r;
+                return this;
+            }
+
+            public Builder LoopSpeed(int l)
+            {
+                this.loopSpeed = l;
+                return this;
+            }
+
             public Shot Build()
             {
                 if (typeof(Shot).IsAssignableFrom(this.baseType))
@@ -146,6 +165,8 @@ namespace ShootingSharp.entity.shot
             this.theta = builder.theta;
             this.target = builder.target;
             this.metaData = builder.metaData;
+            this.r = builder.r;
+            this.loopSpeed = builder.loopSpeed;
 
             if (this.target != null)
             {
@@ -153,128 +174,20 @@ namespace ShootingSharp.entity.shot
 
                 this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
                 this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
+
+          //      this.moveX = (int)Math.Round((double)this.MoveSpeed * SSMath.Cos(theta));
+           //     this.moveY = (int)Math.Round((double)this.MoveSpeed * SSMath.Sin(theta));
             }
             else if (this.theta != 0.0D)
             {
                 this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
                 this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
+
+              //  this.moveX = (int)Math.Round((double)this.MoveSpeed * SSMath.Cos(theta));
+           //     this.moveY = (int)Math.Round((double)this.MoveSpeed * SSMath.Sin(theta));
             }
         }
-        /*
-        public Shot()
-        {
-            Init();
-
-            this.Type = ShotType.Normal;
-            this.position.PosX = SSTaskFactory.PlayerUpdateTask.Player.GetPosition().PosX;
-            this.position.PosY = SSTaskFactory.PlayerUpdateTask.Player.GetPosition().PosY;
-
-        }
-
-        /// <summary>
-        /// 通常弾を生成
-        /// </summary>
-        /// <param name="position">発射位置</param>
-        public Shot(SSPosition position)
-            : base()
-        {
-            Init();
-           
-            this.Type = ShotType.Normal;
-            
-            this.position.PosX = position.PosX;
-            this.position.PosY = position.PosY;
-        }
-
-        /// <summary>
-        /// 方向弾を生成
-        /// </summary>
-        /// <param name="position">発射位置</param>
-        /// <param name="theta">角度</param>
-        public Shot(SSPosition position, double theta)
-            : base()
-        {
-            Init();
-
-            this.Type = ShotType.Direction;
-
-            this.theta = theta * Math.PI / 180.0D;
-            this.position.PosX = position.PosX;
-            this.position.PosY = position.PosY;
-
-            this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
-            this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
-
-        }
-
-
-        /// <summary>
-        /// 通常弾を生成
-        /// </summary>
-        /// <param name="shooter">射手</param>
-        public Shot(IHasSSPosition shooter)
-            : base()
-        {
-            Init();
-
-            this.Type = ShotType.Normal;
-            this.position.PosX = shooter.GetPosition().PosX;
-            this.position.PosY = shooter.GetPosition().PosY;
-        }
-
-        /// <summary>
-        /// 方向弾を生成
-        /// </summary>
-        /// <param name="shooter">射手</param>
-        /// <param name="theta">角度</param>
-        public Shot(IHasSSPosition shooter, double theta)
-            : base()
-        {
-            this.Type = ShotType.Direction;
-
-            Init();
-            this.theta = theta * Math.PI / 180.0D;
-            this.position.PosX = shooter.GetPosition().PosX;
-            this.position.PosY = shooter.GetPosition().PosY;
-
-            this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
-            this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
-        }
-
-        public Shot(IHasSSPosition shooter, SSPosition target)
-            : base()
-        {
-            Init();
-            this.Type = ShotType.Aim;
-            this.position.PosX = shooter.GetPosition().PosX;
-            this.position.PosY = shooter.GetPosition().PosY;
-
-            this.target = new SSPosition();
-            this.target.PosX = target.PosX;
-            this.target.PosY = target.PosY;
-
-            this.theta = Math.Atan2(target.PosY - this.position.PosY, target.PosX - this.position.PosX);
-
-            this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(theta));
-            this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(theta));
-        }
-
-        /// <summary>
-        /// 誘導弾作成
-        /// </summary>
-        /// <param name="shooter"></param>
-        /// <param name="target"></param>
-        public Shot(IHasSSPosition shooter, IHasSSPosition target)
-            : base()
-        {
-            Init();
-            this.Type = ShotType.Homing;
-            this.position.PosX = shooter.GetPosition().PosX;
-            this.position.PosY = shooter.GetPosition().PosY;
-           
-            this.target = target.GetPosition();
-        }
-    */
+    
         protected virtual void Init()
         {
             this.outOfWindowDeleteEnable = true;
@@ -356,14 +269,13 @@ namespace ShootingSharp.entity.shot
             }
             else if (this.Type == ShotType.Sin)
             {
-             //   this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Sin(this.SinShotTheta));
-             //   this.moveY = this.MoveSpeed;
 
-               // this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(this.moveX * Math.PI / 180.0D)) + 1;
-           //     this.moveY = (int)Math.Round((double)this.MoveSpeed * Math.Sin(this.moveY * Math.PI / 180.0D)) + 1;
 
-                this.moveX = (int)Math.Round((double)this.MoveSpeed * Math.Cos(this.position.PosX));
-                this.moveY = this.MoveSpeed;
+                this.moveX = r * (int)Math.Round(Math.Cos(this.loopCount));
+                this.moveY = r * (int)Math.Round(Math.Sin(this.loopCount)) + 1;
+
+                this.loopCount += 1.0D / this.loopSpeed;
+                
             }
         }
 

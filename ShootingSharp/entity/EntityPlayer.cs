@@ -248,8 +248,8 @@ namespace ShootingSharp.entity
                         this.Scene.AddShot(s2);
 
 
-                        Shot s3 = this.GetThreeShot(80.0D);
-                        this.Scene.AddShot(s3);
+                     //   Shot s3 = this.GetThreeShot(80.0D);
+                 //       this.Scene.AddShot(s3);
                     }
 
                     if (this.mainShotType == MainShotType.Five)
@@ -530,11 +530,6 @@ namespace ShootingSharp.entity
         {
             Bom s = this.GetBom();
             s.SetPosition(new position.SSPosition(this.position.PosX, this.position.PosY));
-      //      s.SetFriendCode(this.friendCode);
-        /*    this.InteractManager.AddInteractObject(s);
-            SSTaskFactory.BomUpdateTask.BomList.Add(s);
-            SSTaskFactory.BomDrawTask.BomList.Add(s);
-            */
 
             this.Scene.AddBom(s);
             this.bomCount--;

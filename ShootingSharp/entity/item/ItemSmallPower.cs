@@ -27,10 +27,6 @@ namespace ShootingSharp.entity.item
         {
             return "small_power.png";
         }
-       /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(30, 30);
-        }*/
+      
     }
 }

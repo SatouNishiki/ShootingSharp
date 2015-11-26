@@ -19,7 +19,7 @@ namespace DebugProject.enemy
 
             this.AddMoveAI(new LeftDownMoveAI(this, 0, 1000));
 
-        //    this.AddActionAI(new SinShotAI<RedFairyShot>(this, 0, 1));
+            this.AddActionAI(new SinShotAI<RedFairyShot>(this, 0, 1, 0));
 
             this.AddActionAI(new NoneAI(this, 0, 30));
 

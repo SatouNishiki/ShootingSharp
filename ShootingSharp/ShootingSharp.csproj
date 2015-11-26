@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ai\DirectionShotAI.cs" />
+    <Compile Include="ai\PlayerHomingShotAI.cs" />
     <Compile Include="ai\PlayerAimShotAI.cs" />
     <Compile Include="ai\AITask.cs" />
     <Compile Include="ai\DownMoveAI.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="core\FontProvider.cs" />
     <Compile Include="core\FPSController.cs" />
     <Compile Include="core\Logger.cs" />
+    <Compile Include="core\SSMath.cs" />
     <Compile Include="entity\bom\Bom.cs" />
     <Compile Include="entity\bom\ReimuBom.cs" />
     <Compile Include="entity\boss\Boss.cs" />

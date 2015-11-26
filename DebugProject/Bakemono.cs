@@ -19,14 +19,27 @@ namespace DebugProject
             EntityReimu p = new EntityReimu();
             this.AddPlayer(p);
 
-            for (int i = 0; i < 60; i++)
+            //20フレーム ~ 30*20+20フレーム
+            for (int i = 0; i < 30; i++)
             {
                 Mayoi enemy = new Mayoi();
              
                 enemy.SetPosition(new SSPosition(this.windowSize.Width / 2 + (i % 20) * 10, 0));
                 enemy.SetType(0);
 
-                enemy.SetPopCount(i * 60 + 20);
+                enemy.SetPopCount(i * 20 + 20);
+                this.AddEnemy(enemy);
+
+            }
+
+            for (int i = 0; i < 40; i++)
+            {
+                Mayoi enemy = new Mayoi();
+
+                enemy.SetPosition(new SSPosition(this.windowSize.Width / 2 + (i % 20) * 10, 0));
+                enemy.SetType(0);
+
+                enemy.SetPopCount(i * 50 + 20 + 30 * 20);
                 this.AddEnemy(enemy);
 
             }
@@ -36,17 +49,17 @@ namespace DebugProject
                 Tsubasa t = new Tsubasa();
                 t.SetPosition(new SSPosition(20 + i * 50, 10));
 
-                t.SetPopCount(20 + i * 30);
+                t.SetPopCount(30 * 20 + 20 + i * 30);
                 this.AddEnemy(t);
 
             }
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 40; i++)
             {
                 Tsukihi t = new Tsukihi();
                 t.SetPosition(new SSPosition(this.windowSize.Width / 2 + (i % 20) * 30, 0));
 
-                t.SetPopCount(100 + i * 40);
+                t.SetPopCount(30 * 20 + 20 + 30 * 20 + i * 30);
                 this.AddEnemy(t);
 
             }

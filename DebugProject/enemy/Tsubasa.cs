@@ -7,6 +7,7 @@ using ShootingSharp.entity.enemy;
 using ShootingSharp.ai;
 using DebugProject.ai;
 using ShootingSharp.task;
+using DebugProject.shot;
 
 namespace DebugProject.enemy
 {
@@ -20,7 +21,7 @@ namespace DebugProject.enemy
 
             this.AddMoveAI(new RightDownMoveAI(this, 0, 1000));
 
-            this.AddActionAI(new CircleShotAI(this, 1, 1, SSTaskFactory.PlayerUpdateTask.Player, 0));
+            this.AddActionAI(new PlayerHomingShotAI<CirclesShot>(this, 1, 1, 0));
 
             this.AddActionAI(new NoneAI(this, 0, 30));
             this.textureSize = new System.Drawing.Size(32, 32);

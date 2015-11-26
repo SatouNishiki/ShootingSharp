@@ -56,12 +56,6 @@ namespace ShootingSharp.entity.shot
             }
             
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(15, 20);
-        }*/
-
         public override int GetRadius()
         {
             return 1;
