@@ -350,12 +350,10 @@ namespace ShootingSharp.entity
         /// <returns></returns>
         public override position.SSPosition GetTexturePosition()
         {
-            ShootingSharp.position.SSPosition pos = new position.SSPosition();
+            tempPos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
+            tempPos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
 
-            pos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
-            pos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
-
-            return pos;
+            return tempPos;
         }
 
 

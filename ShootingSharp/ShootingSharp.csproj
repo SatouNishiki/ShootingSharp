@@ -63,7 +63,7 @@
     <Compile Include="collid\CircleCollider.cs" />
     <Compile Include="collid\ColliderBase.cs" />
     <Compile Include="collid\CollitionInfo.cs" />
-    <Compile Include="collid\SquareCollition.cs" />
+    <Compile Include="collid\SquareCollider.cs" />
     <Compile Include="core\Effecter.cs" />
     <Compile Include="core\FileUtility.cs" />
     <Compile Include="core\FontProvider.cs" />

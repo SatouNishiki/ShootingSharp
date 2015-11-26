@@ -14,12 +14,16 @@ namespace ShootingSharp.entity.bom
         protected TextureLoader loader;
         private int drawCount;
         protected collid.CircleCollider collider;
+        private collid.CollitionInfo info;
 
         public Bom() : base()
         {
             this.loader = TextureLoader.GetInstance();
             this.collider = new collid.CircleCollider(this.GetType(), typeof(EntityPlayer), typeof(item.Item));
             this.collider.Radius = this.GetRadius();
+            this.info = new collid.CollitionInfo();
+            info.CollitionObjectType = this.GetType();
+            info.CollitionInteractor = this;
         }
 
         public override void OnDeath()
@@ -35,21 +39,21 @@ namespace ShootingSharp.entity.bom
       
         public override position.SSPosition GetTexturePosition()
         {
-            ShootingSharp.position.SSPosition pos = new position.SSPosition();
 
-            pos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
-            pos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
+            tempPos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
+            tempPos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
 
-            return pos;
+            return tempPos;
         }
 
         public override void Draw()
         {
-            DX.DrawRotaGraph(this.position.PosX, this.position.PosY, (double)this.drawCount / 3.0D, (double)this.drawCount / 10.0D,
+            DX.DrawRotaGraph(this.position.PosX, this.position.PosY, (double)this.drawCount / 2.0D, (double)this.drawCount / 10.0D,
                 this.loader.Textures[this.GetTextureName()], DX.TRUE);
 
             this.drawCount++;
-            this.collider.Radius = this.GetRadius();
+
+         //   this.collider.Radius = this.GetRadius();
 
         }
 
@@ -76,7 +80,7 @@ namespace ShootingSharp.entity.bom
                 a = this.GetTextureSize().Width;
             }
 
-            return (int)Math.Round((a * ((double)this.drawCount / 3.0D)));
+            return (int)Math.Round((a * ((double)this.drawCount / 2.0D)));
         }
 
 
@@ -87,6 +91,9 @@ namespace ShootingSharp.entity.bom
             SSTaskFactory.ShotDrawTask.ShotList.ForEach(s => s.Life = 0);
             SSTaskFactory.ShotMoveTask.ShotList.ForEach(s => s.Life = 0);
             SSTaskFactory.ShotUpdateTask.ShotList.ForEach(s => s.Life = 0);
+
+            SSTaskFactory.EnemyUpdateTask.EnemyList.ForEach(s => s.OnInteract(info));
+
 
             if (this.GetRadius() > SSGame.GetInstance().GetBattleWindowSize().Width)
             {

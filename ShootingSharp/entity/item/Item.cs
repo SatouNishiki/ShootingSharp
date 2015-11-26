@@ -11,16 +11,21 @@ namespace ShootingSharp.entity.item
     public abstract class Item : EntityLiving
     {
         protected TextureLoader loader;
-        protected collid.CircleCollider collider;
+        protected collid.SquareCollider collider;
 
         public Item()
             : base()
         {
             this.loader = TextureLoader.GetInstance();
             this.MoveSpeed = 2;
-           
-            this.collider = new collid.CircleCollider(this.GetType(), null);
-            this.collider.Radius = this.GetRadius();
+
+            this.collider = new collid.SquareCollider(this.GetType(), null);
+            this.collider.SquarePosition =
+                new position.SquareSSPositon(
+                    new position.SSPosition(this.GetTexturePosition().PosX, this.GetTexturePosition().PosY),
+                    new position.SSPosition(this.GetTexturePosition().PosX,  this.GetTexturePosition().PosY + this.GetTextureSize().Height),
+                    new position.SSPosition(this.GetTexturePosition().PosX + this.GetTextureSize().Width, this.GetTexturePosition().PosY),
+                    new position.SSPosition(this.GetTexturePosition().PosX + this.GetTextureSize().Width, this.GetTexturePosition().PosY + this.GetTextureSize().Height));
         }
 
         public override void OnDeath()
@@ -39,12 +44,10 @@ namespace ShootingSharp.entity.item
 
         public override position.SSPosition GetTexturePosition()
         {
-            ShootingSharp.position.SSPosition pos = new position.SSPosition();
+            tempPos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
+            tempPos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
 
-            pos.PosX = this.position.PosX - this.GetTextureSize().Width / 2;
-            pos.PosY = this.position.PosY - this.GetTextureSize().Height / 2;
-
-            return pos;
+            return tempPos;
         }
 
         public override void Draw()
@@ -67,12 +70,12 @@ namespace ShootingSharp.entity.item
         {
             
         }
-
+/*
         public virtual int GetRadius()
         {
             return this.GetTextureSize().Width > this.GetTextureSize().Height ? this.GetTextureSize().Width : this.GetTextureSize().Height;
         }
-
+        */
         /// <summary>
         /// 引数のプレイヤーに効果を与える
         /// </summary>

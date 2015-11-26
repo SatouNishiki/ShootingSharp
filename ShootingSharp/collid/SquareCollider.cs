@@ -7,9 +7,9 @@ using ShootingSharp.position;
 
 namespace ShootingSharp.collid
 {
-    public class SquareCollition : ColliderBase
+    public class SquareCollider : ColliderBase
     {
-        public SquareCollition(Type baseType, params Type[] noCollitionTypes)
+        public SquareCollider(Type baseType, params Type[] noCollitionTypes)
             : base(baseType, noCollitionTypes)
         {
 

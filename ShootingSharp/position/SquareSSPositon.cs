@@ -23,5 +23,14 @@ namespace ShootingSharp.position
         {
             this.SquarePosition = new SSPosition[4];
         }
+
+        public SquareSSPositon(SSPosition lefttop, SSPosition leftbottom, SSPosition righttop, SSPosition rightbottom)
+        {
+            this.SquarePosition = new SSPosition[4];
+            this.SquarePosition[0] = lefttop;
+            this.SquarePosition[1] = leftbottom;
+            this.SquarePosition[2] = righttop;
+            this.SquarePosition[3] = rightbottom;
+        }
     }
 }

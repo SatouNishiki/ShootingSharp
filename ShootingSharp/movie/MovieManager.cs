@@ -14,7 +14,6 @@ namespace ShootingSharp.movie
 
         private static MovieManager instance;
 
-       // private int movieHandle;
         private Dictionary<string, int> movieDictionary;
         private bool flag;
         private int handle;
@@ -33,17 +32,8 @@ namespace ShootingSharp.movie
             return instance;
         }
 
-        public void PlayMovie(string name, int extend)
-        {/*
-            if (flag)
-            {
-                string path = FileUtility.FindTextureDirectory(DefaultMovieFolderName);
-
-                DX.PlayMovie(path + "\\" + name, extend, DX.DX_MOVIEPLAYTYPE_NORMAL);
-
-                flag = false;
-            }
-        */
+        public bool PlayMovie(string name, int extend)
+        {
             if (flag)
             {
 
@@ -62,6 +52,11 @@ namespace ShootingSharp.movie
             }
 
           DX.DrawGraph(0, 100, this.handle, DX.FALSE);
+
+          if (DX.GetMovieStateToGraph(this.handle) > 0)
+              return true;
+          else
+              return false;
         }
 
         private void LoadMovie(string name)

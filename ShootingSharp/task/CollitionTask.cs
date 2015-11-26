@@ -58,49 +58,7 @@ namespace ShootingSharp.task
         }
 
         public void Run()
-        {/*
-            for (var i = 0; i < this.shotInteractors.Count; i++ )
-            {
-                for(var j = 0; j < this.interactors.Count; j++ )
-                {
-                    if (this.IsCollition(this.shotInteractors[i], this.interactors[j]))
-                    {
-                        CollitionInfo info = new CollitionInfo();
-                        info.CollitionObjectType = this.interactors[j].GetCollider().BaseType;
-                        info.CollitionInteractor = this.interactors[j];
-                        this.shotInteractors[i].OnInteract(info);
-
-                        CollitionInfo info2 = new CollitionInfo();
-                        info2.CollitionObjectType = this.shotInteractors[i].GetCollider().BaseType;
-                        info2.CollitionInteractor = this.shotInteractors[i];
-
-                        this.interactors[j].OnInteract(info2);
-
-                    }
-                }
-            }
-
-           
-
-            for (var i = 0; i < this.interactors.Count; i++ )
-            {
-                for (var j = 0; j < this.interactors.Count; j++ )
-                {
-                    if (i != j)
-                    {
-                        if (this.IsCollition(this.interactors[i], this.interactors[j]))
-                        {
-                            CollitionInfo info = new CollitionInfo();
-                            info.CollitionObjectType = this.interactors[j].GetCollider().BaseType;
-                            info.CollitionInteractor = this.interactors[j];
-                            this.interactors[i].OnInteract(info);
-                        }
-                    }
-
-                }
-            }
-
-          */
+        {
 
             foreach (var i in this.interactors)
             {

@@ -45,6 +45,8 @@ namespace ShootingSharp.entity
 
         public Action<Entity> OnDispose;
 
+        protected SSPosition tempPos;
+
         public Entity()
         {
             this.position = new position.SSPosition();
@@ -54,6 +56,7 @@ namespace ShootingSharp.entity
             this.AIEnabled = true;
             this.MoveSpeed = 1;
             this.isLiving = true;
+            this.tempPos = new SSPosition();
         }
         /// <summary>
         /// 中心位置

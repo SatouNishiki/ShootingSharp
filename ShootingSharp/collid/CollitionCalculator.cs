@@ -150,7 +150,7 @@ namespace ShootingSharp.collid
             //円の中に長方形の４点のうちどれかがあるかどうか判定
             for (int i = 0; i < 4; i++)
             {
-                if (PointCircleInteractHelper(((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[i], circle.GetPosition(), ((CircleCollider)(circle.GetCollider())).Radius))
+                if (PointCircleInteractHelper(((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[i], circle.GetPosition(), ((CircleCollider)(circle.GetCollider())).Radius))
                 {
                     return true;
                 }
@@ -160,8 +160,8 @@ namespace ShootingSharp.collid
 
 
             //長方形の中に物体が入り込んでいるかどうかを判定判定
-            double theta = GetThetaHelper(((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[0], ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[1], circle.GetPosition());//3点の成す角1
-            double theta2 = GetThetaHelper(((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[2], ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[3], circle.GetPosition());//3点の成す角2
+            double theta = GetThetaHelper(((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[0], ((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[1], circle.GetPosition());//3点の成す角1
+            double theta2 = GetThetaHelper(((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[2], ((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[3], circle.GetPosition());//3点の成す角2
 
             if (0 <= theta && theta <= Math.PI / 2 && 0 <= theta2 && theta2 <= Math.PI / 2)
                 return true;
@@ -176,10 +176,10 @@ namespace ShootingSharp.collid
                 double d = GetDistanceHelper(
                     circle.GetPosition().PosX,
                     circle.GetPosition().PosY,
-                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[i].PosX,
-                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[i].PosY,
-                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[(i + 1) % 4].PosX,
-                    ((SquareCollition)(square.GetCollider())).SquarePosition.SquarePosition[(i + 1) % 4].PosY);
+                    ((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[i].PosX,
+                    ((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[i].PosY,
+                    ((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[(i + 1) % 4].PosX,
+                    ((SquareCollider)(square.GetCollider())).SquarePosition.SquarePosition[(i + 1) % 4].PosY);
 
                 if (d < ((CircleCollider)(circle.GetCollider())).Radius)
                 {

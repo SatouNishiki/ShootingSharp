@@ -94,7 +94,11 @@ namespace ShootingSharp.task
             {
                 DX.DrawGraph(0, 0, texture.TextureLoader.GetInstance().Textures[this.BannarName], DX.TRUE);
 
-                MovieManager.GetInstance().PlayMovie(this.MovieName, this.MovieExtend);
+                if (!MovieManager.GetInstance().PlayMovie(this.MovieName, this.MovieExtend))
+                {
+                    //動画が終わったらエネミーをすべて消す
+                    SSTaskFactory.EnemyPopTask.EnemyList.Clear();
+                }
             }
         }
     }
