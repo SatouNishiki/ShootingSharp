@@ -302,7 +302,7 @@ namespace ShootingSharp.entity.shot
         }
 
         public override void Draw()
-        {
+        {/*
             if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
                 || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
                 || this.position.PosX < 0
@@ -310,7 +310,7 @@ namespace ShootingSharp.entity.shot
             {
                 return;
             }
-            
+           */ 
             DX.DrawExtendGraph(
                this.GetTexturePosition().PosX,
                this.GetTexturePosition().PosY,

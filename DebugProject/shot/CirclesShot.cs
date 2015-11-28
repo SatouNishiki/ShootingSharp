@@ -31,19 +31,13 @@ namespace DebugProject.shot
         {
             if (this.metaData < 3)
             {
-                return "circles" + this.metaData.ToString() + ".png";
+                return "circles_shot" + this.metaData.ToString() + ".png";
             }
             else
             {
-                return "circles2.png";
+                return "circles_shot2.png";
             }
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(30, 30);
-        }
-        */
-
+     
     }
 }

@@ -55,8 +55,8 @@ namespace ShootingSharp.core
         //描画処理
         public void Disp()
         {
-            // DrawFormatString( disp_x , disp_y , disp_color , "fps:%0.1f" , fps );
-            DX.SetWindowText("FPS:" + ((int)fps).ToString());
+           //  DX.DrawStringF( disp_x , disp_y , disp_color , "fps:%0.1f" , fps );
+            DX.SetWindowText("FPS:" + ((int)Math.Round(fps)).ToString());
         }
         //処理をまとめたもの
         public float All()

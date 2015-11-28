@@ -150,6 +150,7 @@
     <Compile Include="task\SSTaskFactory.cs" />
     <Compile Include="task\TaskManager.cs" />
     <Compile Include="task\UpdateTaskManager.cs" />
+    <Compile Include="texture\CompositeTextureProvider.cs" />
     <Compile Include="texture\TextureLoader.cs" />
   </ItemGroup>
   <ItemGroup />

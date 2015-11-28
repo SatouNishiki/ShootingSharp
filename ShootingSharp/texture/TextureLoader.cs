@@ -25,10 +25,13 @@ namespace ShootingSharp.texture
 
         private core.Logger logger = core.Logger.GetInstance();
 
+        private CompositeTextureProvider com;
        
         private TextureLoader()
         {
             this.Textures = new Dictionary<string, int>();
+
+            com = new CompositeTextureProvider();
        
             this.LoadAllTexture();
             
@@ -57,20 +60,27 @@ namespace ShootingSharp.texture
 
 
             foreach (var s in files)
-            {/*
-                string name = s.Substring(path.Length + 1, s.Length - path.Length - 1);
-                //keyはファイルのフルパスからディレクトリ名と\\を除いたもの(=ファイル名のみ)にする
-                this.Textures.Add(name, DX.LoadGraph(s));
-                */
+            {
+                int handle = com.GetImgHandle(Path.GetFileName(s));
 
-                this.Textures.Add(Path.GetFileName(s), DX.LoadGraph(s));
-                logger.Debug(Path.GetFileName(s) + " is load");
+                if (handle > 0)
+                {
+                    this.Textures.Add(Path.GetFileName(s), handle);
+                    logger.Debug(Path.GetFileName(s) + " is hyspeed load");
+                }
+                else
+                {
+                    this.Textures.Add(Path.GetFileName(s), DX.LoadGraph(s));
+                    logger.Debug(Path.GetFileName(s) + " is default load");
+                }
+
+                
             }
 
         }
 
         /// <summary>
-        ///  スプライトを読み込みます
+        /// 分割画像を読み込みます
         /// </summary>
         /// <param name="fileName">ファイル名</param>
         /// <param name="xNum">xの分割数</param>
@@ -87,10 +97,15 @@ namespace ShootingSharp.texture
             }
 
             string path = FileUtility.FindTextureDirectory(DefaultTextureDirectoryName);
-            
-            int[] buf = new int[allNum];
+       
 
-            DX.LoadDivGraph(path + "\\" + fileName, allNum, xNum, yNum, xSize, ySize, out buf[0]);
+            int[] buf = com.GetDivGraph(fileName, xNum, yNum, allNum, xSize, ySize);
+
+            if (buf == null)
+            {
+                buf = new int[allNum];
+                DX.LoadDivGraph(path + "\\" + fileName, allNum, xNum, yNum, xSize, ySize, out buf[0]);
+            }
 
             int count = 0;
 
@@ -101,7 +116,7 @@ namespace ShootingSharp.texture
 
             }
         }
-
+        
         /// <summary>
         /// 画像を指定の場所から指定の大きさだけ切り取って別の画像としてハンドルを取得、格納します
         /// </summary>
@@ -113,9 +128,16 @@ namespace ShootingSharp.texture
         public void LoadDerivationGraph(int posX, int posY, int sizeX, int sizeY, string name)
         {
             if (!this.Textures.ContainsKey(name + posX.ToString() + "+" + posY.ToString()))
-                this.Textures.Add(name + posX.ToString() + "+" + posY.ToString(), DX.DerivationGraph(167, 62, 30, 30, Textures[name]));
-        }
+            {
+                int handle = com.GetDerivationGraph(167, 62, 30, 30, name);
 
+                if (handle > 0)
+                    this.Textures.Add(name + posX.ToString() + "+" + posY.ToString(), handle);
+                else
+                    this.Textures.Add(name + posX.ToString() + "+" + posY.ToString(), DX.DerivationGraph(167, 62, 30, 30, Textures[name]));
+            }
+        }
+        
        
       
     }

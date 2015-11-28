@@ -76,11 +76,6 @@ namespace DebugProject.enemy
         {
             throw new NotImplementedException();
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(32, 32);
-        }*/
 
         public override void SetMoveType()
         {

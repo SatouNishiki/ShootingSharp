@@ -45,7 +45,6 @@ namespace ShootingSharp
                 DX.SetDrawScreen(DX.DX_SCREEN_BACK);
                 DX.ClearDrawScreen();
 
-                //TODO:内部処理
                 if (!this.nowScene.Run())
                 {
                     //今のシーンの処理が終わったら
@@ -82,6 +81,8 @@ namespace ShootingSharp
                 DX.SetGraphMode(800, 600, 32);
 
                 DX.SetAlwaysRunFlag(DX.TRUE);
+
+             //   DX.SetUseDivGraphFlag(DX.FALSE);
 
                 if (DX.DxLib_Init() == -1)
                 {

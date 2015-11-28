@@ -16,45 +16,25 @@ namespace DebugProject.shot
      //   public int ColorType { get; set; }
 
         private double gTheta;
-        /*
-        public StarsShot(IHasSSPosition shooter, double theta, int color)
-            : base(shooter, theta)
-        {
-            this.MoveSpeed = 3;
-            this.ColorType = color;
-        }
-
-        public StarsShot(IHasSSPosition shooter, SSPosition target, int color)
-            : base(shooter, target)
-        {
-            this.MoveSpeed = 3;
-            this.ColorType = color;
-        }
-        */
+        
 
         public StarsShot(Builder builder)
             : base(builder)
         {
             this.MoveSpeed = 3;
             this.textureSize = new System.Drawing.Size(30, 30);
-          //  this.ColorType = builder.metaData;
         }
         public override string GetTextureName()
         {
             if (this.metaData < 6)
             {
-                return "stars" + this.metaData.ToString() + ".png" ;
+                return "stars_shot" + this.metaData.ToString() + ".png";
             }
             else
             {
-                return "stars0.png";
+                return "stars_shot0.png";
             }
-        }/*
-
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(30, 30);
-        }*/
+        }
 
         public override int GetRadius()
         {

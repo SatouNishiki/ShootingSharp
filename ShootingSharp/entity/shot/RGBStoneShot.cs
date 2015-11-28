@@ -42,16 +42,16 @@ namespace ShootingSharp.entity.shot
             switch (this.color)
             {
                 case(ColorType.Red):
-                    return "red_stone.png";
+                    return "red_stone_shot.png";
 
                 case(ColorType.Blue):
-                     return "blue_stone.png";
+                     return "blue_stone_shot.png";
 
                 case (ColorType.Green):
-                     return "green_stone.png";
+                     return "green_stone_shot.png";
 
                 default:
-                     return "purple_stone.png";
+                     return "purple_stone_shot.png";
                
             }
             

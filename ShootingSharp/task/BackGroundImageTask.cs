@@ -97,7 +97,7 @@ namespace ShootingSharp.task
                 if (!MovieManager.GetInstance().PlayMovie(this.MovieName, this.MovieExtend))
                 {
                     //動画が終わったらエネミーをすべて消す
-                    SSTaskFactory.EnemyPopTask.EnemyList.Clear();
+                    SSTaskFactory.EnemyPopTask.Clear();
                 }
             }
         }

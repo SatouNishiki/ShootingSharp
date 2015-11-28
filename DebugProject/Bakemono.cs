@@ -48,7 +48,7 @@ namespace DebugProject
                 Tsubasa t = new Tsubasa();
                 t.SetPosition(new SSPosition(20 + (i % 20) * 10, 10));
 
-                t.SetPopCount(50 * 20 + 20 + i * 30);
+                t.SetPopCount(i * 30);
                 this.AddEnemy(t);
 
             }

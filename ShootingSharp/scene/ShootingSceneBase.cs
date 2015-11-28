@@ -13,22 +13,13 @@ using ShootingSharp.texture;
 using ShootingSharp.entity.shot;
 using ShootingSharp.entity.player;
 using System.Drawing;
+using System.Diagnostics; 
 
 namespace ShootingSharp.scene
 {
     public abstract class ShootingSceneBase : IShootingScene
     {
-        
-        /// <summary>
-        /// プレイヤーとあたり判定をしないオブジェクトを全て格納するリスト
-        /// </summary>
-        protected List<Entity> playerInteracters;
-
-        /// <summary>
-        /// プレイヤーとあたり判定をするオブジェクトを格納
-        /// </summary>
-        protected List<Entity> notPlayerInteractors;
-
+      
 
         protected UpdateTaskManager updateTask = SSTaskFactory.UpdateTask;
         protected DrawTaskManager drawTask = SSTaskFactory.DrawTask;
@@ -40,7 +31,6 @@ namespace ShootingSharp.scene
         protected BossPopTask bossPopTask = SSTaskFactory.BossPopTask;
         protected CollitionTask collitionTask = SSTaskFactory.CollitionTask;
 
-        private List<Entity> temp = new List<Entity>();
 
         protected string soundName = string.Empty;
 
@@ -52,11 +42,8 @@ namespace ShootingSharp.scene
 
         protected Size windowSize = new Size(SSGame.GetInstance().GetWindowSize().Width, SSGame.GetInstance().GetWindowSize().Height);
 
-
         public ShootingSceneBase()
         {
-            this.playerInteracters = new List<Entity>();
-            this.notPlayerInteractors = new List<Entity>();
             this.Type = ResultSceneBase.ResultType.Clear;
 
         }
@@ -72,6 +59,8 @@ namespace ShootingSharp.scene
             }
 
             this.backimageTask.Run();
+
+          
             this.popTask.Run();
             this.bossPopTask.Run();
             this.moveTask.Run();
@@ -80,18 +69,7 @@ namespace ShootingSharp.scene
             this.collitionTask.Run();
             this.drawTask.Run();
             this.infoDrawTask.Run();
-
-
-            foreach (var item in this.playerInteracters)
-            {
-                if (!item.IsLiving())
-                {
-                    temp.Add(item);
-                }
-            }
-
-            playerInteracters.RemoveAll(e => temp.IndexOf(e) >= 0);
-            temp.Clear();
+            
 
             if (this.IsFinished())
             {
@@ -108,7 +86,7 @@ namespace ShootingSharp.scene
 
         public virtual bool IsFinished()
         {
-            if (SSTaskFactory.EnemyUpdateTask.EnemyList.Count == 0 && SSTaskFactory.EnemyPopTask.EnemyList.Count == 0 && SSTaskFactory.BossPopTask.BossList.Count == 0)
+            if (SSTaskFactory.EnemyUpdateTask.EnemyList.Count == 0 && SSTaskFactory.EnemyPopTask.GetRemainEnemys() == 0 && SSTaskFactory.BossPopTask.BossList.Count == 0)
             {
                 this.Type = ResultSceneBase.ResultType.Clear;
                 return true;
@@ -172,7 +150,7 @@ namespace ShootingSharp.scene
         public void AddEnemy(entity.enemy.Enemy enemy)
         {
             enemy.Scene = this;
-            SSTaskFactory.EnemyPopTask.EnemyList.Add(enemy);
+            SSTaskFactory.EnemyPopTask.AddEnemyList(enemy);
         }
 
         public void PopEnemy(entity.enemy.Enemy enemy)

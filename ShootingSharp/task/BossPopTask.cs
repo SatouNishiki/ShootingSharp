@@ -31,7 +31,7 @@ namespace ShootingSharp.task
             if (bossPoped)
             {
 
-                if (SSTaskFactory.EnemyUpdateTask.EnemyList.Count == 0 && SSTaskFactory.EnemyPopTask.EnemyList.Count == 0)
+                if (SSTaskFactory.EnemyUpdateTask.EnemyList.Count == 0 && SSTaskFactory.EnemyPopTask.GetRemainEnemys() == 0)
                 {
                     runCount++;
 

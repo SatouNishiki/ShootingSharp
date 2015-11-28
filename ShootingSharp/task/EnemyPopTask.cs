@@ -12,7 +12,7 @@ namespace ShootingSharp.task
     {
         private UInt64 count;
 
-        public List<Enemy> EnemyList { get; set; }
+        private List<Enemy> EnemyList { get; set; }
 
         public EnemyPopTask()
         {
@@ -30,11 +30,38 @@ namespace ShootingSharp.task
                     e.KilledByPlayer += SSTaskFactory.InfoDrawTask.OnEnemyKilled;
                     e.OnPop();
                 }
+                else
+                {
+                    break;
+                }
             }
 
-            this.EnemyList.RemoveAll(enemy => !enemy.IsLiving());
+            //this.EnemyList.RemoveAll(enemy => !enemy.IsLiving());
+            this.EnemyList.RemoveAll(enemy => (UInt64)enemy.GetPopCount() < this.count);
 
             this.count++;
+        }
+
+        public void AddEnemyList(Enemy enemy)
+        {
+            this.EnemyList.Add(enemy);
+
+            var query = from s in this.EnemyList
+                        orderby s.GetPopCount()
+                        select s;
+
+            this.EnemyList = query.ToList();
+
+        }
+
+        public int GetRemainEnemys()
+        {
+            return this.EnemyList.Count;
+        }
+
+        public void Clear()
+        {
+            this.EnemyList.Clear();
         }
     }
 }

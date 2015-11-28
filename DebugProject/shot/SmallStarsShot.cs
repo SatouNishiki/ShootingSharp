@@ -15,21 +15,7 @@ namespace DebugProject.shot
      //   private int colorType;
 
         private double gTheta;
-        /*
-        public SmallStarsShot(IHasSSPosition shooter, double theta, int color)
-            : base(shooter, theta)
-        {
-            this.MoveSpeed = 3;
-            this.colorType = color;
-        }
-
-        public SmallStarsShot(IHasSSPosition shooter, SSPosition target, int color)
-            : base(shooter, target)
-        {
-            this.MoveSpeed = 3;
-            this.colorType = color;
-        }
-        */
+     
 
         public SmallStarsShot(Builder builder)
             : base(builder)
@@ -48,11 +34,11 @@ namespace DebugProject.shot
         {
             if (this.metaData < 3)
             {
-                return "stars" + this.metaData.ToString() + ".png";
+                return "stars_shot" + this.metaData.ToString() + ".png";
             }
             else
             {
-                return "stars5.png";
+                return "stars_shot5.png";
             }
         }
         
