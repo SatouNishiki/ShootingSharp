@@ -9,16 +9,16 @@ using ShootingSharp.position;
 namespace ShootingSharp.entity.shot
 {
     public class RGBStoneShot : EnemyCircleShot
-    {
+    {/*
         public enum ColorType
         {
             Red, Green, Blue, Purple
         }
-
+        */
         private int moveCount;
         private int initPosX;
-        private ColorType color;
-
+        //private ColorType color;
+        /*
         public RGBStoneShot(Builder buider)
             : base(buider)
         {
@@ -36,18 +36,26 @@ namespace ShootingSharp.entity.shot
             this.color = color;
             this.textureSize = new System.Drawing.Size(15, 20);
         }
+        */
+        public RGBStoneShot()
+            : base()
+        {
+            this.MoveSpeed = 1;
+            this.textureSize = new System.Drawing.Size(15, 20);
+            this.initPosX = position.PosX;
+        }
 
         public override string GetTextureName()
         {
-            switch (this.color)
+            switch (this.metaData)
             {
-                case(ColorType.Red):
+                case(0):
                     return "red_stone_shot.png";
 
-                case(ColorType.Blue):
+                case(1):
                      return "blue_stone_shot.png";
 
-                case (ColorType.Green):
+                case (2):
                      return "green_stone_shot.png";
 
                 default:

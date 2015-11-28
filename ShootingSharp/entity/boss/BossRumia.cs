@@ -80,12 +80,7 @@ namespace ShootingSharp.entity.boss
         {
             //なにもしない
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(150, 150);
-        }
-        */
+       
         public override void Move()
         {
             if (this.canMove)
@@ -124,8 +119,7 @@ namespace ShootingSharp.entity.boss
                     {
                         if (i % 10 == 0)
                         {
-                         //   Shot s = new BlackLongShot(this, (double)i);
-                            Shot s = new Shot.Builder(typeof(BlackLongShot)).Position(this.position).Theta((double)i).Build();
+                           Shot s = new DirectionShotBuilder<BlackLongShot>(this, 0, (double)i).CreateShot();
                             this.Scene.AddShot(s);
                         }
                     }
@@ -143,7 +137,8 @@ namespace ShootingSharp.entity.boss
             if (actionCount % 10 == 0)
             {
                 //Shot s = new BlackCircleShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
-                Shot s = new Shot.Builder(typeof(BlackCircleShot)).Position(this.position).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+           //     Shot s = new Shot.Builder(typeof(BlackCircleShot)).Position(this.position).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+                Shot s = new AimShotBuilder<BlackCircleShot>(this, 0, SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).CreateShot();
                 this.Scene.AddShot(s);
             }
 
@@ -153,7 +148,9 @@ namespace ShootingSharp.entity.boss
                 {
                     //Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Red);
              //       Shot s = new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)). RGBStoneShot.ColorType.Red)
-                    Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Red);
+                  //  Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)));
+
+                    Shot s = new AimShotBuilder<RGBStoneShot>(this, 0, new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)).CreateShot();
                     this.Scene.AddShot(s);
                 }
             }
@@ -163,7 +160,8 @@ namespace ShootingSharp.entity.boss
                 for (int i = 0; i < 10; i++)
                 {
                   //  Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Blue);
-                    Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Blue);
+                  //  Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Blue);
+                    Shot s = new AimShotBuilder<RGBStoneShot>(this, 1, new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)).CreateShot();
                     this.Scene.AddShot(s);
                 }
             }
@@ -173,7 +171,8 @@ namespace ShootingSharp.entity.boss
                 for (int i = 0; i < 10; i++)
                 {
                 //    Shot s = new RGBStoneShot(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30), RGBStoneShot.ColorType.Green);
-                    Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Green);
+                    //Shot s = new RGBStoneShot(new Shot.Builder(typeof(RGBStoneShot)).Position(new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)), RGBStoneShot.ColorType.Green);
+                    Shot s = new AimShotBuilder<RGBStoneShot>(this, 2, new SSPosition(this.position.PosX - 150 + i * 30, this.position.PosY + 30)).CreateShot();
                     this.Scene.AddShot(s);
                 }
             }

@@ -12,21 +12,18 @@ namespace ShootingSharp.entity.shot
         private int drawCount;
         private int gTheta;
 
-     /*   public BlackLongShot(interfaces.IHasSSPosition shooter, double theta)
-            : base(shooter, theta)
-        {
-            this.MoveSpeed = 2;
-        }
-
-        public BlackLongShot(interfaces.IHasSSPosition shooter, position.SSPosition target)
-            : base(shooter, target)
-        {
-            this.MoveSpeed = 2;
-        }
-        */
-
+        /*
         public BlackLongShot(Builder builder)
             : base(builder)
+        {
+            this.MoveSpeed = 2;
+            this.textureSize = new System.Drawing.Size(5, 10);
+        }
+
+         */
+
+        public BlackLongShot()
+            : base()
         {
             this.MoveSpeed = 2;
             this.textureSize = new System.Drawing.Size(5, 10);
@@ -36,11 +33,6 @@ namespace ShootingSharp.entity.shot
         {
             return "black_long_shot.png";
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(5, 10);
-        }*/
         
         public override int GetRadius()
         {
@@ -50,18 +42,9 @@ namespace ShootingSharp.entity.shot
 
         public override void Draw()
         {
-            if (this.position.PosX > SSGame.GetInstance().GetBattleWindowSize().Width
-                || this.position.PosY > SSGame.GetInstance().GetBattleWindowSize().Height
-                || this.position.PosX < 0
-                || this.position.PosY < 0)
-            {
-                return;
-            }
-            
 
             DX.DrawRotaGraph(this.GetTexturePosition().PosX, this.GetTexturePosition().PosY, 2.0D, (Math.PI / 180.0D) * this.gTheta, this.textureLoader.Textures[this.GetTextureName()], DX.TRUE);
 
-            
             this.drawCount++;
             this.gTheta+=2;
         }

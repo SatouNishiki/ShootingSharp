@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ShootingSharp.entity.enemy;
 using ShootingSharp.ai;
-using DebugProject.ai;
 using ShootingSharp.task;
 using DebugProject.shot;
 
@@ -82,5 +81,14 @@ namespace DebugProject.enemy
             this.MoveType = MoveTypeEnum.Left;
         }
 
+        protected override ShootingSharp.entity.item.Item GetDropItem()
+        {
+            Random rnd = new Random();
+
+            if (rnd.Next(100) < 20)
+                return new ShootingSharp.entity.item.ItemBigPower();
+            else
+                return new ShootingSharp.entity.item.ItemSmallPower();
+        }
     }
 }

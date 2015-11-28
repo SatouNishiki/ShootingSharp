@@ -10,9 +10,15 @@ namespace ShootingSharp.entity.shot
 {
     public abstract class CircleShot : Shot
     {
-
+        /*
         public CircleShot(Builder builder)
             : base(builder)
+        {
+
+        }*/
+
+        public CircleShot()
+            : base()
         {
 
         }

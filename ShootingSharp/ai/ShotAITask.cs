@@ -11,23 +11,23 @@ namespace ShootingSharp.ai
 {
     public abstract class ShotAITask<T> : AITask where T : Shot
     {
-        protected Func<Shot.Builder, T> factory;
+   //     protected Func<Shot.Builder, T> factory;
         protected int shotMetaData;
 
         public ShotAITask(entity.Entity entity, int priority, int frame, int shotMetaData)
             : base(entity, priority, frame)
         {
-            factory = CreateInstance<Shot.Builder, T>();
+        //    factory = CreateInstance<Shot.Builder, T>();
             this.shotMetaData = shotMetaData;
         }
-
+        /*
         protected Func<T1, TInstance> CreateInstance<T1, TInstance>()
         {
             var argsTypes = new[] { typeof(T1) };
             var constructor = typeof(TInstance).GetConstructor(BindingFlags.Public | BindingFlags.Instance, Type.DefaultBinder, argsTypes, null);
             var args = argsTypes.Select(Expression.Parameter).ToArray();
             return Expression.Lambda<Func<T1,TInstance>>(Expression.New(constructor, args), args).Compile();
-        }
+        }*/
 
         public abstract Shot GetShot();
 

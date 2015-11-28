@@ -83,19 +83,22 @@ namespace ShootingSharp.entity.player
         protected override shot.Shot GetShot()
         {
           //  return new ReimuNormalShot(this);
-            return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Build();
+        //    return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Build();
+            return new NormalShotBuilder<ReimuNormalShot>(this, 0).CreateShot();
         }
 
         protected override Shot GetThreeShot(double theta)
         {
           //  return new ReimuNormalShot(this, theta);
-            return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Theta(theta).Build();
+            //return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Theta(theta).Build();
+            return new DirectionShotBuilder<ReimuNormalShot>(this, 0, theta).CreateShot();
         }
 
         protected override Shot GetFiveShot(double theta)
         {
           //  return new ReimuNormalShot(this, theta);
-            return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Theta(theta).Build();
+          //  return new Shot.Builder(typeof(ReimuNormalShot)).Position(this.position).Theta(theta).Build();
+            return new DirectionShotBuilder<ReimuNormalShot>(this, 0, theta).CreateShot();
         }
 
         protected override Shot GetSubShot(double theta)

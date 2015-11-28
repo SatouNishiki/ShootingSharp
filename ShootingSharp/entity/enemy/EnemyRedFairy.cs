@@ -77,12 +77,6 @@ namespace ShootingSharp.entity.enemy
             return "fairy.png8";
         }
 
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(30, 30);
-        }
-        */
 
         public override void Move()
         {
@@ -155,8 +149,7 @@ namespace ShootingSharp.entity.enemy
             {
                 if (this.moveCount % shotCount == 0)
                 {
-                  //  Shot s = new RedFairyShot(this);
-                    Shot s = new Shot.Builder(typeof(RedFairyShot)).Position(this.position).Build();
+                  Shot s = new NormalShotBuilder<RedFairyShot>(this, 0).CreateShot();
                     this.Scene.AddShot(s);
 
                 }
@@ -165,8 +158,7 @@ namespace ShootingSharp.entity.enemy
             {
                 if (this.moveCount % shotCount == 0)
                 {
-                //    Shot s = new RedFairyShot(this, 70.0D);
-                    Shot s = new Shot.Builder(typeof(RedFairyShot)).Position(this.position).Theta(70.0D).Build();
+                   Shot s = new DirectionShotBuilder<RedFairyShot>(this, 0, 70.0D).CreateShot();
                     this.Scene.AddShot(s);
 
                 }
@@ -175,8 +167,7 @@ namespace ShootingSharp.entity.enemy
             {
                 if (this.moveCount % shotCount == 0)
                 {
-                 //   Shot s = new RedFairyShot(this, 110.0D);
-                    Shot s = new Shot.Builder(typeof(RedFairyShot)).Position(this.position).Theta(110.0D).Build();
+                   Shot s = new DirectionShotBuilder<RedFairyShot>(this, 0, 110.0D).CreateShot();
                     this.Scene.AddShot(s);
 
                 }
@@ -185,8 +176,7 @@ namespace ShootingSharp.entity.enemy
             {
                 if (this.moveCount % shotCount == 0)
                 {
-              //      Shot s = new RedFairyShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
-                    Shot s = new Shot.Builder(typeof(RedFairyShot)).Position(this.position).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+                Shot s = new AimShotBuilder<RedFairyShot>(this, 0, SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).CreateShot();
                     this.Scene.AddShot(s);
                 }
             }
@@ -194,8 +184,7 @@ namespace ShootingSharp.entity.enemy
             {
                 if (this.moveCount % shotCount == 0)
                 {
-                //    Shot s = new RedFairyShot(this, 110.0D);
-                    Shot s = new Shot.Builder(typeof(RedFairyShot)).Position(this.position).Theta(110.0D).Build();
+                    Shot s = new DirectionShotBuilder<RedFairyShot>(this, 0, 110.0D).CreateShot();
                     s.SetMoveSpeed(2);
                     this.Scene.AddShot(s);
 
@@ -205,8 +194,7 @@ namespace ShootingSharp.entity.enemy
             {
                 if (this.moveCount % shotCount == 0)
                 {
-                //    Shot s = new RedFairyShot(this, SSTaskFactory.PlayerUpdateTask.Player.GetPosition());
-                    Shot s = new Shot.Builder(typeof(RedFairyShot)).Position(this.position).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+                    Shot s = new AimShotBuilder<RedFairyShot>(this, 0, SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).CreateShot();
                     s.SetMoveSpeed(2);
                     this.Scene.AddShot(s);
 

@@ -12,17 +12,21 @@ namespace DebugProject.shot
 {
     public class SmallStarsShot : EnemyCircleShot
     {
-     //   private int colorType;
-
         private double gTheta;
      
-
+        /*
         public SmallStarsShot(Builder builder)
             : base(builder)
         {
             this.MoveSpeed = 3;
             this.textureSize = new System.Drawing.Size(10, 10);
-        //    this.colorType = builder.metaData;
+        }*/
+
+        public SmallStarsShot()
+            : base()
+        {
+            this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(10, 10);
         }
 
         public override int GetRadius()

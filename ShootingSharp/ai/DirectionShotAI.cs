@@ -19,7 +19,8 @@ namespace ShootingSharp.ai
 
         public override Shot GetShot()
         {
-            return new Shot.Builder(typeof(T)).Position(entity.GetPosition()).Type(Shot.ShotType.Direction).MetaData(this.shotMetaData).Theta(this.theta).Build();
+         //   return new Shot.Builder(typeof(T)).Position(entity.GetPosition()).Type(Shot.ShotType.Direction).MetaData(this.shotMetaData).Theta(this.theta).Build();
+            return new DirectionShotBuilder<T>(entity.GetPosition(), shotMetaData, theta).CreateShot();
         }
     }
 }

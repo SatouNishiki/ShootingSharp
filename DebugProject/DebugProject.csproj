@@ -35,9 +35,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ai\CircleShotAI.cs" />
-    <Compile Include="ai\SmallStarsShotAI.cs" />
-    <Compile Include="ai\StarsShotAI.cs" />
     <Compile Include="Bakemono.cs" />
     <Compile Include="enemy\Mayoi.cs" />
     <Compile Include="enemy\Tsubasa.cs" />
@@ -59,7 +56,9 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="boss\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

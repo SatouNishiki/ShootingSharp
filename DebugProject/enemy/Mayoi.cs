@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ShootingSharp.entity.enemy;
 using ShootingSharp.ai;
-using DebugProject.ai;
 using ShootingSharp.task;
 using DebugProject.shot;
 
@@ -72,11 +71,6 @@ namespace DebugProject.enemy
         {
             throw new NotImplementedException();
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(32, 32);
-        }*/
 
         public override void SetMoveType()
         {
@@ -120,5 +114,6 @@ namespace DebugProject.enemy
                 this.AddMoveAI(new RightDownMoveAI(this, 0, 100));
             }
         }
+
     }
 }

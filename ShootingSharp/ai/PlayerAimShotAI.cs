@@ -18,7 +18,9 @@ namespace ShootingSharp.ai
 
         public override Shot GetShot()
         {
-            return new Shot.Builder(typeof(T)).Position(entity.GetPosition()).Type(Shot.ShotType.Aim).MetaData(this.shotMetaData).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+         //   return new Shot.Builder(typeof(T)).Position(entity.GetPosition()).Type(Shot.ShotType.Aim).MetaData(this.shotMetaData).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+            return new AimShotBuilder<T>(entity, shotMetaData, SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).CreateShot();
         }
     }
+
 }

@@ -18,7 +18,8 @@ namespace ShootingSharp.ai
 
         public override Shot GetShot()
         {
-            return new Shot.Builder(typeof(T)).Position(entity.GetPosition()).Type(Shot.ShotType.Homing).MetaData(this.shotMetaData).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+          //  return new Shot.Builder(typeof(T)).Position(entity.GetPosition()).Type(Shot.ShotType.Homing).MetaData(this.shotMetaData).Target(SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).Build();
+            return new HomingShotBuilder<T>(entity, shotMetaData, SSTaskFactory.PlayerUpdateTask.Player.GetPosition()).CreateShot();
         }
     }
 }

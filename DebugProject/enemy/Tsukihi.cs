@@ -75,15 +75,15 @@ namespace DebugProject.enemy
         {
             throw new NotImplementedException();
         }
-        /*
-        public override System.Drawing.Size GetTextureSize()
-        {
-            return new System.Drawing.Size(32, 32);
-        }*/
-
+     
         public override void SetMoveType()
         {
             this.MoveType = MoveTypeEnum.Right;
+        }
+
+        protected override ShootingSharp.entity.item.Item GetDropItem()
+        {
+            return new ShootingSharp.entity.item.ItemBigPower();
         }
     }
 }

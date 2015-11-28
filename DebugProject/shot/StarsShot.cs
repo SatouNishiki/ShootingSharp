@@ -13,17 +13,23 @@ namespace DebugProject.shot
 {
     public class StarsShot : EnemyCircleShot
     {
-     //   public int ColorType { get; set; }
-
         private double gTheta;
         
-
+        /*
         public StarsShot(Builder builder)
             : base(builder)
         {
             this.MoveSpeed = 3;
             this.textureSize = new System.Drawing.Size(30, 30);
+        }*/
+
+        public StarsShot()
+            : base()
+        {
+            this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(30, 30);
         }
+
         public override string GetTextureName()
         {
             if (this.metaData < 6)

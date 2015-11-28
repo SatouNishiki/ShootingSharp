@@ -12,14 +12,20 @@ namespace DebugProject.shot
 {
     public class CirclesShot : EnemyCircleShot
     {
-       
-
+       /*
         public CirclesShot(Builder builder)
             : base(builder)
         {
             this.MoveSpeed = 3;
             this.textureSize = new System.Drawing.Size(30, 30);
        
+        }*/
+
+        public CirclesShot()
+            : base()
+        {
+            this.MoveSpeed = 3;
+            this.textureSize = new System.Drawing.Size(30, 30);
         }
         
         public override int GetRadius()

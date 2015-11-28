@@ -69,7 +69,9 @@ namespace ShootingSharp.entity
 
         public void SetPosition(SSPosition pos)
         {
-            this.position = pos;
+            this.position = new SSPosition();
+            position.PosX = pos.PosX;
+            position.PosY = pos.PosY;
         }
 
         /// <summary>
